@@ -4,9 +4,10 @@ Link Repositori: https://github.com/BlackArch8/TUBES-RPL.git
 
 
 ### Built With
-* [![Node Js](https://img.shields.io/badge/Node.js-10-green)](https://nodejs.org/)
-* [![Bootstrap](https://img.shields.io/badge/Bootstrap-4-blueviolet)](https://getbootstrap.com/)
-* ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+* [![Node Js](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+* [![Tailwincss](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+* [![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)](https://expressjs.com/)
+* [![Mysql](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 
 
 
