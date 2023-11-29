@@ -1,5 +1,32 @@
 {
+  "name": "tubes_rpl",
+  "version": "1.0.0",
+  "description": "tubes RPL kelompok F",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "build-css": "tailwindcss build -i ./views/css/input.css -o ./public/output.css",
+    "tailwind": "npx tailwindcss -i ./views/css/input.css -o ./public/output.css --watch"
+  },
+  "author": "Kelompok F",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.0.1",
+    "path": "^0.12.7",
+    "session": "^0.1.0",
+    "sweetalert2": "^11.10.1",
+    "validator": "^13.11.0"
+  },
   "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5"
   }
 }
