@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Login</title>
+        <link rel="stylesheet" href="/css/output.css" />
+    </head>
+    <body class="bg-gradient-to-br from-cyan-100 to-purple-100 h-screen flex items-center justify-center">
+        <div class="flex w-[700px] h-[450px] font-lato drop-shadow-xl">
+            <section class="flex-2 bg-white rounded-l-2xl">
+                <div class="flex justify-center">
+                    <img src="/images/user_icon.png" class="w-[60px] h-[60px] mt-[50px]">
+                </div>
+                <div class="ml-[60px] mt-[20px] text-[22px]">Sign In</div>
+                <!-- <form action=""> -->
+                    <label for="username" class="ml-[60px] mt-[20px] mb-[3px] text-[10px] font-extrabold">USERNAME</label>
+                    <div class="flex justify-center">
+                        <input type="text" placeholder="Username" class="border border-black bg-gray-100 w-[265px]  h-[37px] rounded-full p-[10px] text-[14px]" id="username-input">
+                    </div>
+
+                    <label for="password" class="ml-[60px] mt-[20px] mb-[3px] text-[10px] font-extrabold">PASSWORD</label>
+                    <div class="flex justify-center">
+                        <input type="password" placeholder="Password" class="border border-black bg-gray-100 w-[265px]  h-[37px] rounded-full p-[10px] text-[14px]" id="password-input">
+                    </div>
+
+                    <div class="mt-[20px] flex justify-center">
+                        <button type="submit" class="border border-black bg-gradient-to-br from-cyan-300 to-cyan-600 w-[265px] h-[37px] rounded-full text-[14px] text-white hover:text-gray-200" id="sign_in-btn">Sign In</button>
+                    </div>
+                <!-- </form> -->
+            </section>
+            <section class="flex-1.6 bg-gradient-to-br from-cyan-300 to-cyan-600 rounded-r-2xl flex flex-col items-center justify-center text-white">
+                <div class="text-[25px]">Aplikasi Penjadwalan</div>
+                <div class="text-[25px] mb-[20px]">Asisten</div>
+                <div class="text-[13px]">Daftar Asisten Disini</div>
+                <a href="register/isi-status" id="status-directing">
+
+                    <button type="button" class=" text-[13px] mt-[20px] border border-white rounded-full w-[70px] h-[35px] hover:text-gray-200 hover:border-gray-200" id="daftar-btn">Daftar</button>
+                </a>
+            </section>
+        </div>
+    </body>
+</html>
