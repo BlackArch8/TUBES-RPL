@@ -29,6 +29,7 @@ app.use('/register/isi-status', RegisterRoute);
 //data diri
 app.use('/register/data-diri', DataDiriRoute);
 
+
 //upload nilai
 app.use('/register/upload-nilai',UploadNilaiRoute); 
 app.listen(8080, () => {
