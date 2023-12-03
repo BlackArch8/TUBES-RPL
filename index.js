@@ -21,13 +21,21 @@ import {LoginRoute} from "./routes/Login.js";
 app.use('/login', LoginRoute);
 
 //register routes
-import {RegisterRoute, DataDiriRoute, UploadNilaiRoute} from "./routes/Register.js";
+import {RegisterRoute, DataDiriRoute, UploadNilaiRoute, UploadJadwalMatkul} from "./routes/Register.js";
 
 //status
 app.use('/register/isi-status', RegisterRoute);
 
 //data diri
 app.use('/register/data-diri', DataDiriRoute);
+
+//mata kuliah
+app.use('/register/matakuliah', UploadJadwalMatkul);
+
+//koordinator 
+import {DashBoardRoute} from "./routes/Koordinator/Dashboard.js";
+
+app.use('/koordinator/dashboard', DashBoardRoute);
 
 
 //upload nilai
