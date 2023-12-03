@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Koordinator</title>
+        <link rel="stylesheet" href="/public/css/output.css" />
+    </head>
+    <body class="bg-gray-200">
+        <div class="flex flex-row font-inter">
+            <%- include('../views/NavBar'); %>
+            <div class="flex flex-col w-full h-full">
+                <div class="bg-white w-full h-[100px] flex items-center" id="header">
+                    <div class="flex-grow">
+                        <div class="text-gray-500 ml-[50px]" id="tanggal">Hari Tanggal</div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="border pt-[5px] pb-[5px] pl-[30px] pr-[30px] rounded-full bg-gradient-to-br from-cyan-300 to-cyan-600 text-white mr-[70px]" id="role">Koordinator</div>
+                        <img src="/public/images/user2.png" class="w-[35px] mr-[5px]">
+                        <div class="text-gray-500 mr-[30px]" id="nama">Andrew Febrian</div>
+                        <img src="/public/images/bell.png" class="h-[25px] mr-[30px]">
+                    </div>
+                </div>
+                <div class="flex flex-col ml-[50px] mt-[50px]">
+                    <div class="text-[30px] text-black font-extrabold mb-[10px]">Hello, Andrew</div>
+                    <div class="flex flex-row gap-[50px]">
+                        <div class="flex flex-row items-center bg-white border border-gray-400 w-[570px] h-[70px]">
+                            <div class="text-xl text-gray-500 font-extrabold ml-[20px]">Lowongan</div>
+                            <div class="flex flex-row w-[170px] h-[40px] items-center border border-gray-400 ml-[250px] rounded-full">
+                                <div class="font-extrabold ml-[15px] mr-[10px]">Status:</div>
+                                <select class="">
+                                    <option>Open</option>
+                                    <option>Closed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex flex-row items-center bg-white border border-gray-400 w-[570px] h-[70px]">
+                            <div class="text-xl text-gray-500 font-extrabold ml-[20px]">Semester</div>
+                            <div class="flex flex-row w-[170px] h-[40px] items-center border border-gray-400 ml-[250px] rounded-full">
+                                <div class="font-extrabold ml-[15px] mr-[10px]">Periode:</div>
+                                <select class="">
+                                    <option>Ganjil</option>
+                                    <option>Genap</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var currentDate = new Date();
+        var options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        var formattedDate = currentDate.toLocaleDateString('id-ID', options);
+
+        document.getElementById('tanggal').textContent = formattedDate;
+    });
+    </script>
+</html>
