@@ -7,22 +7,26 @@
     <title>Upload Nilai</title>
     <link rel="stylesheet" href="/public/css/output.css"/>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gradient-to-br from-cyan-100 to-purple-100 h-screen">
     <!-- Main Overlay -->
     <div id="mainOverlay" class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"></div>
     
-    <div class="main-container p-8">
-        <div class="content-container flex flex-col items-center mb-4">
+    <div class="main-container p-8 border-transparent">
+        <div class="content-container flex flex-col items-center mb-4 font-poppins drop-shadow-xl bg-white rounded-xl">
             <div class="title text-2xl font-bold my-4">Isi Jadwal Asistensi yang </div>
-            <div class="title text-2xl font-bold my-4"> Anda Pilih Semester ini</div>
-            <a href="#" id="openOverlay" class="upload-section ml-auto">
+            <div class="title text-2xl font-bold my-4">Anda Pilih Semester ini</div>
+        </div>
+        </div>
+        <div class = "upload-section mt-4 flex justify-end">
+            <a href="#" id="openOverlay" class="upload-section">
                 <button type="button" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded">+Tambah</button>
             </a>
-        </div>
+            </div>
         <div class="schedule-table mt-4">
-            <table id="scheduleTable" class="w-full border-collapse border border-gray-300">
+            <table id="scheduleTable" class="w-full border-collapse border border-gray-300  ">
+               
               <thead>
-                    <tr class="bg-gray-200">
+                    <tr class="font-poppins drop-shadow-xl bg-white rounded-xl">
                         <th class="py-2 px-4 text-center">No</th>
                         <th class="py-2 px-4 text-center">Hari</th>
                         <th class="py-2 px-4 text-center">Jam</th>
@@ -30,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <tr class="border-t border-gray-300">
+                    <tr class="border-t font-poppins drop-shadow-xl bg-white rounded-xl">
                         <td class="py-2 px-4 text-center">1</td>
                         <td class="py-2 px-4 text-center">Rabu</td>
                         <td class="py-2 px-4 text-center">08.00 - 12.00</td>
@@ -41,8 +45,9 @@
                     </tr>
                 </tbody>
             </table>
+          
         </div>
-        <div class="submit-section mt-4 flex justify-end">
+        <div class="submit-section mt-4 flex justify-center">
             <button type="button" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Submit</button>
         </div>
     </div>
