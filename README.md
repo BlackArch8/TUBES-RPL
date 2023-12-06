@@ -24,7 +24,7 @@ Prasyarat:
 1. Memilih direktori untuk menyimpan repositori ini
 2. Clone repository ini
    ```sh
-   git clone https://github.com/BlackArch8/TUBES-RPL.git
+   git clone https://github.com/doniandrian/TUBES-RPL.git
    ```
 3. Buka laragon klick start all untuk menjalankan webserver dan mysqlnya
 4. Kemudian click database dan buatlah sebuah database baru dengan nama `tubes_rpl`
