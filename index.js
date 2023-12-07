@@ -9,7 +9,7 @@ import crypto from "crypto";
 
 const app = express();
 const staticPath = path.resolve("public");
-app.use(express.static(staticPath));
+app.use('/public', express.static(staticPath));
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -18,7 +18,7 @@ app.use(express.json())
 //login route
 import {LoginRoute} from "./routes/Login.js";
 
-app.use('/login', LoginRoute);
+app.use('/', LoginRoute);
 
 //register routes
 import {RegisterRoute, DataDiriRoute, UploadNilaiRoute, UploadJadwalMatkul} from "./routes/Register.js";
@@ -33,10 +33,15 @@ app.use('/register/data-diri', DataDiriRoute);
 app.use('/register/matakuliah', UploadJadwalMatkul);
 
 //koordinator 
-import {DashBoardRoute} from "./routes/Koordinator/Dashboard.js";
+import {DashBoardRoute, PenugasanRoute, SeleksiRoute, ListAsdosRoute, JadwalRoute, TambahMatkulRoute, SettingRoute} from "./routes/Koordinator/Dashboard.js";
 
 app.use('/koordinator/dashboard', DashBoardRoute);
-
+app.use('/koordinator/seleksi', SeleksiRoute);
+app.use('/koordinator/penugasan', PenugasanRoute);
+app.use('/koordinator/list-asdos', ListAsdosRoute);
+app.use('/koordinator/jadwal', JadwalRoute);
+app.use('/koordinator/tambah-matkul', TambahMatkulRoute);
+app.use('/koordinator/setting', SettingRoute);
 
 //upload nilai
 app.use('/register/upload-nilai',UploadNilaiRoute); 

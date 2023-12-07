@@ -21,9 +21,4 @@ UploadJadwalMatkul.get('/', (req, res) => {
     res.render('Input Mata Kuliah');
 });
 
-
-
-
-
-
-export {RegisterRoute, DataDiriRoute, UploadNilaiRoute,UploadJadwalMatkul, RegisterRoute as default};
+export {RegisterRoute, DataDiriRoute, UploadNilaiRoute, UploadJadwalMatkul, RegisterRoute as default};
