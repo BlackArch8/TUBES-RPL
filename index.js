@@ -5,6 +5,7 @@ import bodyPafrser from "body-parser";
 import session from "express-session";
 import path from "path";
 import crypto from "crypto";
+import nodemailer from "nodemailer";
 
 
 const app = express();
@@ -37,6 +38,50 @@ import {DashBoardRoute} from "./routes/Koordinator/Dashboard.js";
 
 app.use('/koordinator/dashboard', DashBoardRoute);
 
+
+//uji email
+const config = {
+  service : "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  auth:{
+    user: "apm.clayanonymous@gmail.com",
+    pass: "rxzy jski qccp cvzd",
+   
+
+    //pass: "gtlp wzuo vsfq cdop",
+  },
+};
+
+const send = (data) => {
+  const transporter = nodemailer.createTransport(config);
+  transporter.sendMail(data, (error, info) => {
+    if(error){
+      console.log(error);
+    }else{
+      console.log("Message sent: " + info.response);
+    }
+  });
+}
+
+
+app.use(express.json());
+
+app.post("/api/send", async (req, res) => {
+  const { from, to, subject, text } = req.body;
+
+  const emailData = {
+    from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
+    to: to || "doniandrian.talenta@gmail.com", 
+    subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN", 
+    text: text || "Berikut kami sampaikan username dan password untuk login sebagai asisten dosen: \n \n Username: bestie \n Password: sadhwy162 \n \n Terima kasih.", 
+  };
+
+  
+  send(emailData);
+  res.send("Email sent successfully");
+});
 
 //upload nilai
 app.use('/register/upload-nilai',UploadNilaiRoute); 
