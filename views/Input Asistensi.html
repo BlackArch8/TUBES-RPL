@@ -15,16 +15,11 @@
         <div class="content-container flex flex-col items-center mb-4 font-poppins drop-shadow-xl bg-white rounded-xl">
             <div class="title text-2xl font-bold my-4">Daftar Mata Kuliah yang Membutuhkan Asisten </div>
         </div>
+        <div class="upload-section mt-4 flex justify-end">
         </div>
-        <div class = "upload-section mt-4 flex justify-end">
-            <a href="#" id="openOverlay" class="upload-section">
-                <button type="button" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded">+Tambah</button>
-            </a>
-            </div>
         <div class="schedule-table mt-4">
-            <table id="scheduleTable" class="w-full border-collapse border border-gray-300 font-poppins drop-shadow-xl bg-white rounded-xl  ">
-               
-              <thead>
+            <table id="scheduleTable" class="w-full border-collapse border border-gray-300 font-poppins drop-shadow-xl bg-white rounded-xl">
+                <thead>
                     <tr class="">
                         <th class="py-2 px-4 text-center">No</th>
                         <th class="py-2 px-4 text-center">Nama Mata Kuliah</th>
@@ -35,62 +30,71 @@
                 <tbody id="tableBody">
                     <tr class="border-t font-poppins drop-shadow-xl bg-white rounded-xl">
                         <td class="py-2 px-4 text-center">1</td>
-                        <td class="py-2 px-4 text-center">Dasar Pemrograman</td>
+                        <td class="py-2 px-4 text-center">Rekayasa Perangkat Lunak</td>
                         <td class="py-2 px-4 text-center">2</td>
                         <td class="py-2 px-4 text-center">
-                            <button type="button" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i></button>
-                            <button type="button" class="text-red-500 hover:text-red-700"><i class="fas fa-trash-alt"></i></button>
+                            <a href="#" class="upload-section">
+                                <button type="button" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i></button>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="border-t font-poppins drop-shadow-xl bg-white rounded-xl">
+                        <td class="py-2 px-4 text-center">2</td>
+                        <td class="py-2 px-4 text-center">Dasar Pemrograman</td>
+                        <td class="py-2 px-4 text-center">-</td>
+                        <td class="py-2 px-4 text-center">
+                            <a href="#" class="upload-section">
+                                <button type="button" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i></button>
+                            </a>
                         </td>
                     </tr>
                 </tbody>
             </table>
-          
         </div>
         <div class="submit-section mt-4 flex justify-center">
-            <button type="button" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Submit</button>
+            <button type="button" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">SAVE</button>
         </div>
     </div>
 
-   <!-- Modified Overlay -->
-   <div id="overlay" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-[800px] h-[336px] bg-white rounded-lg shadow-lg hidden z-20">   
-    <div class="w-3/4 h-12 text-center text-gray-800 text-2xl font-bold mt-[30px] mb-[20px]">Kebutuhan Asdos</div> 
-    <div class="flex flex-row items-center justify-center gap-[100px]">
-        <div class="flex flex-col">
-            <div class="text-gray-500 text-lg font-normal">Matkul:</div>
-            <input type="text" placeholder="Nama Mata Kuliah" class="border-none" id="matkul-input">
+    <!-- Modified Overlay -->
+    <div id="overlay" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-[800px] h-[336px] bg-white rounded-lg shadow-lg hidden z-20">   
+        <div class="w-3/4 h-12 text-center text-gray-800 text-2xl font-bold mt-[30px] mb-[20px]">Kebutuhan Asdos</div> 
+        <div class="flex flex-row items-center justify-center gap-[100px]">
+            <div class="flex flex-col">
+                <div class="text-gray-500 text-lg font-normal">Jumlah Asdos:</div>
+                <input type="text" placeholder="Ketik Disini" class="border-none" id="jumlahAsdos-input">
+            </div>
+            <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-        <div class="flex flex-col">
-            <div class="text-gray-500 text-lg font-normal">Jumlah Asdos:</div>
-            <input type="text" placeholder="Jumlah Asdos" class="border-none" id="jumlahAsdos-input">
-        </div>
-        <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
-            <i class="fas fa-times"></i>
+        <hr class="border-gray-300 w-[700px] border-b-2 mt-[10px]">
+        <button class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[70px]">
+            <div class="text-white text-base font-normal">Simpan</div>
         </button>
     </div>
-    <hr class="border-gray-300 w-[700px] border-b-2 mt-[10px]">
-    <button class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[70px]">
-        <div class="text-white text-base font-normal">Simpan</div>
-    </button>
-</div>
 
-   <!-- Font Awesome Script -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-   <!-- Your JavaScript Code -->
-   <script>
-       const openOverlayButton = document.getElementById('openOverlay');
-       const overlay = document.getElementById('overlay');
-       const closeOverlayButton = document.getElementById('closeOverlay');
-       const mainOverlay = document.getElementById('mainOverlay');
+    <!-- Font Awesome Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Your JavaScript Code -->
+    <script>
+        const openOverlayButton = document.querySelectorAll('.upload-section');
 
-       openOverlayButton.addEventListener('click', () => {
-           overlay.classList.remove('hidden');
-           mainOverlay.classList.remove('hidden');
-       });
+        const overlay = document.getElementById('overlay');
+        const closeOverlayButton = document.getElementById('closeOverlay');
+        const mainOverlay = document.getElementById('mainOverlay');
 
-       closeOverlayButton.addEventListener('click', () => {
-           overlay.classList.add('hidden');
-           mainOverlay.classList.add('hidden');
-       });
-   </script>
+        openOverlayButton.forEach(button => {
+            button.addEventListener('click', () => {
+                overlay.classList.remove('hidden');
+                mainOverlay.classList.remove('hidden');
+            });
+        });
+
+        closeOverlayButton.addEventListener('click', () => {
+            overlay.classList.add('hidden');
+            mainOverlay.classList.add('hidden');
+        });
+    </script>
 </body>
 </html>
