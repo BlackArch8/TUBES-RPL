@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `calon` (
 -- Dumping data for table tubes_rpl.calon: ~2 rows (approximately)
 DELETE FROM `calon`;
 INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`) VALUES
-	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 3, 1),
+	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1),
 	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0);
 
 -- Dumping structure for table tubes_rpl.dosen
@@ -72,26 +72,32 @@ DROP TABLE IF EXISTS `jadwal`;
 CREATE TABLE IF NOT EXISTS `jadwal` (
   `id_calon` varchar(10) COLLATE ucs2_bin NOT NULL,
   `hari` varchar(10) COLLATE ucs2_bin NOT NULL,
-  `jam` varchar(12) COLLATE ucs2_bin NOT NULL
+  `awal` int NOT NULL,
+  `akhir` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.jadwal: ~0 rows (approximately)
+-- Dumping data for table tubes_rpl.jadwal: ~2 rows (approximately)
 DELETE FROM `jadwal`;
+INSERT INTO `jadwal` (`id_calon`, `hari`, `awal`, `akhir`) VALUES
+	('2222222222', 'Senin', 8, 10),
+	('2222222222', 'Senin', 13, 15),
+	('1111111111', 'Rabu', 10, 16);
 
 -- Dumping structure for table tubes_rpl.kelas
 DROP TABLE IF EXISTS `kelas`;
 CREATE TABLE IF NOT EXISTS `kelas` (
   `idkelas` varchar(1) COLLATE ucs2_bin NOT NULL,
   `hari` varchar(10) COLLATE ucs2_bin NOT NULL,
-  `jam` varchar(12) COLLATE ucs2_bin NOT NULL,
+  `awal` int NOT NULL,
+  `akhir` int NOT NULL,
   `idmk` varchar(10) COLLATE ucs2_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
 -- Dumping data for table tubes_rpl.kelas: ~2 rows (approximately)
 DELETE FROM `kelas`;
-INSERT INTO `kelas` (`idkelas`, `hari`, `jam`, `idmk`) VALUES
-	('a', 'Senin', '14:00', 'AIF181100'),
-	('b', 'Senin', '14:00', 'AIF182100');
+INSERT INTO `kelas` (`idkelas`, `hari`, `awal`, `akhir`, `idmk`) VALUES
+	('a', 'Senin', 14, 16, 'AIF181100'),
+	('a', 'Rabu', 14, 17, 'AIF182100');
 
 -- Dumping structure for table tubes_rpl.koordinator
 DROP TABLE IF EXISTS `koordinator`;
