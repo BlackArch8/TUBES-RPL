@@ -1,45 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Data Diri</title>
-        <link rel="stylesheet" href="/public/css/output.css" />
-    </head>
-    <body class="bg-gradient-to-br from-cyan-100 to-purple-100 h-screen flex items-center justify-center">
-        <div class="w-[450px] h-[550px] font-poppins drop-shadow-xl bg-white rounded-xl">
-            <div class="flex justify-center">
-                <div class="mt-[50px] text-[20px]">Masukan Data Diri Anda</div>
-            </div>
-            <!-- <form action=""> -->
-                <div class="flex flex-col mt-[50px] ml-[40px] mr-[40px]">
-                    <label for="npm" class="mb-[5px] text-gray-700">NPM</label>
-                    <input type="text" placeholder="NPM..." class="border-none" id="npm-input">
-                    <hr>
-                </div>
-                <div class="flex flex-col mt-[30px] ml-[40px] mr-[40px]">
-                    <label for="namalengkap" class="mb-[5px] text-gray-700">Nama Lengkap</label>
-                    <input type="text" placeholder="Nama Lengkap..." class="border-none" id="namalengkap-input">
-                    <hr>
-                </div>
-                <div class="flex flex-col mt-[30px] ml-[40px] mr-[40px]">
-                    <label for="email" class="mb-[5px] text-gray-700">Email</label>
-                    <input type="text" placeholder="Email..." class="border-none" id="email-input">
-                    <hr>
-                </div>
-                <div class="flex flex-col mt-[30px] ml-[40px] mr-[40px]">
-                    <label for="jumlah_matkul" class="mb-[5px] text-gray-700">Jumlah Mata Kuliah Maksimal</label>
-                    <input type="text" placeholder="Mata Kuliah Maksimal..." class="border-none" id="jumlah_matkul-input">
-                    <hr>
-                </div>
-
-                <a href="/register/upload-nilai" class="flex items-center justify-center mt-[50px] gap-[10px]">
-
-                    <button type="submit" class="text-gray-600" id="next-btn1">Next</button>
-                    <button type="submit" id="next-btn2"><img src="/public/images/arrow.png" class="h-[20px]"></button>
-                </a>
-            <!-- </form> -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Data Diri</title>
+    <link rel="stylesheet" href="/public/css/output.css" />
+    
+    <script>
+        function validateEmail() {
+          const emailInput = document.getElementById('email-input');
+          const validEmailSpan = document.getElementById('validemail');
+      
+          const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      
+          if (emailRegex.test(emailInput.value)) {
+            validEmailSpan.style.display = 'none';
+            return true;
+          } else {
+            validEmailSpan.style.display = 'inline-flex';
+            return false;
+          }
+        }
+      </script>
+  </head>
+  <body
+    class="bg-gradient-to-br from-cyan-100 to-purple-100 h-screen flex items-center justify-center"
+  >
+    <div
+      class="w-[450px] h-[620px] font-poppins drop-shadow-xl bg-white rounded-xl"
+    >
+      <div class="flex justify-center">
+        <div class="mt-[50px] text-[20px]">Masukan Data Diri Anda</div>
+      </div>
+      <form method="post" action="/register/data-diri" onsubmit="return validateEmail()">
+        <div class="flex flex-col mt-[50px] ml-[40px] mr-[40px]">
+          <label for="npm" class="mb-[5px] text-gray-700">NPM</label>
+          <input
+            type="number"
+            name="npm"
+            placeholder="NPM..."
+            class="w-full px-4 py-2 text-base border border-gray-300 rounded outline-none focus:ring-blue-500 focus:border-blue-500 focus:ring-1"
+            id="npm-input"
+            required
+          />
+          <hr />
         </div>
-    </body>
+        <div class="flex flex-col mt-[30px] ml-[40px] mr-[40px]">
+          <label for="namalengkap" class="mb-[5px] text-gray-700"
+            >Nama Lengkap</label
+          >
+          <input
+            type="text"
+            name="namalengkap"
+            placeholder="Nama Lengkap..."
+            class="w-full px-4 py-2 text-base border border-gray-300 rounded outline-none focus:ring-blue-500 focus:border-blue-500 focus:ring-1"
+            id="namalengkap-input"
+            required
+          />
+          <hr />
+        </div>
+        <div class="flex flex-col mt-[30px] ml-[40px] mr-[40px]">
+          <label for="email" class="mb-[5px] text-gray-700">Email</label>
+          <input
+            type="text"
+            name="email"
+            placeholder="Email..."
+            class="w-full px-4 py-2 text-base border border-gray-300 rounded outline-none focus:ring-blue-500 focus:border-blue-500 focus:ring-1"
+            id="email-input"
+            required
+            onblur="validateEmail()"
+          />
+     
+          <hr />
+          <span id="validemail" class="hidden text-sm text-red-700">Email tidak valid!
+        </span>
+        </div>
+        <div class="flex flex-col mt-[30px] ml-[40px] mr-[40px]">
+          <label for="jumlah_matkul" class="mb-[5px] text-gray-700"
+            >Jumlah Mata Kuliah Maksimal</label
+          >
+          <input
+            type="number"
+            name="jumlah_matkul"
+            placeholder="Mata Kuliah Maksimal..."
+            class="w-full px-4 py-2 text-base border border-gray-300 rounded outline-none focus:ring-blue-500 focus:border-blue-500 focus:ring-1"
+            id="jumlah_matkul-input"
+            required
+          />
+          <hr />
+        </div>
+
+        <a
+          href=""
+          class="flex items-center justify-center mt-[50px] gap-[10px]"
+        >
+          <button type="submit" class="text-gray-600" id="next-btn1">
+            Next
+          </button>
+          <button type="submit" id="next-btn2">
+            <img src="/public/images/arrow.png" class="h-[20px]" />
+          </button>
+        </a>
+      </form>
+
+    </div>
+  </body>
 </html>
