@@ -1,0 +1,21 @@
+<div class="bg-white w-full h-[100px] flex items-center" id="header">
+    <div class="flex-grow">
+        <div class="text-gray-500 ml-[50px]" id="tanggal">Hari Tanggal</div>
+    </div>
+    <div class="flex items-center">
+        <div class="border pt-[5px] pb-[5px] pl-[30px] pr-[30px] rounded-full bg-nav-bar text-white mr-[70px]" id="role">Koordinator</div>
+        <img src="/public/images/user2.png" class="w-[35px] mr-[5px]">
+        <div class="text-gray-500 mr-[30px]" id="nama">Andrew Febrian</div>
+        <img src="/public/images/bell.png" class="h-[25px] mr-[30px]">
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var currentDate = new Date();
+        var options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        var formattedDate = currentDate.toLocaleDateString('id-ID', options);
+
+        document.getElementById('tanggal').textContent = formattedDate;
+    });
+</script>
