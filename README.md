@@ -14,10 +14,10 @@ Link Repositori: https://github.com/doniandrian/TUBES-RPL.git
 
 # Development
 Prasyarat:
-- Node js: https://nodejs.org/en/download/
-- XAMPP / LARAGON
-- Sqlyog
-- MySQL
+- Node js version 18.16.0 or higher: https://nodejs.org/en/download/
+- XAMPP / LARAGON 6.0 220916 or higher: https://laragon.org/download/index.html
+- Sqlyog 13.1.8.0 or higher: https://webyog.com/product/sqlyog/
+- MySQL 5.7 or higher: https://www.mysql.com/
 
 # Development Setup
 
