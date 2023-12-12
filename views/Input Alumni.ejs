@@ -1,137 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Upload Nilai</title>
-    <link rel="stylesheet" href="/public/css/output.css"/>
-</head>
-<body class="bg-gradient-to-br from-cyan-100 to-purple-100 h-screen">
+    <link rel="stylesheet" href="/public/css/output.css" />
+  </head>
+  <body class="bg-gradient-to-br from-cyan-100 to-purple-100 h-screen">
     <!-- Main Overlay -->
-    <div id="mainOverlay" class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"></div>
-    
+    <div
+      id="mainOverlay"
+      class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"
+    ></div>
+
     <div class="main-container p-8 border-transparent">
-        <div class="content-container flex flex-col items-center mb-4 font-poppins drop-shadow-xl bg-white rounded-xl">
-            <div class="title text-2xl font-bold my-4">Isi Jadwal Asistensi yang </div>
-            <div class="title text-2xl font-bold my-4">Anda Pilih Semester ini</div>
+      <div
+        class="content-container flex flex-col items-center mb-4 font-poppins drop-shadow-xl bg-white rounded-xl"
+      >
+        <div class="title text-2xl font-bold my-4">
+          Isi Jadwal Asistensi yang
         </div>
-        
+        <div class="title text-2xl font-bold my-4">Anda Pilih Semester ini</div>
+      </div>
 
-        <div class = "upload-section mt-4 flex justify-end">
-            <a href="#" id="openOverlay" class="upload-section">
-                <button type="button" class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded">+Tambah</button>
-            </a>
-            </div>
+      <div class="upload-section mt-4 flex justify-end">
+        <a href="#" id="openOverlay" class="upload-section">
+          <button
+            type="button"
+            class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded"
+          >
+            +Tambah
+          </button>
+        </a>
+      </div>
 
-        <div class="schedule-table mt-4">
-            <table id="scheduleTable" class="w-full border-collapse border border-gray-300 font-poppins drop-shadow-xl bg-white rounded-xl">
-               
-              <thead>
-                    <tr class="border-t font-poppins drop-shadow-xl bg-white rounded-xl">
-                        <th class="py-2 px-4 text-center">No</th>
-                        <th class="py-2 px-4 text-center">Hari</th>
-                        <th class="py-2 px-4 text-center">Jam</th>
-                        <th class="py-2 px-4 text-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <tr class="border-t font-poppins drop-shadow-xl bg-white rounded-xl">
-                        <td class="py-2 px-4 text-center">1</td>
-                        <td class="py-2 px-4 text-center">Rabu</td>
-                        <td class="py-2 px-4 text-center">08.00 - 12.00</td>
-                        <td class="py-2 px-4 text-center">
-                            <button type="button" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i></button>
-                            <button type="button" class="text-red-500 hover:text-red-700"><i class="fas fa-trash-alt"></i></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-          
-        </div>
-        <div class="submit-section mt-4 flex justify-center">
-            <button type="button" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Submit</button>
-        </div>
-    </div>
-
-   <!-- Modified Overlay -->
-   <div id="overlay" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-[800px] h-[336px] bg-white rounded-lg shadow-lg hidden z-20">   
-    <div class="w-3/4 h-12 text-center text-gray-800 text-2xl font-bold mt-[30px] mb-[20px]">Pilih Jadwal</div> 
-    <div class="flex flex-row items-center justify-center gap-[100px]">
-        <div class="flex flex-col">
-            <div class="text-gray-400 text-lg font-normal">Hari:</div>
-            <select class="w-[150px] h-8 border border-gray-300 rounded-md">
-                <option value="senin">Senin</option>
-                <option value="selasa">Selasa</option>
-                <option value="rabu">Rabu</option>
-                <option value="kamis">Kamis</option>
-                <option value="jumat">Jumat</option>
-                <option value="sabtu">Sabtu</option>
-                <option value="sabtu">Minggu</option>
-            </select>
-        </div>
-        <div class="flex flex-col">
-            <div class="text-gray-400 text-lg font-normal">Jam dari:</div>
-            <select class="w-[150px] h-8 border border-gray-300 rounded-md">
-            <option value="jam6">06.00</option>
-            <option value="jam7">07.00</option>
-            <option value="jam8">08.00</option>
-            <option value="jam9">09.00</option>
-            <option value="jam10">10.00</option>
-            <option value="jam11">11.00</option>
-            <option value="jam12">12.00</option>
-            <option value="jam13">13.00</option>
-            <option value="jam14">14.00</option>
-            <option value="jam15">15.00</option>
-            <option value="jam16">16.00</option>
-            <option value="jam17">17.00</option>
-            </select>
-        </div>
-        <div class="flex flex-col">
-            <div class="text-gray-400 text-lg font-normal">Jam sampai:</div>
-            <select class="w-[150px] h-8 border border-gray-300 rounded-md">
-                <option value="jam6">06.00</option>
-                <option value="jam7">07.00</option>
-                <option value="jam8">08.00</option>
-                <option value="jam9">09.00</option>
-                <option value="jam10">10.00</option>
-                <option value="jam11">11.00</option>
-                <option value="jam12">12.00</option>
-                <option value="jam13">13.00</option>
-                <option value="jam14">14.00</option>
-                <option value="jam15">15.00</option>
-                <option value="jam16">16.00</option>
-                <option value="jam17">17.00</option>
-            </select>
-        </div>
-        <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
-            <i class="fas fa-times"></i>
+      <div class="schedule-table mt-4">
+        <table
+          id="scheduleTable"
+          class="w-full border-collapse border border-gray-300 font-poppins drop-shadow-xl bg-white rounded-xl"
+        >
+          <thead>
+            <tr
+              class="border-t font-poppins drop-shadow-xl bg-white rounded-xl"
+            >
+              <th class="py-2 px-4 text-center">No</th>
+              <th class="py-2 px-4 text-center">Hari</th>
+              <th class="py-2 px-4 text-center">Jam</th>
+              <th class="py-2 px-4 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <tr
+              class="border-t font-poppins drop-shadow-xl bg-white rounded-xl"
+            >
+              <td class="py-2 px-4 text-center">1</td>
+              <td class="py-2 px-4 text-center">Rabu</td>
+              <td class="py-2 px-4 text-center">08.00 - 12.00</td>
+              <td class="py-2 px-4 text-center">
+                <button type="button" class="text-blue-500 hover:text-blue-700">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button type="button" class="text-red-500 hover:text-red-700">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="submit-section mt-4 flex justify-center">
+        <button
+          type="button"
+           onclick="submitDataToServer()"
+          class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
+        >
+          Submit
         </button>
+      </div>
     </div>
-    <hr class="border-gray-300 w-[700px] border-b-2 mt-[10px]">
-    <button class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[70px]">
-        <div class="text-white text-base font-normal">Simpan</div>
-    </button>
-</div>
 
-   <!-- Font Awesome Script -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-   <!-- Your JavaScript Code -->
-   <script>
-       const openOverlayButton = document.getElementById('openOverlay');
-       const overlay = document.getElementById('overlay');
-       const closeOverlayButton = document.getElementById('closeOverlay');
-       const mainOverlay = document.getElementById('mainOverlay');
+    <!-- Modified Overlay -->
+    <div
+      id="overlay"
+      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-[800px] h-[336px] bg-white rounded-lg shadow-lg hidden z-20"
+    >
+      <div
+        class="w-3/4 h-12 text-center text-gray-800 text-2xl font-bold mt-[30px] mb-[20px]"
+      >
+        Pilih Jadwal
+      </div>
+      <div class="flex flex-row items-center justify-center gap-[100px]">
+        <div class="flex flex-col">
+          <div class="text-gray-400 text-lg font-normal">Hari:</div>
+          <select
+            class="w-[150px] h-8 border border-gray-300 rounded-md"
+            id="hari"
+          >
+            <option value="senin">Senin</option>
+            <option value="selasa">Selasa</option>
+            <option value="rabu">Rabu</option>
+            <option value="kamis">Kamis</option>
+            <option value="jumat">Jumat</option>
+            <option value="sabtu">Sabtu</option>
+            <option value="sabtu">Minggu</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <div class="text-gray-400 text-lg font-normal">Jam dari:</div>
+          <select
+            class="w-[150px] h-8 border border-gray-300 rounded-md"
+            id="jamdari"
+          >
+            <option value="06:00">06.00</option>
+            <option value="07:00">07.00</option>
+            <option value="08:00">08.00</option>
+            <option value="09:00">09.00</option>
+            <option value="10:00">10.00</option>
+            <option value="11:00">11.00</option>
+            <option value="12:00">12.00</option>
+            <option value="13:00">13.00</option>
+            <option value="14:00">14.00</option>
+            <option value="15:00">15.00</option>
+            <option value="16:00">16.00</option>
+            <option value="17:00">17.00</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <div class="text-gray-400 text-lg font-normal">Jam sampai:</div>
+          <select
+            class="w-[150px] h-8 border border-gray-300 rounded-md"
+            id="jamsampai"
+          >
+          <option value="06:00">06.00</option>
+          <option value="07:00">07.00</option>
+          <option value="08:00">08.00</option>
+          <option value="09:00">09.00</option>
+          <option value="10:00">10.00</option>
+          <option value="11:00">11.00</option>
+          <option value="12:00">12.00</option>
+          <option value="13:00">13.00</option>
+          <option value="14:00">14.00</option>
+          <option value="15:00">15.00</option>
+          <option value="16:00">16.00</option>
+          <option value="17:00">17.00</option>
+          
+          </select>
+        </div>
+        <button
+          id="closeOverlay"
+          class="absolute top-4 right-4 text-red-500 hover:text-red-700"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <hr class="border-gray-300 w-[700px] border-b-2 mt-[10px]" />
+      <button
+        id="submitBtn"
+        class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[70px]"
+      >
+        <div class="text-white text-base font-normal" >
+          Simpan
+        </div>
+      </button>
+    </div>
 
-       openOverlayButton.addEventListener('click', () => {
-           overlay.classList.remove('hidden');
-           mainOverlay.classList.remove('hidden');
-       });
+    <!-- Font Awesome Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Your JavaScript Code -->
+    <script>
+      const openOverlayButton = document.getElementById("openOverlay");
+      const overlay = document.getElementById("overlay");
+      const closeOverlayButton = document.getElementById("closeOverlay");
+      const mainOverlay = document.getElementById("mainOverlay");
 
-       closeOverlayButton.addEventListener('click', () => {
-           overlay.classList.add('hidden');
-           mainOverlay.classList.add('hidden');
-       });
-   </script>
-</body>
+      openOverlayButton.addEventListener("click", () => {
+        overlay.classList.remove("hidden");
+        mainOverlay.classList.remove("hidden");
+      });
+
+      closeOverlayButton.addEventListener("click", () => {
+        overlay.classList.add("hidden");
+        mainOverlay.classList.add("hidden");
+      });
+
+      const submitButton = document.getElementById("submitBtn");
+
+      submitButton.addEventListener("click", () => {
+        const hariInput = document.getElementById("hari").value;
+        const jamdari = document.getElementById("jamdari").value;
+        const jamsampai = document.getElementById("jamsampai").value;
+        const scheduleTable = document.getElementById("scheduleTable");
+
+        const newRow = document.createElement("tr");
+        newRow.className =
+          "border-t font-poppins drop-shadow-xl bg-white rounded-xl";
+        newRow.innerHTML = `
+              <td class="py-2 px-4 text-center">${
+                scheduleTable.children.length - 1 + 1
+              }</td>
+              <td class="py-2 px-4 text-center">${hariInput}</td>
+              <td class="py-2 px-4 text-center">${jamdari} - ${jamsampai}</td>
+              <td class="py-2 px-4 text-center">
+                  <button type="button" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i></button>
+                  <button type="button" class="text-red-500 hover:text-red-700"><i class="fas fa-trash-alt" onclick="deleteRow(this)"></i></button>
+              </td>
+          `;
+
+        scheduleTable.appendChild(newRow);
+
+        overlay.classList.add("hidden");
+        mainOverlay.classList.add("hidden");
+      });
+      function deleteRow(button) {
+        // ambil baris yang ingin dihapus
+        const row = button.closest("tr");
+        row.remove();
+
+        // update row
+        updateRowNumbers(scheduleTable);
+      }
+
+      function updateRowNumbers(tableBody) {
+        const rows = tableBody.getElementsByTagName("tr");
+        for (let i = 0; i < rows.length; i++) {
+          const tdElement = rows[i].getElementsByTagName("td")[0];
+
+          if (tdElement) {
+            tdElement.innerText = i - 1 + 1;
+          }
+        }
+      }
+
+      function gatherDataFromTable() {
+        const data = [];
+        const rows = document
+          .getElementById("scheduleTable")
+          .getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+          const cells = rows[i].getElementsByTagName("td");
+          const rowData = {
+            hari: cells[1].innerText,
+            jam: cells[2].innerText,
+          };
+          data.push(rowData);
+        }
+
+        return data;
+      }
+      function submitDataToServer() {
+        const tableData = gatherDataFromTable();
+
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/register/matakuliah-alumni";
+
+        const dataInput = document.createElement("input");
+        dataInput.type = "hidden";
+        dataInput.name = "tableData";
+        dataInput.value = JSON.stringify(tableData);
+
+        form.appendChild(dataInput);
+
+        document.body.appendChild(form);
+
+        form.submit();
+      }
+    </script>
+  </body>
 </html>

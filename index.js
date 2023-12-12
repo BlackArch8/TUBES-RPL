@@ -105,7 +105,27 @@ app.post('/register/upload-nilai-alumni', upload.single("nilai"), (req, res) => 
 
 //mata kuliah
 app.use('/register/matakuliah', UploadJadwalMatkul);
+var matkul = [];
+app.post('/register/matakuliah', (req, res) => {
+  const tableData = req.body.tableData;
+  
+  matkul = JSON.parse(tableData);
+  
+  console.log(matkul);
+  res.redirect("/");
+  
+});
+
 app.use('/register/matakuliah-alumni', UploadJadwalMatkulAlumni);
+app.post('/register/matakuliah-alumni', (req, res) => {
+  const tableData = req.body.tableData;
+  
+  matkul = JSON.parse(tableData);
+  
+  console.log(matkul);
+  res.redirect("/");
+  
+});
 
 //koordinator routes
 import {DashBoardRoute, PenugasanRoute, SeleksiRoute, ListAsdosRoute, JadwalRoute, TambahMatkulRoute, SettingRoute} from "./routes/Koordinator/Dashboard.js";
