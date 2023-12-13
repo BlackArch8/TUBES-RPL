@@ -92,36 +92,37 @@ CREATE TABLE IF NOT EXISTS `kelas` (
   `hari` varchar(10) COLLATE ucs2_bin NOT NULL,
   `awal` int NOT NULL,
   `akhir` int NOT NULL,
-  `idmk` varchar(10) COLLATE ucs2_bin NOT NULL
+  `idmk` varchar(10) COLLATE ucs2_bin NOT NULL,
+  `ruangkelas` VARCHAR(10) NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
 -- Dumping data for table tubes_rpl.kelas: ~24 rows (approximately)
 DELETE FROM `kelas`;
-INSERT INTO `kelas` (`idkelas`, `hari`, `awal`, `akhir`, `idmk`) VALUES
-	('a', 'senin', 12, 14, 'AIF181100'),
-	('b', 'senin', 14, 16, 'AIF181100'),
-	('a', 'rabu', 10, 12, 'AIF182100'),
-	('b', 'rabu', 8, 10, 'AIF182100'),
-	('a', 'selasa', 8, 10, 'AIF182204'),
-	('b', 'selasa', 8, 10, 'AIF182204'),
-	('a', 'selasa', 7, 9, 'AIF182109'),
-	('b', 'selasa', 9, 11, 'AIF182109'),
-	('a', 'jumat', 9, 11, 'AIF184005'),
-	('b', 'jumat', 13, 15, 'AIF184005'),
-	('a', 'senin', 7, 9, 'AIF182103'),
-	('b', 'senin', 14, 16, 'AIF182103'),
-	('a', 'rabu', 13, 16, 'AIF182101'),
-	('b', 'rabu', 13, 16, 'AIF182101'),
-	('a', 'selasa', 13, 15, 'AIF183153'),
-	('a', 'jumat', 7, 10, 'AIF182210'),
-	('b', 'jumat', 14, 17, 'AIF182210'),
-	('a', 'senin', 7, 9, 'AIF182105'),
-	('b', 'senin', 9, 11, 'AIF182105'),
-	('a', 'rabu', 13, 15, 'AIF182105'),
-	('b', 'rabu', 13, 15, 'AIF182105'),
-	('a', 'jumat', 9, 11, 'AIF182105'),
-	('b', 'jumat', 13, 15, 'AIF182105'),
-	('b', 'Rabu', 12, 15, 'AIF182100');
+INSERT INTO `kelas` (`idkelas`, `hari`, `awal`, `akhir`, `idmk`,`ruangkelas`) VALUES
+	('A', 'Senin', 12, 14, 'AIF181100','Ruang 9015 Lab. Komputer 1'),
+	('B', 'Senin', 14, 16, 'AIF181100','Ruang 9016 Lab. Komputer 2'),
+	('A', 'Rabu', 10, 12, 'AIF182100','Ruang 9017 Lab. Komputer 3'),
+	('B', 'Rabu', 8, 10, 'AIF182100','Ruang 9018 Lab. Komputer 4'),
+	('A', 'Selasa', 8, 10, 'AIF182204','Ruang 9015 Lab. Komputer 1'),
+	('B', 'Selasa', 8, 10, 'AIF182204','Ruang 9016 Lab. Komputer 2'),
+	('A', 'Selasa', 7, 9, 'AIF182109','Ruang 9017 Lab. Komputer 3'),
+	('B', 'Selasa', 9, 11, 'AIF182109','Ruang 9018 Lab. Komputer 4'),
+	('A', 'Jumat', 9, 11, 'AIF184005','Ruang 9015 Lab. Komputer 1'),
+	('B', 'Jumat', 13, 15, 'AIF184005','Ruang 9016 Lab. Komputer 2'),
+	('A', 'Senin', 7, 9, 'AIF182103','Ruang 9017 Lab. Komputer 3'),
+	('B', 'Senin', 14, 16, 'AIF182103','Ruang 9018 Lab. Komputer 4'),
+	('A', 'Rabu', 13, 16, 'AIF182101','Ruang 9015 Lab. Komputer 1'),
+	('B', 'Rabu', 13, 16, 'AIF182101','Ruang 9016 Lab. Komputer 2'),
+	('A', 'Selasa', 13, 15, 'AIF183153','Ruang 9017 Lab. Komputer 3'),
+	('A', 'Jumat', 7, 10, 'AIF182210','Ruang 9018 Lab. Komputer 4'),
+	('B', 'Jumat', 14, 17, 'AIF182210','Ruang 9015 Lab. Komputer 1'),
+	('A', 'Senin', 7, 9, 'AIF182105','Ruang 9016 Lab. Komputer 2'),
+	('B', 'Senin', 9, 11, 'AIF182105','Ruang 9017 Lab. Komputer 3'),
+	('A', 'Rabu', 13, 15, 'AIF182105','Ruang 9018 Lab. Komputer 4'),
+	('B', 'Rabu', 13, 15, 'AIF182105','Ruang 9015 Lab. Komputer 1'),
+	('A', 'Jumat', 9, 11, 'AIF182105','Ruang 9016 Lab. Komputer 2'),
+	('B', 'Jumat', 13, 15, 'AIF182105','Ruang 9017 Lab. Komputer 3'),
+	('B', 'Rabu', 12, 15, 'AIF182100','Ruang 9018 Lab. Komputer 4');
 
 -- Dumping structure for table tubes_rpl.koordinator
 DROP TABLE IF EXISTS `koordinator`;
