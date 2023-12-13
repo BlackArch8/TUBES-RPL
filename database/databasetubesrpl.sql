@@ -28,15 +28,16 @@ CREATE TABLE IF NOT EXISTS `calon` (
   `email` varchar(50) COLLATE ucs2_bin NOT NULL,
   `jumlah_matkul` int NOT NULL,
   `alumni` tinyint(1) NOT NULL,
+  `pw` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id_calon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
 -- Dumping data for table tubes_rpl.calon: ~3 rows (approximately)
 DELETE FROM `calon`;
-INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`) VALUES
-	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1),
-	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0),
-	('6182001001', 'Jenson Mark Lowell', 'bestibego@gmail.com', 3, 1);
+INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`,`pw`) VALUES
+	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1,'sayaferry'),
+	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0,'sayahana'),
+	('6182001001', 'Jenson Mark Lowell', 'bestibego@gmail.com', 3, 1,'symak');
 
 -- Dumping structure for table tubes_rpl.dosen
 DROP TABLE IF EXISTS `dosen`;
@@ -44,15 +45,16 @@ CREATE TABLE IF NOT EXISTS `dosen` (
   `id_dosen` varchar(10) COLLATE ucs2_bin NOT NULL,
   `nama_dosen` varchar(50) COLLATE ucs2_bin NOT NULL,
   `idmk` varchar(10) COLLATE ucs2_bin NOT NULL,
+  `pw` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id_dosen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
 -- Dumping data for table tubes_rpl.dosen: ~3 rows (approximately)
 DELETE FROM `dosen`;
-INSERT INTO `dosen` (`id_dosen`, `nama_dosen`, `idmk`) VALUES
-	('1231231231', 'Pascal', 'AIF182100'),
-	('1231231232', 'Hakim', 'AIF181100'),
-	('1231231233', 'Reimon', 'AIF182204');
+INSERT INTO `dosen` (`id_dosen`, `nama_dosen`, `idmk`,`pw`) VALUES
+	('1231231231', 'Pascal', 'AIF182100','pascal'),
+	('1231231232', 'Hakim', 'AIF181100','hakims'),
+	('1231231233', 'Reimon', 'AIF182204','rei');
 
 -- Dumping structure for table tubes_rpl.info
 DROP TABLE IF EXISTS `info`;
@@ -129,14 +131,15 @@ DROP TABLE IF EXISTS `koordinator`;
 CREATE TABLE IF NOT EXISTS `koordinator` (
   `id_koord` varchar(10) COLLATE ucs2_bin NOT NULL,
   `nama_koord` varchar(50) COLLATE ucs2_bin NOT NULL,
+  `pw` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id_koord`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
 -- Dumping data for table tubes_rpl.koordinator: ~2 rows (approximately)
 DELETE FROM `koordinator`;
-INSERT INTO `koordinator` (`id_koord`, `nama_koord`) VALUES
-	('8888888888', 'Charles'),
-	('9999999999', 'Agus');
+INSERT INTO `koordinator` (`id_koord`, `nama_koord`,`pw`) VALUES
+	('8888888888', 'Charles','dudududu'),
+	('9999999999', 'Agus','gunawan');
 
 -- Dumping structure for table tubes_rpl.matkul
 DROP TABLE IF EXISTS `matkul`;
@@ -175,6 +178,14 @@ INSERT INTO `nilai` (`id_calon`, `idmk`, `nilai`) VALUES
 	('1111111111', 'AIF181100', 'B'),
 	('1111111111', 'AIF182100', 'A'),
 	('1111111111', 'AIF181100', 'D');
+	
+	
+select awal AS star, akhir AS en
+from kelas
+where idkelas = 'A' AND idmk = 
+(select idmk
+from matkul
+where namamk = 'Dasar Pemrograman');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
