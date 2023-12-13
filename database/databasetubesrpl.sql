@@ -179,13 +179,6 @@ INSERT INTO `nilai` (`id_calon`, `idmk`, `nilai`) VALUES
 	('1111111111', 'AIF182100', 'A'),
 	('1111111111', 'AIF181100', 'D');
 	
-	
-select awal AS star, akhir AS en
-from kelas
-where idkelas = 'A' AND idmk = 
-(select idmk
-from matkul
-where namamk = 'Dasar Pemrograman');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
