@@ -31,11 +31,12 @@ CREATE TABLE IF NOT EXISTS `calon` (
   PRIMARY KEY (`id_calon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.calon: ~2 rows (approximately)
+-- Dumping data for table tubes_rpl.calon: ~3 rows (approximately)
 DELETE FROM `calon`;
 INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`) VALUES
 	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1),
-	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0);
+	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0),
+	('6182001001', 'Jenson Mark Lowell', 'bestibego@gmail.com', 3, 1);
 
 -- Dumping structure for table tubes_rpl.dosen
 DROP TABLE IF EXISTS `dosen`;
@@ -46,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `dosen` (
   PRIMARY KEY (`id_dosen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.dosen: ~2 rows (approximately)
+-- Dumping data for table tubes_rpl.dosen: ~3 rows (approximately)
 DELETE FROM `dosen`;
 INSERT INTO `dosen` (`id_dosen`, `nama_dosen`, `idmk`) VALUES
 	('1231231231', 'Pascal', 'AIF182100'),
@@ -61,11 +62,12 @@ CREATE TABLE IF NOT EXISTS `info` (
   PRIMARY KEY (`id_calon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.info: ~2 rows (approximately)
+-- Dumping data for table tubes_rpl.info: ~3 rows (approximately)
 DELETE FROM `info`;
 INSERT INTO `info` (`id_calon`, `filename`) VALUES
 	('1111111111', 'nilai.png'),
-	('2222222222', 'foto.png');
+	('2222222222', 'foto.png'),
+	('6182001001', '6182001001.pdf');
 
 -- Dumping structure for table tubes_rpl.jadwal
 DROP TABLE IF EXISTS `jadwal`;
@@ -76,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `jadwal` (
   `akhir` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.jadwal: ~2 rows (approximately)
+-- Dumping data for table tubes_rpl.jadwal: ~3 rows (approximately)
 DELETE FROM `jadwal`;
 INSERT INTO `jadwal` (`id_calon`, `hari`, `awal`, `akhir`) VALUES
 	('2222222222', 'Senin', 8, 10),
@@ -93,11 +95,33 @@ CREATE TABLE IF NOT EXISTS `kelas` (
   `idmk` varchar(10) COLLATE ucs2_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.kelas: ~2 rows (approximately)
+-- Dumping data for table tubes_rpl.kelas: ~24 rows (approximately)
 DELETE FROM `kelas`;
 INSERT INTO `kelas` (`idkelas`, `hari`, `awal`, `akhir`, `idmk`) VALUES
-	('a', 'Senin', 14, 16, 'AIF181100'),
-	('a', 'Rabu', 14, 17, 'AIF182100');
+	('a', 'senin', 12, 14, 'AIF181100'),
+	('b', 'senin', 14, 16, 'AIF181100'),
+	('a', 'rabu', 10, 12, 'AIF182100'),
+	('b', 'rabu', 8, 10, 'AIF182100'),
+	('a', 'selasa', 8, 10, 'AIF182204'),
+	('b', 'selasa', 8, 10, 'AIF182204'),
+	('a', 'selasa', 7, 9, 'AIF182109'),
+	('b', 'selasa', 9, 11, 'AIF182109'),
+	('a', 'jumat', 9, 11, 'AIF184005'),
+	('b', 'jumat', 13, 15, 'AIF184005'),
+	('a', 'senin', 7, 9, 'AIF182103'),
+	('b', 'senin', 14, 16, 'AIF182103'),
+	('a', 'rabu', 13, 16, 'AIF182101'),
+	('b', 'rabu', 13, 16, 'AIF182101'),
+	('a', 'selasa', 13, 15, 'AIF183153'),
+	('a', 'jumat', 7, 10, 'AIF182210'),
+	('b', 'jumat', 14, 17, 'AIF182210'),
+	('a', 'senin', 7, 9, 'AIF182105'),
+	('b', 'senin', 9, 11, 'AIF182105'),
+	('a', 'rabu', 13, 15, 'AIF182105'),
+	('b', 'rabu', 13, 15, 'AIF182105'),
+	('a', 'jumat', 9, 11, 'AIF182105'),
+	('b', 'jumat', 13, 15, 'AIF182105'),
+	('b', 'Rabu', 12, 15, 'AIF182100');
 
 -- Dumping structure for table tubes_rpl.koordinator
 DROP TABLE IF EXISTS `koordinator`;
@@ -122,12 +146,19 @@ CREATE TABLE IF NOT EXISTS `matkul` (
   PRIMARY KEY (`idmk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.matkul: ~2 rows (approximately)
+-- Dumping data for table tubes_rpl.matkul: ~10 rows (approximately)
 DELETE FROM `matkul`;
 INSERT INTO `matkul` (`idmk`, `namamk`, `requires`) VALUES
-	('AIF181100', 'Daspro', 2),
-	('AIF182100', 'ADPL', 2),
-	('AIF182204', 'PBW', 2);
+	('AIF181100', 'Dasar Pemrograman', 2),
+	('AIF182100', 'Analisis dan Desain Perangkat Lunak', 2),
+	('AIF182101', 'Algoritma dan Struktur Data', 2),
+	('AIF182103', 'Struktur Diskret', 2),
+	('AIF182105', 'Pemrograman Berorientasi Objek', 2),
+	('AIF182109', 'Statistika untuk Komputasi', NULL),
+	('AIF182204', 'Pemodelan Berbasis Web', 2),
+	('AIF182210', 'Pengantar Jaringan Komputer', NULL),
+	('AIF183153', 'Metode Numerik', NULL),
+	('AIF184005', 'Komputer dan Masyarakat', NULL);
 
 -- Dumping structure for table tubes_rpl.nilai
 DROP TABLE IF EXISTS `nilai`;
