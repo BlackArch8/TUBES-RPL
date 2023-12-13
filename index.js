@@ -128,15 +128,27 @@ app.post('/register/matakuliah-alumni', (req, res) => {
 });
 
 //koordinator routes
-import {DashBoardRoute, PenugasanRoute, SeleksiRoute, ListAsdosRoute, JadwalRoute, TambahMatkulRoute, SettingRoute} from "./routes/Koordinator/Dashboard.js";
+import {DashBoardRoute, PenugasanRoute, ListAsdosRoute, JadwalRoute, TambahMatkulRoute, SettingRoute} from "./routes/Koordinator/Dashboard.js";
 
 app.use('/koordinator/dashboard', DashBoardRoute);
-app.use('/koordinator/seleksi', SeleksiRoute);
 app.use('/koordinator/penugasan', PenugasanRoute);
 app.use('/koordinator/list-asdos', ListAsdosRoute);
 app.use('/koordinator/jadwal', JadwalRoute);
 app.use('/koordinator/tambah-matkul', TambahMatkulRoute);
 app.use('/koordinator/setting', SettingRoute);
+
+//dosen routes
+import {DashBoardDosenRoute, JadwalDosenRoute, InputAsistenRoute, SettingDosenRoute} from "./routes/Dosen/RoutesDosen.js";
+app.use('/dosen/dashboard-dosen', DashBoardDosenRoute);
+app.use('/dosen/jadwal-dosen', JadwalDosenRoute);
+app.use('/dosen/input-asisten', InputAsistenRoute);
+app.use('/dosen/setting-dosen', SettingDosenRoute);
+
+//mahasiswa routes
+import {DashBoardMahasiswaRoute, JadwalMahasiswaRoute, SettingMahasiswaRoute} from "./routes/Mahasiswa/RoutesMahasiswa.js";
+app.use('/mahasiswa/dashboard-mahasiswa', DashBoardMahasiswaRoute);
+app.use('/mahasiswa/jadwal-mahasiswa', JadwalMahasiswaRoute);
+app.use('/mahasiswa/setting-mahasiswa', SettingMahasiswaRoute);
 
 //uji email
 const config = {
