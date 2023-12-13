@@ -28,16 +28,16 @@ CREATE TABLE IF NOT EXISTS `calon` (
   `email` varchar(50) COLLATE ucs2_bin NOT NULL,
   `jumlah_matkul` int NOT NULL,
   `alumni` tinyint(1) NOT NULL,
-  `pw` VARCHAR(20) NOT NULL,
+  `pw` VARCHAR(20),
   PRIMARY KEY (`id_calon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
 -- Dumping data for table tubes_rpl.calon: ~3 rows (approximately)
 DELETE FROM `calon`;
-INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`,`pw`) VALUES
-	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1,'sayaferry'),
-	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0,'sayahana'),
-	('6182001001', 'Jenson Mark Lowell', 'bestibego@gmail.com', 3, 1,'symak');
+INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`) VALUES
+	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1),
+	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0),
+	('6182001001', 'Jenson Mark Lowell', 'bestibego@gmail.com', 3, 1);
 
 -- Dumping structure for table tubes_rpl.dosen
 DROP TABLE IF EXISTS `dosen`;
@@ -178,7 +178,6 @@ INSERT INTO `nilai` (`id_calon`, `idmk`, `nilai`) VALUES
 	('1111111111', 'AIF181100', 'B'),
 	('1111111111', 'AIF182100', 'A'),
 	('1111111111', 'AIF181100', 'D');
-	
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
