@@ -1,12 +1,12 @@
 //import library
 import express from "express";
-import mysql from "mysql";
-import bodyPafrser from "body-parser";
-import session from "express-session";
+// import mysql from "mysql";
+// import bodyPafrser from "body-parser";
+// import session from "express-session";
 import path from "path";
-import crypto from "crypto";
-import nodemailer from "nodemailer";
-import validator from "validator";
+// import crypto from "crypto";
+// import nodemailer from "nodemailer";
+// import validator from "validator";
 import multer from "multer";
 
 
@@ -21,16 +21,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
 //connect database
-import {db} from "./database/database.js";
+// import {db} from "./database/database.js";
 
 //middleware
-const auth = (req, res, next) => {
-  if (req.session.npm) {
-    next();
-  } else {
-    res.redirect("/");
-  }
-};
+// const auth = (req, res, next) => {
+//   if (req.session.npm) {
+//     next();
+//   } else {
+//     res.redirect("/");
+//   }
+// };
 
 
 
@@ -139,48 +139,48 @@ app.use('/koordinator/tambah-matkul', TambahMatkulRoute);
 app.use('/koordinator/setting', SettingRoute);
 
 //uji email
-const config = {
-  service : "gmail",
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth:{
-    user: "apm.clayanonymous@gmail.com",
-    pass: "rxzy jski qccp cvzd",
+// const config = {
+//   service : "gmail",
+//   host: "smtp.gmail.com",
+//   port: 587,
+//   secure: false,
+//   auth:{
+//     user: "apm.clayanonymous@gmail.com",
+//     pass: "rxzy jski qccp cvzd",
    
 
-    //pass: "gtlp wzuo vsfq cdop",
-  },
-};
+//     //pass: "gtlp wzuo vsfq cdop",
+//   },
+// };
 
-const send = (data) => {
-  const transporter = nodemailer.createTransport(config);
-  transporter.sendMail(data, (error, info) => {
-    if(error){
-      console.log(error);
-    }else{
-      console.log("Message sent: " + info.response);
-    }
-  });
-}
+// const send = (data) => {
+//   const transporter = nodemailer.createTransport(config);
+//   transporter.sendMail(data, (error, info) => {
+//     if(error){
+//       console.log(error);
+//     }else{
+//       console.log("Message sent: " + info.response);
+//     }
+//   });
+// }
 
 
 app.use(express.json());
 
-app.post("/api/send", async (req, res) => {
-  const { from, to, subject, text } = req.body;
+// app.post("/api/send", async (req, res) => {
+//   const { from, to, subject, text } = req.body;
 
-  const emailData = {
-    from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
-    to: to || "doniandrian.talenta@gmail.com", 
-    subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN", 
-    text: text || "Berikut kami sampaikan username dan password untuk login sebagai asisten dosen: \n \n Username: bestie \n Password: sadhwy162 \n \n Terima kasih.", 
-  };
+//   const emailData = {
+//     from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
+//     to: to || "doniandrian.talenta@gmail.com", 
+//     subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN", 
+//     text: text || "Berikut kami sampaikan username dan password untuk login sebagai asisten dosen: \n \n Username: bestie \n Password: sadhwy162 \n \n Terima kasih.", 
+//   };
 
   
-  send(emailData);
-  res.send("Email sent successfully");
-});
+//   send(emailData);
+//   res.send("Email sent successfully");
+// });
 
 
 app.listen(8080, () => {
