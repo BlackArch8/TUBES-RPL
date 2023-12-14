@@ -1,12 +1,12 @@
 //import library
 import express from "express";
-import mysql from "mysql";
-import bodyPafrser from "body-parser";
+// import mysql from "mysql";
+// import bodyPafrser from "body-parser";
 import session from "express-session";
 import path from "path";
-import crypto from "crypto";
+// import crypto from "crypto";
 import nodemailer from "nodemailer";
-import validator from "validator";
+// import validator from "validator";
 import multer from "multer";
 import generatepassword from "generate-password";
 
@@ -30,13 +30,13 @@ app.use(
 );
 
 //middleware
-const auth = (req, res, next) => {
-  if (req.session.npm) {
-    next();
-  } else {
-    res.redirect("/");
-  }
-};
+// const auth = (req, res, next) => {
+//   if (req.session.npm) {
+//     next();
+//   } else {
+//     res.redirect("/");
+//   }
+// };
 
 //login route
 import { LoginRoute } from "./routes/Login.js";
@@ -196,7 +196,7 @@ app.post("/register/matakuliah", async (req, res) => {
             data_diri[data_diri.length - 1].jumlah_matkul,
             status,
           ],
-          (err, result) => {
+          (err) => {
             if (err) {
               reject(err);
             } else {
@@ -213,7 +213,7 @@ app.post("/register/matakuliah", async (req, res) => {
         db.query(
           querynilai,
           [data_diri[data_diri.length - 1].npm, filename],
-          (err, result) => {
+          (err) => {
             if (err) {
               reject(err);
             } else {
@@ -297,7 +297,7 @@ app.post("/register/matakuliah-alumni", async (req, res) => {
           data_diri[data_diri.length - 1].jumlah_matkul,
           status,
         ],
-        (err, result) => {
+        (err) => {
           if (err) {
             reject(err);
           } else {
@@ -314,7 +314,7 @@ app.post("/register/matakuliah-alumni", async (req, res) => {
       db.query(
         querynilai,
         [data_diri[data_diri.length - 1].npm, filename],
-        (err, result) => {
+        (err) => {
           if (err) {
             reject(err);
           } else {
@@ -337,7 +337,7 @@ app.post("/register/matakuliah-alumni", async (req, res) => {
             matkul[i].jamawal,
             matkul[i].jamakhir,
           ],
-          (err, result) => {
+          (err) => {
             if (err) {
               reject(err);
             } else {
@@ -416,7 +416,7 @@ console.log(password);
 app.use(express.json());
 
 app.post("/api/send", async (req, res) => {
-  const { from, to, subject, text } = req.body;
+  const { to, subject, text } = req.body;
 
   const emailData = {
     from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
@@ -430,7 +430,7 @@ app.post("/api/send", async (req, res) => {
   };
 
   const query = "UPDATE `calon` SET `pw` = ? WHERE `id_calon` = ?";
-  db.query(query, [password, data_diri[data_diri.length - 1].npm], (err, result) => {
+  db.query(query, [password, data_diri[data_diri.length - 1].npm], (err) => {
     if (err) {
       console.log(err);
     }
