@@ -1,201 +1,201 @@
-//import library
-import express from "express";
-import mysql from "mysql";
-import bodyPafrser from "body-parser";
-import session from "express-session";
-import path from "path";
-import crypto from "crypto";
-import nodemailer from "nodemailer";
-import validator from "validator";
-import multer from "multer";
+// //import library
+// import express from "express";
+// import mysql from "mysql";
+// import bodyPafrser from "body-parser";
+// import session from "express-session";
+// import path from "path";
+// import crypto from "crypto";
+// import nodemailer from "nodemailer";
+// import validator from "validator";
+// import multer from "multer";
 
 
 
-const app = express();
-const staticPath = path.resolve("public");
-app.use('/public', express.static(staticPath));
-app.use("/Nilai_data", express.static("Nilai_data"));
+// const app = express();
+// const staticPath = path.resolve("public");
+// app.use('/public', express.static(staticPath));
+// app.use("/Nilai_data", express.static("Nilai_data"));
 
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+// app.set("view engine", "ejs");
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json())
 
-//connect database
-import {db} from "./database/database.js";
+// //connect database
+// import {db} from "./database/database.js";
 
-//middleware
-const auth = (req, res, next) => {
-  if (req.session.npm) {
-    next();
-  } else {
-    res.redirect("/");
-  }
-};
-
-
-
-//login route
-import {LoginRoute} from "./routes/Login.js";
-
-app.use('/', LoginRoute);
-
-//register routes
-import {RegisterRoute, DataDiriRoute,DataDiriAlumniRoute, UploadNilaiRoute, UploadNilaiAlumniRoute, UploadJadwalMatkul, UploadJadwalMatkulAlumni} from "./routes/Register.js";
-
-//status
-app.use('/register/isi-status', RegisterRoute);
+// //middleware
+// const auth = (req, res, next) => {
+//   if (req.session.npm) {
+//     next();
+//   } else {
+//     res.redirect("/");
+//   }
+// };
 
 
-//data diri
-app.use('/register/data-diri', DataDiriRoute);
-let data_diri = [];
-app.post('/register/data-diri', (req, res) => {
-  data_diri.push({
-    npm: req.body.npm,
-    nama: req.body.namalengkap,
-    email: req.body.email,
-    jumlah_matkul: req.body.jumlah_matkul,
-  });
 
-  console.log(data_diri);
+// //login route
+// import {LoginRoute} from "./routes/Login.js";
 
-  res.redirect("/register/upload-nilai");
-});
+// app.use('/', LoginRoute);
 
-//data diri alumni
-app.use('/register/data-diri-alumni', DataDiriAlumniRoute);
-app.post('/register/data-diri-alumni', (req, res) => {
-  data_diri.push({
-    npm: req.body.npwp,
-    nama: req.body.namalengkap,
-    email: req.body.email,
-    jumlah_matkul: req.body.jumlah_matkul,
-  });
+// //register routes
+// import {RegisterRoute, DataDiriRoute,DataDiriAlumniRoute, UploadNilaiRoute, UploadNilaiAlumniRoute, UploadJadwalMatkul, UploadJadwalMatkulAlumni} from "./routes/Register.js";
 
-  console.log(data_diri);
+// //status
+// app.use('/register/isi-status', RegisterRoute);
 
-  res.redirect("/register/upload-nilai-alumni");
-});
 
-//multer
-const filestorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./Nilai_data");
-  },
-  filename: (req, file, cb) => {
-    //ganti nama filenya ke npm
-    cb(null, data_diri[data_diri.length-1].npm + ".pdf");
-  },
-});
+// //data diri
+// app.use('/register/data-diri', DataDiriRoute);
+// let data_diri = [];
+// app.post('/register/data-diri', (req, res) => {
+//   data_diri.push({
+//     npm: req.body.npm,
+//     nama: req.body.namalengkap,
+//     email: req.body.email,
+//     jumlah_matkul: req.body.jumlah_matkul,
+//   });
 
-const upload = multer({ storage: filestorage });
+//   console.log(data_diri);
 
-//upload nilai
-app.use('/register/upload-nilai',UploadNilaiRoute); 
-app.post('/register/upload-nilai', upload.single("nilai"), (req, res) => {
-  console.log(req.file);
-  res.redirect("/register/matakuliah");
-});
+//   res.redirect("/register/upload-nilai");
+// });
 
-app.use('/register/upload-nilai-alumni',UploadNilaiAlumniRoute);
-app.post('/register/upload-nilai-alumni', upload.single("nilai"), (req, res) => {
-  console.log(req.file);
-  res.redirect("/register/matakuliah-alumni");
-});
+// //data diri alumni
+// app.use('/register/data-diri-alumni', DataDiriAlumniRoute);
+// app.post('/register/data-diri-alumni', (req, res) => {
+//   data_diri.push({
+//     npm: req.body.npwp,
+//     nama: req.body.namalengkap,
+//     email: req.body.email,
+//     jumlah_matkul: req.body.jumlah_matkul,
+//   });
 
-//mata kuliah
-app.use('/register/matakuliah', UploadJadwalMatkul);
-var matkul = [];
-app.post('/register/matakuliah', (req, res) => {
-  const tableData = req.body.tableData;
+//   console.log(data_diri);
+
+//   res.redirect("/register/upload-nilai-alumni");
+// });
+
+// //multer
+// const filestorage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "./Nilai_data");
+//   },
+//   filename: (req, file, cb) => {
+//     //ganti nama filenya ke npm
+//     cb(null, data_diri[data_diri.length-1].npm + ".pdf");
+//   },
+// });
+
+// const upload = multer({ storage: filestorage });
+
+// //upload nilai
+// app.use('/register/upload-nilai',UploadNilaiRoute); 
+// app.post('/register/upload-nilai', upload.single("nilai"), (req, res) => {
+//   console.log(req.file);
+//   res.redirect("/register/matakuliah");
+// });
+
+// app.use('/register/upload-nilai-alumni',UploadNilaiAlumniRoute);
+// app.post('/register/upload-nilai-alumni', upload.single("nilai"), (req, res) => {
+//   console.log(req.file);
+//   res.redirect("/register/matakuliah-alumni");
+// });
+
+// //mata kuliah
+// app.use('/register/matakuliah', UploadJadwalMatkul);
+// var matkul = [];
+// app.post('/register/matakuliah', (req, res) => {
+//   const tableData = req.body.tableData;
   
-  matkul = JSON.parse(tableData);
+//   matkul = JSON.parse(tableData);
   
-  console.log(matkul);
-  res.redirect("/");
+//   console.log(matkul);
+//   res.redirect("/");
   
-});
+// });
 
-app.use('/register/matakuliah-alumni', UploadJadwalMatkulAlumni);
-app.post('/register/matakuliah-alumni', (req, res) => {
-  const tableData = req.body.tableData;
+// app.use('/register/matakuliah-alumni', UploadJadwalMatkulAlumni);
+// app.post('/register/matakuliah-alumni', (req, res) => {
+//   const tableData = req.body.tableData;
   
-  matkul = JSON.parse(tableData);
+//   matkul = JSON.parse(tableData);
   
-  console.log(matkul);
-  res.redirect("/");
+//   console.log(matkul);
+//   res.redirect("/");
   
-});
+// });
 
-//koordinator routes
-import {DashBoardRoute, PenugasanRoute, ListAsdosRoute, JadwalRoute, TambahMatkulRoute, SettingRoute} from "./routes/Koordinator/Dashboard.js";
+// //koordinator routes
+// import {DashBoardRoute, PenugasanRoute, ListAsdosRoute, JadwalRoute, TambahMatkulRoute, SettingRoute} from "./routes/Koordinator/Dashboard.js";
 
-app.use('/koordinator/dashboard', DashBoardRoute);
-app.use('/koordinator/penugasan', PenugasanRoute);
-app.use('/koordinator/list-asdos', ListAsdosRoute);
-app.use('/koordinator/jadwal', JadwalRoute);
-app.use('/koordinator/tambah-matkul', TambahMatkulRoute);
-app.use('/koordinator/setting', SettingRoute);
+// app.use('/koordinator/dashboard', DashBoardRoute);
+// app.use('/koordinator/penugasan', PenugasanRoute);
+// app.use('/koordinator/list-asdos', ListAsdosRoute);
+// app.use('/koordinator/jadwal', JadwalRoute);
+// app.use('/koordinator/tambah-matkul', TambahMatkulRoute);
+// app.use('/koordinator/setting', SettingRoute);
 
-//dosen routes
-import {DashBoardDosenRoute, JadwalDosenRoute, InputAsistenRoute, SettingDosenRoute} from "./routes/Dosen/RoutesDosen.js";
-app.use('/dosen/dashboard-dosen', DashBoardDosenRoute);
-app.use('/dosen/jadwal-dosen', JadwalDosenRoute);
-app.use('/dosen/input-asisten', InputAsistenRoute);
-app.use('/dosen/setting-dosen', SettingDosenRoute);
+// //dosen routes
+// import {DashBoardDosenRoute, JadwalDosenRoute, InputAsistenRoute, SettingDosenRoute} from "./routes/Dosen/RoutesDosen.js";
+// app.use('/dosen/dashboard-dosen', DashBoardDosenRoute);
+// app.use('/dosen/jadwal-dosen', JadwalDosenRoute);
+// app.use('/dosen/input-asisten', InputAsistenRoute);
+// app.use('/dosen/setting-dosen', SettingDosenRoute);
 
-//mahasiswa routes
-import {DashBoardMahasiswaRoute, JadwalMahasiswaRoute, SettingMahasiswaRoute} from "./routes/Mahasiswa/RoutesMahasiswa.js";
-app.use('/mahasiswa/dashboard-mahasiswa', DashBoardMahasiswaRoute);
-app.use('/mahasiswa/jadwal-mahasiswa', JadwalMahasiswaRoute);
-app.use('/mahasiswa/setting-mahasiswa', SettingMahasiswaRoute);
+// //mahasiswa routes
+// import {DashBoardMahasiswaRoute, JadwalMahasiswaRoute, SettingMahasiswaRoute} from "./routes/Mahasiswa/RoutesMahasiswa.js";
+// app.use('/mahasiswa/dashboard-mahasiswa', DashBoardMahasiswaRoute);
+// app.use('/mahasiswa/jadwal-mahasiswa', JadwalMahasiswaRoute);
+// app.use('/mahasiswa/setting-mahasiswa', SettingMahasiswaRoute);
 
-//uji email
-const config = {
-  service : "gmail",
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  auth:{
-    user: "apm.clayanonymous@gmail.com",
-    pass: "rxzy jski qccp cvzd",
+// //uji email
+// const config = {
+//   service : "gmail",
+//   host: "smtp.gmail.com",
+//   port: 587,
+//   secure: false,
+//   auth:{
+//     user: "apm.clayanonymous@gmail.com",
+//     pass: "rxzy jski qccp cvzd",
    
 
-    //pass: "gtlp wzuo vsfq cdop",
-  },
-};
+//     //pass: "gtlp wzuo vsfq cdop",
+//   },
+// };
 
-const send = (data) => {
-  const transporter = nodemailer.createTransport(config);
-  transporter.sendMail(data, (error, info) => {
-    if(error){
-      console.log(error);
-    }else{
-      console.log("Message sent: " + info.response);
-    }
-  });
-}
+// const send = (data) => {
+//   const transporter = nodemailer.createTransport(config);
+//   transporter.sendMail(data, (error, info) => {
+//     if(error){
+//       console.log(error);
+//     }else{
+//       console.log("Message sent: " + info.response);
+//     }
+//   });
+// }
 
 
-app.use(express.json());
+// app.use(express.json());
 
-app.post("/api/send", async (req, res) => {
-  const { from, to, subject, text } = req.body;
+// app.post("/api/send", async (req, res) => {
+//   const { from, to, subject, text } = req.body;
 
-  const emailData = {
-    from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
-    to: to || "doniandrian.talenta@gmail.com", 
-    subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN", 
-    text: text || "Berikut kami sampaikan username dan password untuk login sebagai asisten dosen: \n \n Username: bestie \n Password: sadhwy162 \n \n Terima kasih.", 
-  };
+//   const emailData = {
+//     from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
+//     to: to || "doniandrian.talenta@gmail.com", 
+//     subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN", 
+//     text: text || "Berikut kami sampaikan username dan password untuk login sebagai asisten dosen: \n \n Username: bestie \n Password: sadhwy162 \n \n Terima kasih.", 
+//   };
 
   
-  send(emailData);
-  res.send("Email sent successfully");
-});
+//   send(emailData);
+//   res.send("Email sent successfully");
+// });
 
 
-app.listen(8080, () => {
-    console.log("Server started on port 8080");
-  });
+// app.listen(8080, () => {
+//     console.log("Server started on port 8080");
+//   });
   
