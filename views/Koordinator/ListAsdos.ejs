@@ -12,8 +12,30 @@
             <%- include('./NavBar'); %>
             <div class="flex flex-col w-full h-full">
                 <%- include('./header'); %>
-                <div class="flex flex-col ml-[50px] mt-[50px]">
-                    <div class="text-[30px] text-black font-extrabold mb-[10px]">List Asisten Dosen</div>
+                <div class="flex flex-col ml-[50px] mt-[30px] font-poppins">
+                    <div class="text-[30px] text-gray-600 font-extrabold mb-[10px]">List Asisten Dosen</div>
+                    <div class="flex flex-row gap-[50px]">
+                        <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[530px] gap-[5px]">
+                            <div class="overflow-hidden">
+                                <div class="flex w-[1180px] h-[100px] mb-[5px] items-center border border-gray-400 bg-white rounded-md">
+                                    <div class="flex flex-row flex-grow">
+                                        <div class="bg-[#F2F2F2] border-l border-t border-b border-gray-400 w-[150px] h-[100px] rounded-l-md flex items-center justify-center">
+                                            <img src="/public/images/aktif_icon.png" class="h-[70px]">
+                                        </div>
+                                        <div class="flex flex-col justify-center ml-[20px]">
+                                            <div class="text-[20px] text-black font-bold">Gunawan Winata</div>
+                                            <div class="text-[10px] text-[#808080]">6182001012@student.unpar.ac.id</div>
+                                            <div class="text-[10px] text-[#808080]">Mahasiswa Aktif</div>
+                                            <div class="text-[10px] text-[#808080]">2 Mata Kuliah</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex">
+                                        <button type="button" class="bg-green-400 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-green-500" id="assign-btn">ASSIGNED</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

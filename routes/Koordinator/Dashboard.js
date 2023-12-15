@@ -3,7 +3,6 @@ import express from 'express';
 
 const DashBoardRoute = express.Router();
 const PenugasanRoute = express.Router();
-const SeleksiRoute = express.Router();
 const ListAsdosRoute = express.Router();
 const JadwalRoute = express.Router();
 const TambahMatkulRoute = express.Router();
@@ -15,11 +14,6 @@ DashBoardRoute.get('/', (req, res) => {
 
 PenugasanRoute.get('/', (req, res) => {
     res.render('Koordinator/Penugasan');
-});
-
-
-SeleksiRoute.get('/', (req, res) => {
-    res.render('Koordinator/Seleksi');
 });
 
 ListAsdosRoute.get('/', (req, res) => {
@@ -39,4 +33,4 @@ SettingRoute.get('/', (req, res) => {
 });
 
 
-export {DashBoardRoute, PenugasanRoute, SeleksiRoute, ListAsdosRoute, JadwalRoute, TambahMatkulRoute, SettingRoute, DashBoardRoute as default};
+export {DashBoardRoute, PenugasanRoute, ListAsdosRoute, JadwalRoute, TambahMatkulRoute, SettingRoute, DashBoardRoute as default};
