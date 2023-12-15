@@ -72,7 +72,7 @@
       <div class="submit-section mt-4 flex justify-center">
         <button
           type="button"
-           onclick="submitDataToServer()"
+          onclick="submitDataToServer()"
           class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded"
         >
           Submit
@@ -112,18 +112,19 @@
             class="w-[150px] h-8 border border-gray-300 rounded-md"
             id="jamdari"
           >
-            <option value="06:00">06.00</option>
-            <option value="07:00">07.00</option>
-            <option value="08:00">08.00</option>
-            <option value="09:00">09.00</option>
-            <option value="10:00">10.00</option>
-            <option value="11:00">11.00</option>
-            <option value="12:00">12.00</option>
-            <option value="13:00">13.00</option>
-            <option value="14:00">14.00</option>
-            <option value="15:00">15.00</option>
-            <option value="16:00">16.00</option>
-            <option value="17:00">17.00</option>
+            <option value="6" data-display="06:00">06:00</option>
+            <option value="7" data-display="07:00">07:00</option>
+            <option value="8" data-display="08:00">08:00</option>
+            <option value="9" data-display="09:00">09:00</option>
+            <option value="10" data-display="10:00">10:00</option>
+            <option value="11" data-display="11:00">11:00</option>
+            <option value="12" data-display="12:00">12:00</option>
+            <option value="13" data-display="13:00">13:00</option>
+            <option value="14" data-display="14:00">14:00</option>
+            <option value="15" data-display="15:00">15:00</option>
+            <option value="16" data-display="16:00">16:00</option>
+            <option value="17" data-display="17:00">17:00</option>
+            <option value="18" data-display="18:00">18:00</option>
           </select>
         </div>
         <div class="flex flex-col">
@@ -132,19 +133,19 @@
             class="w-[150px] h-8 border border-gray-300 rounded-md"
             id="jamsampai"
           >
-          <option value="06:00">06.00</option>
-          <option value="07:00">07.00</option>
-          <option value="08:00">08.00</option>
-          <option value="09:00">09.00</option>
-          <option value="10:00">10.00</option>
-          <option value="11:00">11.00</option>
-          <option value="12:00">12.00</option>
-          <option value="13:00">13.00</option>
-          <option value="14:00">14.00</option>
-          <option value="15:00">15.00</option>
-          <option value="16:00">16.00</option>
-          <option value="17:00">17.00</option>
-          
+            <option value="6" data-display="06:00">06:00</option>
+            <option value="7" data-display="07:00">07:00</option>
+            <option value="8" data-display="08:00">08:00</option>
+            <option value="9" data-display="09:00">09:00</option>
+            <option value="10" data-display="10:00">10:00</option>
+            <option value="11" data-display="11:00">11:00</option>
+            <option value="12" data-display="12:00">12:00</option>
+            <option value="13" data-display="13:00">13:00</option>
+            <option value="14" data-display="14:00">14:00</option>
+            <option value="15" data-display="15:00">15:00</option>
+            <option value="16" data-display="16:00">16:00</option>
+            <option value="17" data-display="17:00">17:00</option>
+            <option value="18" data-display="18:00">18:00</option>
           </select>
         </div>
         <button
@@ -159,9 +160,7 @@
         id="submitBtn"
         class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[70px]"
       >
-        <div class="text-white text-base font-normal" >
-          Simpan
-        </div>
+        <div class="text-white text-base font-normal">Simpan</div>
       </button>
     </div>
 
@@ -188,30 +187,75 @@
 
       submitButton.addEventListener("click", () => {
         const hariInput = document.getElementById("hari").value;
-        const jamdari = document.getElementById("jamdari").value;
-        const jamsampai = document.getElementById("jamsampai").value;
+        const jamdariSelect = document.getElementById("jamdari");
+        const jamdariDisplay =
+          jamdariSelect.options[jamdariSelect.selectedIndex].getAttribute(
+            "data-display"
+          );
+        const jamdariValue = jamdariSelect.value;
+
+        const jamsampaiSelect = document.getElementById("jamsampai");
+        const jamsampaiDisplay =
+          jamsampaiSelect.options[jamsampaiSelect.selectedIndex].getAttribute(
+            "data-display"
+          );
+        const jamsampaiValue = jamsampaiSelect.value;
+
         const scheduleTable = document.getElementById("scheduleTable");
 
+        // Check if the data already exists
+        if (checkData(hariInput, jamdariDisplay, jamsampaiDisplay)) {
+          alert("Data sudah ada!");
+          return;
+        }
+
+        // Create a new row
         const newRow = document.createElement("tr");
         newRow.className =
           "border-t font-poppins drop-shadow-xl bg-white rounded-xl";
-        newRow.innerHTML = `
-              <td class="py-2 px-4 text-center">${
-                scheduleTable.children.length - 1 + 1
-              }</td>
-              <td class="py-2 px-4 text-center">${hariInput}</td>
-              <td class="py-2 px-4 text-center">${jamdari} - ${jamsampai}</td>
-              <td class="py-2 px-4 text-center">
-                  <button type="button" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i></button>
-                  <button type="button" class="text-red-500 hover:text-red-700"><i class="fas fa-trash-alt" onclick="deleteRow(this)"></i></button>
-              </td>
-          `;
 
+        // Calculate the row number based on the existing rows
+        const rowNumber = scheduleTable.children.length - 1 + 1;
+
+        // Set inner HTML for the new row
+        newRow.innerHTML = `
+    <td class="py-2 px-4 text-center">${rowNumber}</td>
+    <td class="py-2 px-4 text-center">${hariInput}</td>
+    <td class="py-2 px-4 text-center">${jamdariDisplay} - ${jamsampaiDisplay}</td>
+    <td class="py-2 px-4 text-center">
+      <button type="button" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i></button>
+      <button type="button" class="text-red-500 hover:text-red-700" onclick="deleteRow(this)"><i class="fas fa-trash-alt"></i></button>
+    </td>
+  `;
+
+        // Append the new row to the table
         scheduleTable.appendChild(newRow);
 
+        // Hide overlays
         overlay.classList.add("hidden");
         mainOverlay.classList.add("hidden");
       });
+
+      //check data sudah ada atau belum di tabel
+      function checkData(hari, jammulai, jamselesai) {
+        const rows = document
+          .getElementById("scheduleTable")
+          .getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+          const cells = rows[i].getElementsByTagName("td");
+          // Adjusted cell indexes and compared with input values
+          if (
+            cells[0].innerText === hari &&
+            cells[1].innerText === `${jammulai} - ${jamselesai}`
+          ) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+
       function deleteRow(button) {
         // ambil baris yang ingin dihapus
         const row = button.closest("tr");
@@ -240,15 +284,23 @@
 
         for (let i = 1; i < rows.length; i++) {
           const cells = rows[i].getElementsByTagName("td");
+
+          const hari = cells[1].innerText;
+
+          const [jamawalValue, jamakhirValue] = cells[2].innerText.split(" - ");
+
           const rowData = {
-            hari: cells[1].innerText,
-            jam: cells[2].innerText,
+            hari: hari,
+            jamawal: parseInt(jamawalValue.trim(), 10),
+            jamakhir: parseInt(jamakhirValue.trim(), 10),
           };
+
           data.push(rowData);
         }
 
         return data;
       }
+
       function submitDataToServer() {
         const tableData = gatherDataFromTable();
 

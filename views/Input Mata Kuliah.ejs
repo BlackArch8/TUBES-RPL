@@ -90,15 +90,16 @@
         <div class="flex flex-col">
           <div class="text-gray-400 text-lg font-normal">Matkul:</div>
           <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="matkulInput">
-            <option value="Matkul 1">Matkul 1</option>
-            <option value="Matkul 2">Matkul 2</option>
+            <option value="Dasar Pemrograman">Dasar Pemrograman</option>
+            <option value="Struktur Diskret">Struktur Diskret</option>
+            <option value="Metode Numerik">Metode Numerik</option>
           </select>
         </div>
         <div class="flex flex-col">
           <div class="text-gray-400 text-lg font-normal">Kelas:</div>
           <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="kelasInput" >
-            <option value="Kelas A">Kelas A</option>
-            <option value="Kelas B">Kelas B</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
           </select>
         </div>
       </div>
@@ -138,11 +139,16 @@
       });
       const submitButton = document.getElementById('submitBtn');
 
+
 submitButton.addEventListener('click', () => {
+    
     const matkulInput = document.getElementById('matkulInput').value;
     const kelasInput = document.getElementById('kelasInput').value;
     const scheduleTable = document.getElementById('scheduleTable');
-
+    if (checkData(matkulInput, kelasInput)) {
+        alert('Data sudah ada!');
+        return;
+    }
     const newRow = document.createElement('tr');
     newRow.className = 'border-t font-poppins drop-shadow-xl bg-white rounded-xl';
     newRow.innerHTML = `
@@ -160,6 +166,25 @@ submitButton.addEventListener('click', () => {
     overlay.classList.add('hidden');
     mainOverlay.classList.add('hidden');
 });
+
+//cek data yang diinputkan sudah ada atau belum
+function checkData(matkulInput, kelasInput) {
+    const scheduleTable = document.getElementById('scheduleTable');
+    const rows = scheduleTable.getElementsByTagName('tr');
+
+    for (let i = 1; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const matkul = cells[1].innerText;
+        const kelas = cells[2].innerText;
+
+        if (matkul === matkulInput && kelas === kelasInput) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function deleteRow(button) {
     // ambil baris yang ingin dihapus
     const row = button.closest('tr');
