@@ -8,6 +8,7 @@
     "start": "nodemon index.js",
     "build-css": "tailwindcss build -i ./public/css/input.css -o ./public/css/output.css",
     "tailwind": "npx tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch",
+    "eslint": "npx eslint *.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kelompok F",
