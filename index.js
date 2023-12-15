@@ -1,12 +1,12 @@
-//import library
+//import library;
 import express from "express";
-//import mysql from "mysql";
-//import bodyPafrser from "body-parser";
-//import session from "express-session";
+import mysql from "mysql";
+import bodyPafrser from "body-parser";
+import session from "express-session";
 import path from "path";
-//import crypto from "crypto";
+import crypto from "crypto";
 import nodemailer from "nodemailer";
-//import validator from "validator";
+import validator from "validator";
 import multer from "multer";
 
 
@@ -21,16 +21,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 
 //connect database
-//import {db} from "./database/database.js";
+import {db} from "./database/database.js";
 
 //middleware
-// const auth = (req, res, next) => {
-//   if (req.session.npm) {
-//     next();
-//   } else {
-//     res.redirect("/");
-//   }
-// };
+const auth = (req, res, next) => {
+  if (req.session.npm) {
+    next();
+  } else {
+    res.redirect("/");
+  }
+};
 
 
 
