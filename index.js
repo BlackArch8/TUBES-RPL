@@ -384,6 +384,7 @@ import { DashBoardDosenRoute, JadwalDosenRoute, InputAsistenRoute, SettingDosenR
 
 app.use("/dosen/dashboard-dosen", DashBoardDosenRoute);
 app.use("/dosen/jadwal-dosen", JadwalDosenRoute);
+
 app.use("/dosen/input-asisten", InputAsistenRoute);
 app.use("/dosen/setting-dosen", SettingDosenRoute);
 
