@@ -363,20 +363,38 @@ app.post("/register/matakuliah-alumni", async (req, res) => {
 import {
   DashBoardRoute,
   PenugasanRoute,
-  SeleksiRoute,
+
   ListAsdosRoute,
   JadwalRoute,
   TambahMatkulRoute,
   SettingRoute,
-} from "./routes/Koordinator/Dashboard.js";
+} from "./routes/Koordinator/RouteKoordinator.js";
 
 app.use("/koordinator/dashboard", DashBoardRoute);
-app.use("/koordinator/seleksi", SeleksiRoute);
+// app.use("/koordinator/seleksi", SeleksiRoute);
 app.use("/koordinator/penugasan", PenugasanRoute);
 app.use("/koordinator/list-asdos", ListAsdosRoute);
 app.use("/koordinator/jadwal", JadwalRoute);
 app.use("/koordinator/tambah-matkul", TambahMatkulRoute);
 app.use("/koordinator/setting", SettingRoute);
+
+
+//dosen routes
+import { DashBoardDosenRoute, JadwalDosenRoute, InputAsistenRoute, SettingDosenRoute} from "./routes/Dosen/RoutesDosen.js";
+
+app.use("/dosen/dashboard-dosen", DashBoardDosenRoute);
+app.use("/dosen/jadwal-dosen", JadwalDosenRoute);
+app.use("/dosen/input-asisten", InputAsistenRoute);
+app.use("/dosen/setting-dosen", SettingDosenRoute);
+
+//asdos routes
+import { DashBoardAsdosRoute, JadwalAsdosRoute, SettingAsdosRoute } from "./routes/Asdos/RoutesAsdos.js";
+
+app.use("/asdos/dashboard", DashBoardAsdosRoute);
+app.use("/asdos/jadwal", JadwalAsdosRoute);
+app.use("/asdos/setting", SettingAsdosRoute);
+
+
 
 //uji email
 const config = {
