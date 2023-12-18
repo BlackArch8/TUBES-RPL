@@ -52,6 +52,20 @@
                                             </a>
                                         </td>
                                     </tr>
+                                    <% let i = 1; %>
+                                    <% for(const row of result) { %>
+                                        <tr class="border-t font-poppins drop-shadow-xl bg-white rounded-xl">
+                                            <td class="py-2 px-4 text-center"><%= i %></td>
+                                            <td class="py-2 px-4 text-center"><%= row.namamk %></td>
+                                            <td class="py-2 px-4 text-center"><%= row.requires %></td>
+                                            <td class="py-2 px-4 text-center">
+                                                <a href="#" class="upload-section">
+                                                    <button type="button" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i></button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        
+                                    <% i++; %> <% } %>
                                 </tbody>
                             </table>
                         </div>
