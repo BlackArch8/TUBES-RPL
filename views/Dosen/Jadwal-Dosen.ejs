@@ -55,6 +55,10 @@
                                                     </th>
                                                     <th
                                                         class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                        Kelas
+                                                    </th>
+                                                    <th
+                                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                                         Jam dari:
                                                     </th>
                                                     <th
@@ -68,83 +72,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <div class="flex items-center">
-                                                                <div class="ml-3">
-                                                                    <p class="text-gray-900 whitespace-no-wrap">
-                                                                        Rekayasa Perangkat Lunak 
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">AIF233101</p>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">
-                                                            Senin
-                                                        </p>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <span class=" relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                                            <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                                            <span class="relative">09.00</span>
-                                                        </span>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <span
-                                                            class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                                                            <span aria-hidden
-                                                                class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
-                                                        <span class="relative">11.00</span>
-                                                        </span>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">Alexander Bleuvito</p>
-                                                        <p class="text-gray-900 whitespace-no-wrap">Rivaldiw Godjaliw</p>
-                                                    </td>
-                                                </tr>
-                                                <tr class="">
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <div class="flex items-center">
-                                                                <div class="ml-3">
-                                                                    <p class="text-gray-900 whitespace-no-wrap">
-                                                                        Dasar Pemrograman
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">AIF231103</p>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">
-                                                            Selasa
-                                                        </p>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <span
-                                                            class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                                            <span aria-hidden
-                                                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                                        <span class="relative">13.00</span>
-                                                        </span>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <span
-                                                            class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                                                            <span aria-hidden
-                                                                class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
-                                                        <span class="relative">15.00</span>
-                                                        </span>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">Adrian Jason</p>
-                                                        <p class="text-gray-900 whitespace-no-wrap">Muhammad Rupips</p>
-                                                    </td>
-                                                </tr>
                                                 
+                                            
                                                 <% function formatTime(time) { %>
                                                     <%= time < 10 ? '0' + time : time %>:00
                                                   <% } %>
@@ -168,6 +97,11 @@
                                                             </p>
                                                         </td>
                                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                            <p class="text-gray-900 whitespace-no-wrap">
+                                                                <%= row.idkelas %>
+                                                            </p>
+                                                        </td>
+                                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                                             <span
                                                                 class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                                                                 <span aria-hidden
@@ -185,9 +119,21 @@
                                                             </span>
                                                         </td>
                                                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                            <p class="text-gray-900 whitespace-no-wrap">-</p>
-                                                            
+                                                            <% let status = false %>
+                                                            <% for (const asisten of resultasisten) { %>
+                                                                <% if (asisten.idkelas === row.idkelas && asisten.hari === row.hari && asisten.awal === row.awal && asisten.idmk == row.idmk) { %>
+                                                                     <% status = true %>
+                                                                    <p class="text-gray-900 whitespace-no-wrap"><%= asisten.nama_calon %></p>
+                                                                    
+                                                                <% } %>
+                    
+                                                                    
+                                                            <% } %>
+                                                            <% if (status === false) { %>
+                                                                <p class="text-gray-900 whitespace-no-wrap">-</p>
+                                                            <% } %>
                                                         </td>
+                                                        
                                                     </tr>
                                                     <% } %>
 
