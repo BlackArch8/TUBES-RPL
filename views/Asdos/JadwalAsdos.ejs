@@ -76,50 +76,61 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <div class="flex items-center">
-                                                                <div class="ml-3">
-                                                                    <p class="text-gray-900 whitespace-no-wrap">
-                                                                        1.
-                                                                    </p>
+                                                <% function formatTime(time) { %>
+                                                    <%= time < 10 ? '0' + time : time %>:00
+                                                  <% } %>
+                                                <% let i = 1 %>
+                                                <% for(const row of result) { %>
+                                                    <tr>
+                                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                            <div class="flex items-center">
+                                                                    <div class="ml-3">
+                                                                        <p class="text-gray-900 whitespace-no-wrap">
+                                                                            <%= i %>
+                                                                        </p>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">Rekayasa Perangkat Lunak</p>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">AIF233101</p>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">
-                                                            Senin
-                                                        </p>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <span
-                                                            class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                                            <span aria-hidden
-                                                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
-                                                        <span class="relative">09.00</span>
-                                                        </span>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <span
-                                                            class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                                                            <span aria-hidden
-                                                                class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
-                                                        <span class="relative">11.00</span>
-                                                        </span>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">A</p>
-                                                    </td>
-                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                        <p class="text-gray-900 whitespace-no-wrap">LAB.09017</p>
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                            <p class="text-gray-900 whitespace-no-wrap"><%= row.namamk %></p>
+                                                        </td>
+                                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                            <p class="text-gray-900 whitespace-no-wrap"><%= row.idmk %></p>
+                                                        </td>
+                                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                            <p class="text-gray-900 whitespace-no-wrap">
+                                                                <%= row.hari %>
+                                                            </p>
+                                                        </td>
+                                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                            <span
+                                                                class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                                                <span aria-hidden
+                                                                    class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative"><%= formatTime(row.awal) %></span>
+                                                            </span>
+                                                        </td>
+                                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                            <span
+                                                                class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                                                <span aria-hidden
+                                                                    class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                                                            <span class="relative"><%= formatTime(row.akhir) %></span>
+                                                            </span>
+                                                        </td>
+                                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                            <p class="text-gray-900 whitespace-no-wrap"><%= row.idkelas %></p>
+                                                        </td>
+                                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                            <p class="text-gray-900 whitespace-no-wrap"><%= row.ruangkelas %></p>
+                                                        </td>
+                                                    </tr>
+                                                    <% i++ %>
+                                                <% } %>
+
+
+
+
                                             </tbody>
                                         </table>
                                     </div>
