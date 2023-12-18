@@ -1,4 +1,5 @@
 import express from 'express';
+import {db} from '../../database/database.js';
 
 
 const DashBoardRoute = express.Router();
@@ -17,7 +18,17 @@ PenugasanRoute.get('/', (req, res) => {
 });
 
 ListAsdosRoute.get('/', (req, res) => {
-    res.render('Koordinator/ListAsdos');
+    const query = "SELECT DISTINCT nama_calon, email, alumni from assigned INNER JOIN calon ON calon.id_calon = assigned.id_calon;";
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        console.log(result);
+        res.render('Koordinator/ListAsdos', { result: result });
+    });
 });
 
 JadwalRoute.get('/', (req, res) => {
