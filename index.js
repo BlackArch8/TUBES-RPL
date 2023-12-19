@@ -22,7 +22,6 @@ app.use(express.json());
 //connect database
 import { db } from "./database/database.js";
 
-
 app.use(
   session({
     secret: "kelompokf",
@@ -37,56 +36,6 @@ import { auth } from "./routes/auth.js";
 import { LoginRoute } from "./routes/Login.js";
 
 app.use("/", LoginRoute);
-app.post("/", (req, res) => {
-  const npm = req.body.Username;
-  const password = req.body.Password;
-
-  const koordinator = "SELECT * FROM koordinator WHERE id_koord = ? AND pw = ?";
-  const dosen = "SELECT * FROM dosen WHERE id_dosen = ? AND pw = ?";
-  const asdos = "SELECT * FROM calon WHERE id_calon = ? AND pw = ?";
-
-  db.query(koordinator, [npm, password], (err, result) => {
-    if (err) {
-      console.log(err);
-
-    }
-    if (result.length > 0) {
-      console.log(result);
-      req.session.nama = result[0].nama_koord;
-      req.session.npm = result[0].id_koord;
-      req.session.role = "koordinator";
-      res.redirect("/koordinator/dashboard");
-    } else {
-      db.query(dosen, [npm, password], (err, result) => {
-        if (err) {
-          console.log(err);
-        }
-        if (result.length > 0) {
-          req.session.nama = result[0].nama_dosen;
-          req.session.npm = npm;
-          req.session.role = "dosen";
-          res.redirect("Dosen/Dashboard-Dosen");
-          
-        }
-        else{
-          db.query(asdos, [npm, password], (err, result) => {
-            if (err) {
-              console.log(err);
-            }
-            if (result.length > 0) {
-              req.session.nama = result[0].nama_calon;
-              req.session.npm = npm;
-              req.session.role = "asdos";
-              res.redirect("/asdos/dashboard");
-            } else {
-              res.redirect("/");
-            }
-          });
-        }
-      });
-    }
-  });
-});
 
 //register routes
 import {
@@ -352,47 +301,22 @@ app.post("/register/matakuliah-alumni", async (req, res) => {
   await insertDataDiri();
   await insertNilai();
   await insertMatkul();
-
-
-
   res.redirect("/");
 });
 
 //koordinator routes
-import {
-  DashBoardRoute,
-  PenugasanRoute,
-
-  ListAsdosRoute,
-  JadwalRoute,
-  TambahMatkulRoute,
-  SettingRoute,
-} from "./routes/Koordinator/RouteKoordinator.js";
-
-app.use("/koordinator/dashboard", DashBoardRoute);
-// app.use("/koordinator/seleksi", SeleksiRoute);
-app.use("/koordinator/penugasan", PenugasanRoute);
-app.use("/koordinator/list-asdos", ListAsdosRoute);
-app.use("/koordinator/jadwal", JadwalRoute);
-app.use("/koordinator/tambah-matkul", TambahMatkulRoute);
-app.use("/koordinator/setting", SettingRoute);
-
+import {KoordinatorRoute} from "./routes/Koordinator/RouteKoordinator.js";
+app.use(KoordinatorRoute);
 
 //dosen routes
-import { DashBoardDosenRoute, JadwalDosenRoute, InputAsistenRoute, SettingDosenRoute} from "./routes/Dosen/RoutesDosen.js";
-
-app.use("/dosen/dashboard-dosen", DashBoardDosenRoute);
-app.use("/dosen/jadwal-dosen", JadwalDosenRoute);
-
-app.use("/dosen/input-asisten", InputAsistenRoute);
-app.use("/dosen/setting-dosen", SettingDosenRoute);
+import { DosenRoute} from "./routes/Dosen/RoutesDosen.js";
+app.use(DosenRoute);
 
 //asdos routes
-import { DashBoardAsdosRoute, JadwalAsdosRoute, SettingAsdosRoute } from "./routes/Asdos/RoutesAsdos.js";
+import { asdosRoute } from "./routes/Asdos/RoutesAsdos.js";
+app.use(asdosRoute);
 
-app.use("/asdos/dashboard", DashBoardAsdosRoute);
-app.use("/asdos/jadwal", JadwalAsdosRoute);
-app.use("/asdos/setting", SettingAsdosRoute);
+
 
 //logout
 app.get("/logout", (req, res) => {
@@ -464,33 +388,7 @@ app.post("/api/send", async (req, res) => {
   res.send("Email sent successfully");
 });
 
-//get data from database to client side using ajax
-app.get("/get-data/:idmk", (req, res) => {
-  const id = req.params.idmk;
-  const query = "SELECT requires FROM matkul WHERE idmk = ?";
-  db.query(query, [id], (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log(result);
-    res.json(result);
-  });
-});
 
-//update data to database
-app.post("/update-data/:idmk/:requires", (req, res) => {
-  const id = req.params.idmk;
-  const requires = req.params.requires;
-  const query = "UPDATE matkul SET requires = ? WHERE idmk = ?";
-  db.query(query, [requires, id], (err) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log("data berhasil diupdate");
-    
-    
-  });
-});
   
 
 app.listen(8080, () => {

@@ -11,29 +11,29 @@ const UploadJadwalMatkulAlumni = express.Router();
 
 
 RegisterRoute.get('/', (req, res) => {
-    res.render('Status');
+    res.render('register/Status');
 });
 
 DataDiriRoute.get('/', (req, res) => {
-    res.render('DataDiri');
+    res.render('register/DataDiri');
 });
 
 DataDiriAlumniRoute.get('/', (req, res) => {
-    res.render('DataDiriAlumni');
+    res.render('register/DataDiriAlumni');
 });
 
 UploadNilaiRoute.get('/', (req, res) => {
-    res.render('UploadNilai');
+    res.render('register/UploadNilai');
 });
 UploadNilaiAlumniRoute.get('/', (req, res) => {
-    res.render('UploadNilaiAlumni');
+    res.render('register/UploadNilaiAlumni');
 });
 
 UploadJadwalMatkul.get('/', (req, res) => {
-    res.render('Input Mata Kuliah');
+    res.render('register/InputMataKuliah');
 });
 UploadJadwalMatkulAlumni.get('/', (req, res) => {
-    res.render('Input Alumni');
+    res.render('register/InputAlumni');
 });
 
 export {RegisterRoute, DataDiriRoute, DataDiriAlumniRoute, UploadNilaiRoute, UploadNilaiAlumniRoute, UploadJadwalMatkul,UploadJadwalMatkulAlumni , RegisterRoute as default};

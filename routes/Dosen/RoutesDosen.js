@@ -2,20 +2,18 @@ import express from 'express';
 //import db
 import {db} from '../../database/database.js';
 
-//import session and auth
 import {app, auth} from '../../index.js';
 
-const DashBoardDosenRoute = express.Router();
-const JadwalDosenRoute = express.Router();
-const InputAsistenRoute = express.Router();
-const SettingDosenRoute = express.Router();
+const DosenRoute = express.Router();
 
-DashBoardDosenRoute.get('/', auth, (req, res) => {
+
+
+DosenRoute.get('/dosen/dashboard-dosen', auth, (req, res) => {
     const nama = req.session.nama;
     res.render('Dosen/Dashboard-Dosen', {nama: nama});
 });
 
-JadwalDosenRoute.get('/', auth, (req, res) => {
+DosenRoute.get('/dosen/jadwal-dosen', auth, (req, res) => {
     const query = "SELECT * FROM dosen INNER JOIN kelas ON dosen.idmk = kelas.idmk INNER JOIN matkul on kelas.idmk = matkul.idmk WHERE dosen.nama_dosen = ?;";
     const query2 = "SELECT a.idmk, k.idkelas, k.hari, c.nama_calon, k.awal,k.akhir FROM dosen AS d  INNER JOIN kelas AS k ON d.idmk = k.idmk  INNER JOIN matkul AS m on k.idmk = m.idmk  INNER JOIN assigned AS a ON a.idkelas = k.idkelas INNER JOIN calon AS c ON a.id_calon = c.id_calon WHERE d.nama_dosen = ?;";
     db.query(query, ["Pascal"], (err, result) => {
@@ -40,7 +38,7 @@ JadwalDosenRoute.get('/', auth, (req, res) => {
 });
 
 
-InputAsistenRoute.get('/',auth, (req, res) => {
+DosenRoute.get('/dosen/input-asisten',auth, (req, res) => {
     const query = "SELECT * FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk WHERE dosen.id_dosen = ?;";
     db.query(query, ["1231231232"], (err, result) => {
         if (err) {
@@ -56,10 +54,37 @@ InputAsistenRoute.get('/',auth, (req, res) => {
 
 });
 
-SettingDosenRoute.get('/',auth, (req, res) => {
+DosenRoute.get('/dosen/setting-dosen',auth, (req, res) => {
     const nama = req.session.nama;
     res.render('Dosen/Setting-Dosen', {nama: nama});
 });
+//get data from database to client side using ajax
+DosenRoute.get("/get-data/:idmk", (req, res) => {
+    const id = req.params.idmk;
+    const query = "SELECT requires FROM matkul WHERE idmk = ?";
+    db.query(query, [id], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+      res.json(result);
+    });
+  });
+  
+  //update data to database
+  DosenRoute.post("/update-data/:idmk/:requires", (req, res) => {
+    const id = req.params.idmk;
+    const requires = req.params.requires;
+    const query = "UPDATE matkul SET requires = ? WHERE idmk = ?";
+    db.query(query, [requires, id], (err) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("data berhasil diupdate");
+      
+      
+    });
+  });
 
 
-export {DashBoardDosenRoute, JadwalDosenRoute, InputAsistenRoute, SettingDosenRoute, DashBoardDosenRoute as default};
+export {DosenRoute, DosenRoute as default};
