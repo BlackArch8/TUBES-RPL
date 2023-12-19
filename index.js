@@ -21,6 +21,8 @@ app.use(express.json());
 
 //connect database
 import { db } from "./database/database.js";
+
+
 app.use(
   session({
     secret: "kelompokf",
@@ -29,14 +31,7 @@ app.use(
   })
 );
 
-// middleware
-const auth = (req, res, next) => {
-  if (req.session.npm) {
-    next();
-  } else {
-    res.redirect("/");
-  }
-};
+import { auth } from "./routes/auth.js";
 
 //login route
 import { LoginRoute } from "./routes/Login.js";
@@ -57,6 +52,7 @@ app.post("/", (req, res) => {
     }
     if (result.length > 0) {
       console.log(result);
+      req.session.nama = result[0].nama_koord;
       req.session.npm = result[0].id_koord;
       req.session.role = "koordinator";
       res.redirect("/koordinator/dashboard");
@@ -66,9 +62,11 @@ app.post("/", (req, res) => {
           console.log(err);
         }
         if (result.length > 0) {
+          req.session.nama = result[0].nama_dosen;
           req.session.npm = npm;
           req.session.role = "dosen";
           res.redirect("Dosen/Dashboard-Dosen");
+          
         }
         else{
           db.query(asdos, [npm, password], (err, result) => {
@@ -76,6 +74,7 @@ app.post("/", (req, res) => {
               console.log(err);
             }
             if (result.length > 0) {
+              req.session.nama = result[0].nama_calon;
               req.session.npm = npm;
               req.session.role = "asdos";
               res.redirect("/asdos/dashboard");
@@ -395,6 +394,11 @@ app.use("/asdos/dashboard", DashBoardAsdosRoute);
 app.use("/asdos/jadwal", JadwalAsdosRoute);
 app.use("/asdos/setting", SettingAsdosRoute);
 
+//logout
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect("/");
+});
 
 
 //uji email
@@ -492,3 +496,6 @@ app.post("/update-data/:idmk/:requires", (req, res) => {
 app.listen(8080, () => {
   console.log("Server started on port 8080");
 });
+
+
+export { app, auth };
