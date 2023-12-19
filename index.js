@@ -68,7 +68,7 @@ app.post("/", (req, res) => {
         if (result.length > 0) {
           req.session.npm = npm;
           req.session.role = "dosen";
-          res.redirect("/dosen/dashboard");
+          res.redirect("Dosen/Dashboard-Dosen");
         }
         else{
           db.query(asdos, [npm, password], (err, result) => {
@@ -384,6 +384,7 @@ import { DashBoardDosenRoute, JadwalDosenRoute, InputAsistenRoute, SettingDosenR
 
 app.use("/dosen/dashboard-dosen", DashBoardDosenRoute);
 app.use("/dosen/jadwal-dosen", JadwalDosenRoute);
+
 app.use("/dosen/input-asisten", InputAsistenRoute);
 app.use("/dosen/setting-dosen", SettingDosenRoute);
 
@@ -458,6 +459,35 @@ app.post("/api/send", async (req, res) => {
   send(emailData);
   res.send("Email sent successfully");
 });
+
+//get data from database to client side using ajax
+app.get("/get-data/:idmk", (req, res) => {
+  const id = req.params.idmk;
+  const query = "SELECT requires FROM matkul WHERE idmk = ?";
+  db.query(query, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(result);
+    res.json(result);
+  });
+});
+
+//update data to database
+app.post("/update-data/:idmk/:requires", (req, res) => {
+  const id = req.params.idmk;
+  const requires = req.params.requires;
+  const query = "UPDATE matkul SET requires = ? WHERE idmk = ?";
+  db.query(query, [requires, id], (err) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log("data berhasil diupdate");
+    
+    
+  });
+});
+  
 
 app.listen(8080, () => {
   console.log("Server started on port 8080");
