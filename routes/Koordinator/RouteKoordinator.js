@@ -14,11 +14,21 @@ DashBoardRoute.get('/', (req, res) => {
 });
 
 PenugasanRoute.get('/', (req, res) => {
-    res.render('Koordinator/Penugasan');
+    const query = "SELECT matkul.idmk AS id, namamk, requires, nama_dosen FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk WHERE requires IS NOT NULL;";
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        console.log(result);
+        res.render('Koordinator/Penugasan', { result: result });
+    });
 });
 
 ListAsdosRoute.get('/', (req, res) => {
-    const query = "SELECT DISTINCT nama_calon, email, alumni from assigned INNER JOIN calon ON calon.id_calon = assigned.id_calon;";
+    const query = "SELECT DISTINCT nama_calon, email, alumni, assigned.id_calon as assigned FROM calon left outer JOIN assigned ON calon.id_calon = assigned.id_calon;";
     db.query(query, (err, result) => {
         if (err) {
             console.error(err);
