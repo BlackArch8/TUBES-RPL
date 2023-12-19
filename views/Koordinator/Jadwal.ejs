@@ -14,6 +14,121 @@
                 <%- include('./header'); %>
                 <div class="flex flex-col ml-[50px] mt-[30px]">
                     <div class="text-[30px] text-gray-600 font-extrabold mb-[10px]">Jadwal</div>
+                    <div>
+                        <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[530px]" id="table-container">
+                            <div class="inline-block min-w-full rounded-lg  overflow-hidden">
+                                <table class="min-w-full leading-normal">
+                                    <thead class="">
+                                        <tr>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Mata Kuliah
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Dosen
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Kode
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Hari
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Kelas
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Jam dari:
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Jam sampai:
+                                            </th>
+                                            <th
+                                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                Asisten Dosen
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                    
+                                        <% function formatTime(time) { %>
+                                            <%= time < 10 ? '0' + time : time %>:00
+                                          <% } %>
+                                        <% for(const row of result) { %>
+                                            <tr class="">
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <div class="flex items-center">
+                                                            <div class="ml-3">
+                                                                <p class="text-gray-900 whitespace-no-wrap">
+                                                                    <%= row.namamk %>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <p class="text-gray-900 whitespace-no-wrap"><%= row.nama_dosen %></p>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <p class="text-gray-900 whitespace-no-wrap"><%= row.idmk %></p>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <p class="text-gray-900 whitespace-no-wrap">
+                                                        <%= row.hari %>
+                                                    </p>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <p class="text-gray-900 whitespace-no-wrap">
+                                                        <%= row.idkelas %>
+                                                    </p>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <span
+                                                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                                        <span aria-hidden
+                                                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                                    <span class="relative"><%= formatTime(row.awal) %>
+                                                    </span>
+                                                    </span>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <span
+                                                        class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                                        <span aria-hidden
+                                                            class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                                                    <span class="relative"><%= formatTime(row.akhir) %></span>
+                                                    </span>
+                                                </td>
+                                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                    <% let status = false %>
+                                                    <% for (const asisten of resultasisten) { %>
+                                                        <% if (asisten.idkelas === row.idkelas && asisten.hari === row.hari && asisten.awal === row.awal && asisten.idmk == row.idmk) { %>
+                                                             <% status = true %>
+                                                            <p class="text-gray-900 whitespace-no-wrap"><%= asisten.nama_calon %></p>
+                                                            
+                                                        <% } %>
+            
+                                                            
+                                                    <% } %>
+                                                    <% if (status === false) { %>
+                                                        <p class="text-gray-900 whitespace-no-wrap">-</p>
+                                                    <% } %>
+                                                </td>
+                                                
+                                            </tr>
+                                            <% } %>
+    
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
