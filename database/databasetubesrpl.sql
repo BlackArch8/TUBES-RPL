@@ -61,15 +61,17 @@ CREATE TABLE IF NOT EXISTS `dosen` (
   `id_dosen` varchar(10) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL,
   `nama_dosen` varchar(50) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL,
   `idmk` varchar(10) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL,
-  `pw` varchar(20) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL,
-  PRIMARY KEY (`id_dosen`)
+  `pw` varchar(20) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.dosen: ~3 rows (approximately)
+-- Dumping data for table tubes_rpl.dosen: ~6 rows (approximately)
 DELETE FROM `dosen`;
 INSERT INTO `dosen` (`id_dosen`, `nama_dosen`, `idmk`, `pw`) VALUES
 	('1231231231', 'Pascal', 'AIF182100', 'pascal'),
 	('1231231232', 'Hakim', 'AIF181100', 'hakims'),
+	('1231231232', 'Hakim', 'AIF182101', 'hakims'),
+	('1231231232', 'Hakim', 'AIF181101', 'hakims'),
+	('1231231232', 'Hakim', 'AIF182109', 'hakims'),
 	('1231231233', 'Reimon', 'AIF182204', 'rei');
 
 -- Dumping structure for table tubes_rpl.info
@@ -166,15 +168,16 @@ CREATE TABLE IF NOT EXISTS `matkul` (
   PRIMARY KEY (`idmk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.matkul: ~10 rows (approximately)
+-- Dumping data for table tubes_rpl.matkul: ~11 rows (approximately)
 DELETE FROM `matkul`;
 INSERT INTO `matkul` (`idmk`, `namamk`, `requires`) VALUES
 	('AIF181100', 'Dasar Pemrograman', 2),
+	('AIF181101', 'Pemodelan untuk Komputasi', NULL),
 	('AIF182100', 'Analisis dan Desain Perangkat Lunak', 2),
-	('AIF182101', 'Algoritma dan Struktur Data', 2),
+	('AIF182101', 'Algoritma dan Struktur Data', 3),
 	('AIF182103', 'Struktur Diskret', 2),
 	('AIF182105', 'Pemrograman Berorientasi Objek', 2),
-	('AIF182109', 'Statistika untuk Komputasi', 6),
+	('AIF182109', 'Statistika untuk Komputasi', NULL),
 	('AIF182204', 'Pemodelan Berbasis Web', 2),
 	('AIF182210', 'Pengantar Jaringan Komputer', NULL),
 	('AIF183153', 'Metode Numerik', NULL),

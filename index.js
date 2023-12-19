@@ -68,7 +68,7 @@ app.post("/", (req, res) => {
         if (result.length > 0) {
           req.session.npm = npm;
           req.session.role = "dosen";
-          res.redirect("/dosen/dashboard");
+          res.redirect("Dosen/Dashboard-Dosen");
         }
         else{
           db.query(asdos, [npm, password], (err, result) => {
