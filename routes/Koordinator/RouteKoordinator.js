@@ -15,12 +15,9 @@ DashBoardRoute.get('/',auth, (req, res) => {
     res.render('Koordinator/Dashboard', {nama: nama});
 });
 
-PenugasanRoute.get('/', auth, (req, res) => {
-    res.render('Koordinator/Penugasan');
-});
 
-ListAsdosRoute.get('/', auth, (req, res) => {
-    const query = "SELECT DISTINCT nama_calon, email, alumni from assigned INNER JOIN calon ON calon.id_calon = assigned.id_calon;";
+PenugasanRoute.get('/',auth, (req, res) => {
+    const query = "SELECT matkul.idmk AS id, namamk, requires, nama_dosen FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk WHERE requires IS NOT NULL;";
     db.query(query, (err, result) => {
         if (err) {
             console.error(err);
@@ -29,7 +26,23 @@ ListAsdosRoute.get('/', auth, (req, res) => {
         }
 
         console.log(result);
-        res.render('Koordinator/ListAsdos', { result: result });
+        const nama = req.session.nama;
+        res.render('Koordinator/Penugasan', { result: result , nama: nama});
+    });
+});
+
+ListAsdosRoute.get('/', auth, (req, res) => {
+    const query = "SELECT DISTINCT nama_calon, email, alumni, assigned.id_calon as assigned FROM calon left outer JOIN assigned ON calon.id_calon = assigned.id_calon;";
+    db.query(query, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        console.log(result);
+        const nama = req.session.nama;
+        res.render('Koordinator/ListAsdos', { result: result, nama: nama });
     });
 });
 
@@ -49,7 +62,8 @@ JadwalRoute.get('/', auth, (req, res) => {
                 return;
             }
             console.log(result2);
-            res.render('Koordinator/Jadwal', { result: result, resultasisten: result2 });
+            const nama = req.session.nama;
+            res.render('Koordinator/Jadwal', { result: result, resultasisten: result2, nama: nama });
         });
 
         
@@ -57,11 +71,13 @@ JadwalRoute.get('/', auth, (req, res) => {
 });
 
 TambahMatkulRoute.get('/',auth, (req, res) => {
-    res.render('Koordinator/TambahMatkul');
+    const nama = req.session.nama;
+    res.render('Koordinator/TambahMatkul', {nama: nama});
 });
 
 SettingRoute.get('/',auth, (req, res) => {
-    res.render('Koordinator/Setting');
+    const nama = req.session.nama;
+    res.render('Koordinator/Setting', {nama: nama});
 });
 
 

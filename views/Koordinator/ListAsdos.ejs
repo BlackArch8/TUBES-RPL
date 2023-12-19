@@ -48,9 +48,16 @@
                                                 </div>
                                             </div>
                                             <div class="flex">
-                                                <button type="button"
-                                                    class="bg-green-400 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-green-500"
-                                                    id="assign-btn">ASSIGNED</button>
+                                                <% if (row.assigned===null) { %>
+                                                    <button type="button"
+                                                        class="bg-red-700 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600"
+                                                        id="assign-btn">UNASSIGNED</button>
+                                                    <% } else{ %>
+                                                        <button type="button"
+                                                            class="bg-green-400 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-green-500"
+                                                            id="assign-btn">ASSIGNED</button>
+                                                        <% } %>
+
                                             </div>
                                         </div>
                                         <% } %>
