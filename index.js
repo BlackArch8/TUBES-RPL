@@ -460,6 +460,35 @@ app.post("/api/send", async (req, res) => {
   res.send("Email sent successfully");
 });
 
+//get data from database to client side using ajax
+app.get("/get-data/:idmk", (req, res) => {
+  const id = req.params.idmk;
+  const query = "SELECT requires FROM matkul WHERE idmk = ?";
+  db.query(query, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(result);
+    res.json(result);
+  });
+});
+
+//update data to database
+app.post("/update-data/:idmk/:requires", (req, res) => {
+  const id = req.params.idmk;
+  const requires = req.params.requires;
+  const query = "UPDATE matkul SET requires = ? WHERE idmk = ?";
+  db.query(query, [requires, id], (err) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log("data berhasil diupdate");
+    
+    
+  });
+});
+  
+
 app.listen(8080, () => {
   console.log("Server started on port 8080");
 });
