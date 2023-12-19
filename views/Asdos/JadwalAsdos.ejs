@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Jadwal</title>
+        <link rel="stylesheet" href="/public/css/output.css" />
+    </head>
+    <body class="bg-gray-200">
+        <div class="flex flex-row font-inter">
+            <%- include('./NavBarAsdos'); %>
+            <div class="flex flex-col w-full h-full">
+                <%- include('./HeaderAsdos'); %>
+                <div class="flex flex-col mt-[30px]">
+                    <div class="px-[50px] rounded-md w-full">
+                        <div class=" flex items-center justify-between ">
+                            <link rel="dns-prefetch" href="//unpkg.com" />
+                        <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+                        <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
+                        <link rel="stylesheet" href="/public/css/output.css"/>
+                        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+                        
+                        <style>
+                            [x-cloak] {
+                                display: none;
+                            }
+                        </style>
+                            
+                            <div class="mb-[20px]">
+                                <h2 class="text-gray-600 text-[30px] font-bold">Jadwal Mata Kuliah</h2>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex  items-center p-2 rounded-md">
+                              </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[530px]" id="table-container">
+                                    <div class="inline-block min-w-full rounded-lg  overflow-hidden">
+                                        <table class="min-w-full leading-normal">
+                                            <thead class="">
+                                                <tr>
+                                                    <th
+                                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                        No.
+                                                    </th>
+                                                    <th
+                                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                        Nama Mata Kuliah
+                                                    </th>
+                                                    <th
+                                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                        Kode Mata Kuliah
+                                                    </th>
+                                                    <th
+                                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                        Hari
+                                                    </th>
+                                                    <th
+                                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                        Jam dari:
+                                                    </th>
+                                                    <th
+                                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                        Jam sampai:
+                                                    </th>
+                                                    <th
+                                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                        Kelas
+                                                    </th>
+                                                    <th
+                                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                                        Ruang Kelas
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <div class="flex items-center">
+                                                                <div class="ml-3">
+                                                                    <p class="text-gray-900 whitespace-no-wrap">
+                                                                        1.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                    </td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <p class="text-gray-900 whitespace-no-wrap">Rekayasa Perangkat Lunak</p>
+                                                    </td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <p class="text-gray-900 whitespace-no-wrap">AIF233101</p>
+                                                    </td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <p class="text-gray-900 whitespace-no-wrap">
+                                                            Senin
+                                                        </p>
+                                                    </td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <span
+                                                            class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                                            <span aria-hidden
+                                                                class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                                                        <span class="relative">09.00</span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <span
+                                                            class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
+                                                            <span aria-hidden
+                                                                class="absolute inset-0 bg-red-200 opacity-50 rounded-full"></span>
+                                                        <span class="relative">11.00</span>
+                                                        </span>
+                                                    </td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <p class="text-gray-900 whitespace-no-wrap">A</p>
+                                                    </td>
+                                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                                        <p class="text-gray-900 whitespace-no-wrap">LAB.09017</p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
