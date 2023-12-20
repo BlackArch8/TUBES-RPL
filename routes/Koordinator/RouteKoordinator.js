@@ -1,19 +1,17 @@
 import express from 'express';
 import {db} from '../../database/database.js';
 
+import {app, auth} from '../../index.js';
 
-const DashBoardRoute = express.Router();
-const PenugasanRoute = express.Router();
-const ListAsdosRoute = express.Router();
-const JadwalRoute = express.Router();
-const TambahMatkulRoute = express.Router();
-const SettingRoute = express.Router();
+const KoordinatorRoute = express.Router();
 
-DashBoardRoute.get('/', (req, res) => {
-    res.render('Koordinator/Dashboard');
+KoordinatorRoute.get('/koordinator/dashboard',auth, (req, res) => {
+    const nama = req.session.nama;
+    res.render('Koordinator/Dashboard', {nama: nama});
 });
 
-PenugasanRoute.get('/', (req, res) => {
+
+KoordinatorRoute.get('/koordinator/penugasan',auth, (req, res) => {
     const query = "SELECT matkul.idmk AS id, namamk, requires, nama_dosen FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk WHERE requires IS NOT NULL;";
     db.query(query, (err, result) => {
         if (err) {
@@ -23,11 +21,12 @@ PenugasanRoute.get('/', (req, res) => {
         }
 
         console.log(result);
-        res.render('Koordinator/Penugasan', { result: result });
+        const nama = req.session.nama;
+        res.render('Koordinator/Penugasan', { result: result , nama: nama});
     });
 });
 
-ListAsdosRoute.get('/', (req, res) => {
+KoordinatorRoute.get('/koordinator/list-asdos', auth, (req, res) => {
     const query = "SELECT DISTINCT nama_calon, email, alumni, assigned.id_calon as assigned FROM calon left outer JOIN assigned ON calon.id_calon = assigned.id_calon;";
     db.query(query, (err, result) => {
         if (err) {
@@ -37,11 +36,12 @@ ListAsdosRoute.get('/', (req, res) => {
         }
 
         console.log(result);
-        res.render('Koordinator/ListAsdos', { result: result });
+        const nama = req.session.nama;
+        res.render('Koordinator/ListAsdos', { result: result, nama: nama });
     });
 });
 
-JadwalRoute.get('/', (req, res) => {
+KoordinatorRoute.get('/koordinator/jadwal', auth, (req, res) => {
     const query = "SELECT * FROM dosen INNER JOIN kelas ON dosen.idmk = kelas.idmk INNER JOIN matkul on kelas.idmk = matkul.idmk;";
     const query2 = "SELECT a.idmk, k.idkelas, k.hari, c.nama_calon, k.awal,k.akhir FROM dosen AS d  INNER JOIN kelas AS k ON d.idmk = k.idmk  INNER JOIN matkul AS m on k.idmk = m.idmk  INNER JOIN assigned AS a ON a.idkelas = k.idkelas INNER JOIN calon AS c ON a.id_calon = c.id_calon;";
     db.query(query, (err, result) => {
@@ -57,20 +57,23 @@ JadwalRoute.get('/', (req, res) => {
                 return;
             }
             console.log(result2);
-            res.render('Koordinator/Jadwal', { result: result, resultasisten: result2 });
+            const nama = req.session.nama;
+            res.render('Koordinator/Jadwal', { result: result, resultasisten: result2, nama: nama });
         });
 
         
     });
 });
 
-TambahMatkulRoute.get('/', (req, res) => {
-    res.render('Koordinator/TambahMatkul');
+KoordinatorRoute.get('/koordinator/tambah-matkul',auth, (req, res) => {
+    const nama = req.session.nama;
+    res.render('Koordinator/TambahMatkul', {nama: nama});
 });
 
-SettingRoute.get('/', (req, res) => {
-    res.render('Koordinator/Setting');
+KoordinatorRoute.get('/koordinator/setting',auth, (req, res) => {
+    const nama = req.session.nama;
+    res.render('Koordinator/Setting', {nama: nama});
 });
 
 
-export {DashBoardRoute, PenugasanRoute, ListAsdosRoute, JadwalRoute, TambahMatkulRoute, SettingRoute, DashBoardRoute as default};
+export {KoordinatorRoute, KoordinatorRoute as default};
