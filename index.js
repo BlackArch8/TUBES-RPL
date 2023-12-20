@@ -102,31 +102,31 @@ console.log(password);
 
 app.use(express.json());
 
-app.post("/api/send", async (req, res) => {
-  const { to, subject, text } = req.body;
+// app.post("/api/send", async (req, res) => {
+//   const { to, subject, text } = req.body;
 
-  const emailData = {
-    from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
-    to: to || `${data_diri[data_diri.length - 1].email}`,
-    subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN",
-    text:
-      text ||
-      `Berikut kami sampaikan username dan password untuk login sebagai asisten dosen: \n \n Username: ${
-        data_diri[data_diri.length - 1].npm
-      } \n Password: ${password} \n \n Terima kasih.`,
-  };
+//   const emailData = {
+//     from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
+//     to: to || `${data_diri[data_diri.length - 1].email}`,
+//     subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN",
+//     text:
+//       text ||
+//       `Berikut kami sampaikan username dan password untuk login sebagai asisten dosen: \n \n Username: ${
+//         data_diri[data_diri.length - 1].npm
+//       } \n Password: ${password} \n \n Terima kasih.`,
+//   };
 
-  const query = "UPDATE `calon` SET `pw` = ? WHERE `id_calon` = ?";
-  db.query(query, [password, data_diri[data_diri.length - 1].npm], (err) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log("password berhasil diupdate");
-  });
+//   const query = "UPDATE `calon` SET `pw` = ? WHERE `id_calon` = ?";
+//   db.query(query, [password, data_diri[data_diri.length - 1].npm], (err) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//     console.log("password berhasil diupdate");
+//   });
 
-  send(emailData);
-  res.send("Email sent successfully");
-});
+//   send(emailData);
+//   res.send("Email sent successfully");
+// });
 
 
   
