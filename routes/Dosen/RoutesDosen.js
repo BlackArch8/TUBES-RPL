@@ -39,7 +39,7 @@ DosenRoute.get('/dosen/jadwal-dosen', auth, (req, res) => {
 
 
 DosenRoute.get('/dosen/input-asisten',auth, (req, res) => {
-    const query = "SELECT * FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk WHERE dosen.id_dosen = ?;";
+    const query = "SELECT namamk, idkelas, requires FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk INNER JOIN kelas ON matkul.idmk = kelas.idmk WHERE dosen.id_dosen = '1231231232';";
     db.query(query, ["1231231232"], (err, result) => {
         if (err) {
             console.error(err);
