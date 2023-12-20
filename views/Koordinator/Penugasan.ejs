@@ -30,6 +30,21 @@
                                         <button type="button" class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600" id="assign-btn">Assign</button>
                                     </div>  
                                 </div>
+                                <% for(const row of result) { %>
+                                    <div class="flex w-[1180px] h-[100px] mb-[5px] items-center border border-gray-400 bg-white rounded-md">
+                                        <div class="flex-grow">
+                                            <div class="flex flex-col justify-center ml-[30px]">
+                                                <div class="text-[20px] text-black font-semibold"><%= row.namamk %></div>
+                                                <div class="text-[10px] text-[#808080]"><%= row.id %></div>
+                                                <div class="text-[10px] text-[#808080]"><%= row.nama_dosen %></div>
+                                                <div class="text-[10px] text-red-600"><%= row.requires %> Asisten Dosen</div>
+                                            </div>
+                                        </div>
+                                        <div class="flex">
+                                            <button type="button" class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600" id="assign-btn">Assign</button>
+                                        </div>  
+                                    </div>
+                                    <% } %>
                             </div>
                         </div>
                     </div>
