@@ -2,16 +2,17 @@ import express from 'express';
 //import db
 import {db} from '../../database/database.js';
 
+import {app, auth} from '../../index.js';
 
-const DashBoardAsdosRoute = express.Router();
-const JadwalAsdosRoute = express.Router();
-const SettingAsdosRoute = express.Router();
+const asdosRoute = express.Router();
 
-DashBoardAsdosRoute.get('/', (req, res) => {
-    res.render('Asdos/DashboardAsdos');
+
+asdosRoute.get('/asdos/dashboard',auth, (req, res) => {
+    const nama = req.session.nama;
+    res.render('Asdos/DashboardAsdos', {nama: nama});
 });
 
-JadwalAsdosRoute.get('/', (req, res) => {
+asdosRoute.get('/asdos/jadwal',auth, (req, res) => {
     const query = "SELECT m.namamk, m.idmk, k.hari, k.awal, k.akhir, k.idkelas, k.ruangkelas FROM calon AS c INNER JOIN assigned AS a ON c.id_calon = a.id_calon INNER JOIN matkul AS m ON a.idmk = m.idmk INNER JOIN kelas AS k ON m.idmk = k.idmk WHERE a.id_calon = '6182001001' AND k.idkelas = a.idkelas;";
     db.query(query, (err, result) => {
         if (err) {
@@ -21,13 +22,17 @@ JadwalAsdosRoute.get('/', (req, res) => {
         }
 
         console.log(result);
-        res.render('Asdos/JadwalAsdos', { result: result });
+        const nama = req.session.nama;
+        res.render('Asdos/JadwalAsdos', { result: result, nama: nama });
     });
 });
 
-SettingAsdosRoute.get('/', (req, res) => {
-    res.render('Asdos/SettingAsdos');
+asdosRoute.get('/asdos/setting',auth, (req, res) => {
+    const nama = req.session.nama;
+    res.render('Asdos/SettingAsdos', {nama: nama});
 });
 
 
-export {DashBoardAsdosRoute, JadwalAsdosRoute, SettingAsdosRoute, DashBoardAsdosRoute as default};
+
+
+export {asdosRoute,asdosRoute as default};
