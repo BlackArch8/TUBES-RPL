@@ -39,7 +39,7 @@ DosenRoute.get('/dosen/jadwal-dosen', auth, (req, res) => {
 
 
 DosenRoute.get('/dosen/input-asisten',auth, (req, res) => {
-    const query = "SELECT namamk, idkelas, requires FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk INNER JOIN kelas ON matkul.idmk = kelas.idmk WHERE dosen.id_dosen = '1231231232';";
+    const query = "SELECT matkul.idmk, namamk, idkelas, requires FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk INNER JOIN kelas ON matkul.idmk = kelas.idmk WHERE dosen.id_dosen = '1231231232';";
     db.query(query, ["1231231232"], (err, result) => {
         if (err) {
             console.error(err);
@@ -59,10 +59,11 @@ DosenRoute.get('/dosen/setting-dosen',auth, (req, res) => {
     res.render('Dosen/Setting-Dosen', {nama: nama});
 });
 //get data from database to client side using ajax
-DosenRoute.get("/get-data/:idmk", (req, res) => {
+DosenRoute.get("/get-data/:idmk/:idkelas", (req, res) => {
     const id = req.params.idmk;
-    const query = "SELECT requires FROM matkul WHERE idmk = ?";
-    db.query(query, [id], (err, result) => {
+    const idkelas = req.params.idkelas;
+    const query = "SELECT requires FROM matkul inner join kelas on matkul.idmk = kelas.idmk WHERE kelas.idmk = ? and kelas.idkelas = ?";
+    db.query(query, [id,idkelas], (err, result) => {
       if (err) {
         console.log(err);
       }
@@ -72,11 +73,12 @@ DosenRoute.get("/get-data/:idmk", (req, res) => {
   });
   
   //update data to database
-  DosenRoute.post("/update-data/:idmk/:requires", (req, res) => {
+  DosenRoute.post("/update-data/:idmk/:requires/:idkelas", (req, res) => {
     const id = req.params.idmk;
     const requires = req.params.requires;
-    const query = "UPDATE matkul SET requires = ? WHERE idmk = ?";
-    db.query(query, [requires, id], (err) => {
+    const kelas = req.params.idkelas;
+    const query = "UPDATE kelas SET requires = ? WHERE idmk = ? and idkelas = ?";
+    db.query(query, [requires, id, kelas], (err) => {
       if (err) {
         console.log(err);
       }

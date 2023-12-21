@@ -48,11 +48,12 @@ CREATE TABLE IF NOT EXISTS `calon` (
   PRIMARY KEY (`id_calon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.calon: ~3 rows (approximately)
+-- Dumping data for table tubes_rpl.calon: ~4 rows (approximately)
 DELETE FROM `calon`;
 INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`, `pw`) VALUES
 	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1, NULL),
 	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0, NULL),
+	('3333333333', 'GUGUN', 'gugus@gmail.com', 3, 0, NULL),
 	('6182001001', 'Jenson Mark Lowell', 'bestibego@gmail.com', 3, 1, NULL);
 
 -- Dumping structure for table tubes_rpl.dosen
@@ -114,35 +115,36 @@ CREATE TABLE IF NOT EXISTS `kelas` (
   `awal` int NOT NULL,
   `akhir` int NOT NULL,
   `idmk` varchar(10) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL,
-  `ruangkelas` varchar(10) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL
+  `ruangkelas` varchar(10) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL,
+  `requires` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
 -- Dumping data for table tubes_rpl.kelas: ~23 rows (approximately)
 DELETE FROM `kelas`;
-INSERT INTO `kelas` (`idkelas`, `hari`, `awal`, `akhir`, `idmk`, `ruangkelas`) VALUES
-	('A', 'Senin', 12, 14, 'AIF181100', 'Ruang 9015'),
-	('B', 'Senin', 14, 16, 'AIF181100', 'Ruang 9016'),
-	('A', 'Rabu', 10, 12, 'AIF182100', 'Ruang 9017'),
-	('B', 'Rabu', 8, 10, 'AIF182100', 'Ruang 9018'),
-	('A', 'Selasa', 8, 10, 'AIF182204', 'Ruang 9015'),
-	('B', 'Selasa', 8, 10, 'AIF182204', 'Ruang 9016'),
-	('A', 'Selasa', 7, 9, 'AIF182109', 'Ruang 9017'),
-	('B', 'Selasa', 9, 11, 'AIF182109', 'Ruang 9018'),
-	('A', 'Jumat', 9, 11, 'AIF184005', 'Ruang 9015'),
-	('B', 'Jumat', 13, 15, 'AIF184005', 'Ruang 9016'),
-	('A', 'Senin', 7, 9, 'AIF182103', 'Ruang 9017'),
-	('B', 'Senin', 14, 16, 'AIF182103', 'Ruang 9018'),
-	('A', 'Rabu', 13, 16, 'AIF182101', 'Ruang 9015'),
-	('B', 'Rabu', 13, 16, 'AIF182101', 'Ruang 9016'),
-	('A', 'Selasa', 13, 15, 'AIF183153', 'Ruang 9017'),
-	('A', 'Jumat', 7, 10, 'AIF182210', 'Ruang 9018'),
-	('B', 'Jumat', 14, 17, 'AIF182210', 'Ruang 9015'),
-	('A', 'Senin', 7, 9, 'AIF182105', 'Ruang 9016'),
-	('B', 'Senin', 9, 11, 'AIF182105', 'Ruang 9017'),
-	('A', 'Rabu', 13, 15, 'AIF182105', 'Ruang 9018'),
-	('B', 'Rabu', 13, 15, 'AIF182105', 'Ruang 9015'),
-	('A', 'Jumat', 9, 11, 'AIF182105', 'Ruang 9016'),
-	('B', 'Jumat', 13, 15, 'AIF182105', 'Ruang 9017');
+INSERT INTO `kelas` (`idkelas`, `hari`, `awal`, `akhir`, `idmk`, `ruangkelas`, `requires`) VALUES
+	('A', 'Senin', 12, 14, 'AIF181100', 'Ruang 9015', 2),
+	('B', 'Senin', 14, 16, 'AIF181100', 'Ruang 9016', 2),
+	('A', 'Rabu', 10, 12, 'AIF182100', 'Ruang 9017', 1),
+	('B', 'Rabu', 8, 10, 'AIF182100', 'Ruang 9018', 1),
+	('A', 'Selasa', 8, 10, 'AIF182204', 'Ruang 9015', 2),
+	('B', 'Selasa', 8, 10, 'AIF182204', 'Ruang 9016', 2),
+	('A', 'Selasa', 7, 9, 'AIF182109', 'Ruang 9017', NULL),
+	('B', 'Selasa', 9, 11, 'AIF182109', 'Ruang 9018', NULL),
+	('A', 'Jumat', 9, 11, 'AIF184005', 'Ruang 9015', NULL),
+	('B', 'Jumat', 13, 15, 'AIF184005', 'Ruang 9016', NULL),
+	('A', 'Senin', 7, 9, 'AIF182103', 'Ruang 9017', NULL),
+	('B', 'Senin', 14, 16, 'AIF182103', 'Ruang 9018', NULL),
+	('A', 'Rabu', 13, 16, 'AIF182101', 'Ruang 9015', 2),
+	('B', 'Rabu', 13, 16, 'AIF182101', 'Ruang 9016', 2),
+	('A', 'Selasa', 13, 15, 'AIF183153', 'Ruang 9017', 1),
+	('A', 'Jumat', 7, 10, 'AIF182210', 'Ruang 9018', NULL),
+	('B', 'Jumat', 14, 17, 'AIF182210', 'Ruang 9015', NULL),
+	('A', 'Senin', 7, 9, 'AIF182105', 'Ruang 9016', NULL),
+	('B', 'Senin', 9, 11, 'AIF182105', 'Ruang 9017', NULL),
+	('A', 'Rabu', 13, 15, 'AIF182105', 'Ruang 9018', 2),
+	('B', 'Rabu', 13, 15, 'AIF182105', 'Ruang 9015', 2),
+	('A', 'Jumat', 9, 11, 'AIF182105', 'Ruang 9016', NULL),
+	('B', 'Jumat', 13, 15, 'AIF182105', 'Ruang 9017', NULL);
 
 -- Dumping structure for table tubes_rpl.koordinator
 DROP TABLE IF EXISTS `koordinator`;
@@ -164,24 +166,23 @@ DROP TABLE IF EXISTS `matkul`;
 CREATE TABLE IF NOT EXISTS `matkul` (
   `idmk` varchar(10) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL,
   `namamk` varchar(50) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL,
-  `requires` int DEFAULT NULL,
   PRIMARY KEY (`idmk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
 -- Dumping data for table tubes_rpl.matkul: ~11 rows (approximately)
 DELETE FROM `matkul`;
-INSERT INTO `matkul` (`idmk`, `namamk`, `requires`) VALUES
-	('AIF181100', 'Dasar Pemrograman', 2),
-	('AIF181101', 'Pemodelan untuk Komputasi', NULL),
-	('AIF182100', 'Analisis dan Desain Perangkat Lunak', 2),
-	('AIF182101', 'Algoritma dan Struktur Data', 3),
-	('AIF182103', 'Struktur Diskret', 2),
-	('AIF182105', 'Pemrograman Berorientasi Objek', 2),
-	('AIF182109', 'Statistika untuk Komputasi', NULL),
-	('AIF182204', 'Pemodelan Berbasis Web', 2),
-	('AIF182210', 'Pengantar Jaringan Komputer', NULL),
-	('AIF183153', 'Metode Numerik', NULL),
-	('AIF184005', 'Komputer dan Masyarakat', NULL);
+INSERT INTO `matkul` (`idmk`, `namamk`) VALUES
+	('AIF181100', 'Dasar Pemrograman'),
+	('AIF181101', 'Pemodelan untuk Komputasi'),
+	('AIF182100', 'Analisis dan Desain Perangkat Lunak'),
+	('AIF182101', 'Algoritma dan Struktur Data'),
+	('AIF182103', 'Struktur Diskret'),
+	('AIF182105', 'Pemrograman Berorientasi Objek'),
+	('AIF182109', 'Statistika untuk Komputasi'),
+	('AIF182204', 'Pemodelan Berbasis Web'),
+	('AIF182210', 'Pengantar Jaringan Komputer'),
+	('AIF183153', 'Metode Numerik'),
+	('AIF184005', 'Komputer dan Masyarakat');
 
 -- Dumping structure for table tubes_rpl.nilai
 DROP TABLE IF EXISTS `nilai`;
@@ -194,9 +195,9 @@ CREATE TABLE IF NOT EXISTS `nilai` (
 -- Dumping data for table tubes_rpl.nilai: ~3 rows (approximately)
 DELETE FROM `nilai`;
 INSERT INTO `nilai` (`id_calon`, `idmk`, `nilai`) VALUES
-	('1111111111', 'AIF181100', 'B'),
+	('1111111111', 'AIF181100', 'B-'),
 	('1111111111', 'AIF182100', 'A'),
-	('1111111111', 'AIF181100', 'D');
+	('1111111111', 'AIF184005', 'B+');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

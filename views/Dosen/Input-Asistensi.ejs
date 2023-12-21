@@ -59,6 +59,7 @@
                             type="button"
                             class="text-blue-500 hover:text-blue-700"
                             data-id="<%= row.idmk %>"
+                            data-idkelas = "<%= row.idkelas %>"
                             onclick="openEditModal(this)"
                           >
                             <i class="fas fa-edit"></i>
@@ -121,10 +122,14 @@
     <script>
        
       let idmk = 0; 
+      let idkelas = "";
       function openEditModal(button) {
         // Get the data-id attribute to identify the row
         const rowId = button.getAttribute("data-id");
+        const rowIdkelas = button.getAttribute("data-idkelas");
+
         idmk = rowId;
+        idkelas = rowIdkelas;
 
         // Fetch the data from the server
         fetchdatasisten(rowId).then((data) => {
@@ -153,7 +158,7 @@
       
       function fetchdatasisten(idmk) {
       
-      return fetch(`/get-data/${idmk}`)
+      return fetch(`/get-data/${idmk}/${idkelas}`)
         .then((response) => response.json())
         .then((data) => {
           return data;
@@ -187,7 +192,7 @@
         location.reload();
 
 
-        return fetch(`/update-data/${idmk}/${data}`,{
+        return fetch(`/update-data/${idmk}/${data}/${idkelas}`,{
             method: "POST",
             headers: {
             "Content-Type": "application/json",
