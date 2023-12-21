@@ -303,10 +303,10 @@ RegisterRoute.post("/register/matakuliah-alumni", async (req, res) => {
   await insertDataDiri();
   await insertNilai();
   await insertMatkul();
-  //set timeout 3 detik
+  //set timeout 1 detik
   setTimeout(() => {
     res.redirect("/");
-  }, 3000);
+  }, 1000);
 });
 
 export {RegisterRoute ,RegisterRoute as default};
