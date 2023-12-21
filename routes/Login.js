@@ -5,8 +5,9 @@ import db from '../database/database.js';
 const LoginRoute = express.Router();
 //routing login
 LoginRoute.get('/', (req, res) => {
-    res.render('Login');
+  res.render('Login', { errorMessage: '' }); // error message
 });
+
 LoginRoute.post("/", (req, res) => {
     const npm = req.body.Username;
     const password = req.body.Password;
@@ -14,6 +15,10 @@ LoginRoute.post("/", (req, res) => {
     const koordinator = "SELECT * FROM koordinator WHERE id_koord = ? AND pw = ?";
     const dosen = "SELECT * FROM dosen WHERE id_dosen = ? AND pw = ?";
     const asdos = "SELECT * FROM calon WHERE id_calon = ? AND pw = ?";
+
+    if (!npm || !password) {
+      return res.render('Login', { errorMessage: 'Username or password cannot be empty.' });
+  }
   
     db.query(koordinator, [npm, password], (err, result) => {
       if (err) {
@@ -49,7 +54,7 @@ LoginRoute.post("/", (req, res) => {
                 req.session.role = "asdos";
                 res.redirect("/asdos/dashboard");
               } else {
-                res.redirect("/");
+                return res.render('Login', { errorMessage: 'Invalid username or password.' });
               }
             });
           }

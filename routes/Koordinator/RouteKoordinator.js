@@ -12,7 +12,7 @@ KoordinatorRoute.get('/koordinator/dashboard',auth, (req, res) => {
 
 
 KoordinatorRoute.get('/koordinator/penugasan',auth, (req, res) => {
-    const query = "SELECT matkul.idmk AS id, namamk, requires, nama_dosen FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk WHERE requires IS NOT NULL;";
+    const query = "SELECT matkul.idmk AS id, idkelas, namamk, requires, nama_dosen FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk inner join kelas on matkul.idmk = kelas.idmk WHERE requires IS NOT NULL;";
     db.query(query, (err, result) => {
         if (err) {
             console.error(err);
@@ -64,6 +64,23 @@ KoordinatorRoute.get('/koordinator/jadwal', auth, (req, res) => {
         
     });
 });
+
+KoordinatorRoute.get("/get-kelas/:idmk/:idkelas", (req, res) => {
+    const id = req.params.idmk;
+    const idkelas = req.params.idkelas;
+    console.log(idkelas);
+    console.log(id);
+
+    const query = "SELECT matkul.idmk, nama_dosen, namamk, hari, awal, akhir from matkul inner join kelas on matkul.idmk = kelas.idmk inner join dosen on dosen.idmk = matkul.idmk WHERE kelas.idmk = ? and kelas.idkelas = ?;";
+    db.query(query, [id,idkelas], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+
+      res.json(result);
+    });
+  });
 
 KoordinatorRoute.get('/koordinator/tambah-matkul',auth, (req, res) => {
     const nama = req.session.nama;
