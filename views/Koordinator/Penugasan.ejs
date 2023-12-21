@@ -1,55 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Penugasan</title>
-        <link rel="stylesheet" href="/public/css/output.css" />
-    </head>
-    <body class="bg-gray-200">
-        <div class="flex flex-row font-inter">
-            <%- include('./NavBar'); %>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Penugasan</title>
+    <link rel="stylesheet" href="/public/css/output.css" />
+</head>
+
+<body class="bg-gray-200">
+    <div id="mainOverlay" class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"></div>
+    <div class="flex flex-row font-inter">
+        <%- include('./NavBar'); %>
             <div class="flex flex-col w-full h-full">
                 <%- include('./header'); %>
-                <div class="flex flex-col ml-[50px] mt-[30px] font-poppins">
-                    <div class="text-[30px] text-gray-600 font-extrabold mb-[10px]">Penugasan Asisten Dosen</div>
-                    <div class="flex flex-row gap-[50px]">
-                        <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[530px] gap-[5px]">
-                            <div class="overflow-hidden">
-                                <div class="flex w-[1180px] h-[100px] mb-[5px] items-center border border-gray-400 bg-white rounded-md">
-                                    <div class="flex-grow">
-                                        <div class="flex flex-col justify-center ml-[30px]">
-                                            <div class="text-[20px] text-black font-semibold">Rekayasa Perangkat Lunak</div>
-                                            <div class="text-[10px] text-[#808080]">AIF231190</div>
-                                            <div class="text-[10px] text-[#808080]">Pascal Alfaidan</div>
-                                            <div class="text-[10px] text-red-600">4 Asisten Dosen</div>
-                                        </div>
-                                    </div>
-                                    <div class="flex">
-                                        <button type="button" class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600" id="assign-btn">Assign</button>
-                                    </div>  
-                                </div>
-                                <% for(const row of result) { %>
-                                    <div class="flex w-[1180px] h-[100px] mb-[5px] items-center border border-gray-400 bg-white rounded-md">
-                                        <div class="flex-grow">
-                                            <div class="flex flex-col justify-center ml-[30px]">
-                                                <div class="text-[20px] text-black font-semibold"><%= row.namamk %></div>
-                                                <div class="text-[10px] text-[#808080]"><%= row.id %></div>
-                                                <div class="text-[10px] text-[#808080]"><%= row.nama_dosen %></div>
-                                                <div class="text-[10px] text-red-600"><%= row.requires %> Asisten Dosen</div>
+                    <div class="flex flex-col ml-[50px] mt-[30px] font-poppins">
+                        <div class="text-[30px] text-gray-600 font-extrabold mb-[10px]">Penugasan Asisten Dosen</div>
+                        <div class="flex flex-row gap-[50px]">
+                            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[530px] gap-[5px]">
+                                <div class="overflow-hidden">
+                                    <% for(const row of result) { %>
+                                        <div
+                                            class="flex w-[1180px] h-[100px] mb-[5px] items-center border border-gray-400 bg-white rounded-md">
+                                            <div class="flex-grow">
+                                                <div class="flex flex-col justify-center ml-[30px]">
+                                                    <div class="text-[20px] text-black font-semibold">
+                                                        <%= row.namamk %>
+                                                            <%= row.idkelas %>
+                                                    </div>
+                                                    <div class="text-[10px] text-[#808080]">
+                                                        <%= row.id %>
+                                                    </div>
+                                                    <div class="text-[10px] text-[#808080]">
+                                                        <%= row.nama_dosen %>
+                                                    </div>
+                                                    <div class="text-[10px] text-red-600">
+                                                        <%= row.requires %> Asisten Dosen
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex">
+                                                <button type="button"
+                                                    class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600 assign-btn"
+                                                    data-id="<%= row.id %>"
+                                                    data-idkelas="<%= row.idkelas %>"
+                                                    onclick="openEditModal(this)">Assign</button>
                                             </div>
                                         </div>
-                                        <div class="flex">
-                                            <button type="button" class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600" id="assign-btn">Assign</button>
-                                        </div>  
-                                    </div>
-                                    <% } %>
+                                        <% } %>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
+    </div>
+    <!-- Modified Overlay -->
+    <div id="overlay"
+        class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-row gap-[20px] shadow-lg items-center hidden z-20">
+        <div class="flex flex-col w-[400px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px]  font-poppins">
+            <div class="ml-[40px] mt-[30px]" id="idmatkul"></div>
+            <div class="ml-[40px]" id="namadosen"></div>
+            <div class="ml-[40px]" id="namamatkul"></div>
+            <div class="ml-[40px]" id="hari"></div>
+            <div class="ml-[40px]" id="awal"></div>
+            <div class="ml-[40px]" id="akhir"></div>
         </div>
-    </body>
+        <div class="flex flex-col w-[700px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins">
+            <div class="ml-[40px] mt-[30px] font-semibold text-[25px]">Daftar Calon Asisten Dosen</div>
+            <form>
+                <div class="ml-[40px]">
+                    <input type="checkbox" name="calon" value="Andrew Febrian" />
+                    <label for="calon">Andrew Febrian</label>
+                </div>
+                <div class="ml-[40px]">
+                    <input type="checkbox" name="calon" value="Parninggolan Febrian" />
+                    <label for="calon">Parninggolan Febrian</label>
+                </div>
+                <div class="ml-[40px]">
+                    <input type="checkbox" name="calon" value="Rahmat Parninggolan" />
+                    <label for="calon">Rahmat Parninggolan</label>
+                </div>
+                <div class="ml-[40px]">
+                    <input type="checkbox" name="calon" value="Andrew Sahabat" />
+                    <label for="calon">Andrew Sahabat</label>
+                </div>
+                <div class="absolute bottom-4 right-4">
+                    <button type="submit"
+                        class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600">Assign</button>
+                </div>
+            </form>
+            <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        let idmk = "";
+        let idkelas = "";
+        function openEditModal(button) {
+            // Get the data-id attribute to identify the row
+            const rowId = button.getAttribute("data-id");
+            const rowIdkelas = button.getAttribute("data-idkelas");
+
+            idmk = rowId;
+            idkelas = rowIdkelas;
+
+            // Fetch the data from the server
+            fetchdatakelas(rowId).then((data) => {
+                // Update the modal content
+                console.log(data);
+                updateModalContent(data);
+
+                // Show the modal
+                showEditModal();
+            });
+
+            // Close the modal when the close button is clicked
+            $("#closeOverlay").click(() => {
+                $("#overlay").addClass("hidden");
+                $("#mainOverlay").addClass("hidden");
+            });
+        }
+
+        function updateModalContent(data) {
+            document.getElementById("idmatkul").innerHTML = "ID Matkul: "+data[0].idmk;
+            document.getElementById("namadosen").innerHTML = "Nama Dosen: "+data[0].nama_dosen;
+            document.getElementById("namamatkul").innerHTML = "Nama Matkul: "+data[0].namamk;
+            document.getElementById("hari").innerHTML = "Hari: "+data[0].hari;
+            document.getElementById("awal").innerHTML = "Mulai jam: "+data[0].awal;
+            document.getElementById("akhir").innerHTML = "Berakhir jam: "+data[0].akhir;
+        }
+
+        function showEditModal() {
+            $("#overlay").removeClass("hidden");
+            $("#mainOverlay").removeClass("hidden");
+        }
+
+        function fetchdatakelas(idmk) {
+            return fetch(`/get-kelas/${idmk}/${idkelas}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    return data;
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
+    </script>
+</body>
+
 </html>

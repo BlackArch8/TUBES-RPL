@@ -1,5 +1,8 @@
 import express from 'express';
 import multer from 'multer';
+import fs, { read } from 'fs';
+import csv from 'fast-csv';
+import path from 'path';
 
 import {db} from '../database/database.js';
 
@@ -43,7 +46,7 @@ RegisterRoute.post("/register/data-diri-alumni", (req, res) => {
   
     console.log(data_diri);
   
-    res.redirect("/register/upload-nilai-alumni");
+    res.redirect("/register/upload-nilai");
   });
 
   let filename;
@@ -54,7 +57,7 @@ RegisterRoute.post("/register/data-diri-alumni", (req, res) => {
     },
     filename: (req, file, cb) => {
       //ganti nama filenya ke npm
-      cb(null, data_diri[data_diri.length - 1].npm + ".pdf");
+      cb(null, data_diri[data_diri.length - 1].npm + ".csv");
     },
   });
   const upload = multer({ storage: filestorage });
@@ -66,21 +69,55 @@ RegisterRoute.get('/register/upload-nilai', (req, res) => {
 RegisterRoute.post("/register/upload-nilai", upload.single("nilai"), (req, res) => {
   console.log(req.file);
   filename = req.file.filename;
-  res.redirect("/register/matakuliah");
+  const __dirname = './Nilai_data'
+  readCSVFile(__dirname + "/" + req.file.filename);
+  res.redirect("/register/matakuliah-alumni");
 });
 
-RegisterRoute.get('/register/upload-nilai-alumni', (req, res) => {
-    res.render('register/UploadNilaiAlumni');
-});
-RegisterRoute.post(
-  "/register/upload-nilai-alumni",
-  upload.single("nilai"),
-  (req, res) => {
-    console.log(req.file);
-    filename = req.file.filename;
-    res.redirect("/register/matakuliah-alumni");
+//read csv
+async function readCSVFile(path) {
+  try {
+    const stream = fs.createReadStream(path);
+    const csvData = await new Promise((resolve, reject) => {
+      const data = [];
+      const filestream = csv
+        .parse({ delimiter: ';' })
+        .on('data', (row) => data.push(row))
+        .on('end', () => resolve(data))
+        .on('error', (error) => reject(error));
+
+      stream.pipe(filestream);
+    });
+
+    csvData.shift(); // Remove the header
+
+    const query1 =
+      "INSERT INTO `nilai` (`id_calon`, `idmk`, `nilai`) VALUES (?, ?, ?);";
+
+      for (let i = 0; i < csvData.length; i++) {
+        await executeQuery(query1, [data_diri[data_diri.length - 1].npm, csvData[i][0], csvData[i][1]]);
+      }
+
+
+    fs.unlinkSync(path); // Remove the CSV file after processing
+  } catch (error) {
+    console.error("Error:", error);
   }
-);
+}
+function executeQuery(query, values) {
+  return new Promise((resolve, reject) => {
+    db.query(query, values, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+
+
+
 RegisterRoute.get('/register/matakuliah', (req, res) => {
     res.render('register/InputMataKuliah');
 });
@@ -266,7 +303,10 @@ RegisterRoute.post("/register/matakuliah-alumni", async (req, res) => {
   await insertDataDiri();
   await insertNilai();
   await insertMatkul();
-  res.redirect("/");
+  //set timeout 1 detik
+  setTimeout(() => {
+    res.redirect("/");
+  }, 1000);
 });
 
 export {RegisterRoute ,RegisterRoute as default};
