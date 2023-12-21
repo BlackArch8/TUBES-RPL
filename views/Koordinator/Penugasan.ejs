@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="/public/css/output.css" />
     </head>
     <body class="bg-gray-200">
+        <div id="mainOverlay" class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"></div>
         <div class="flex flex-row font-inter">
             <%- include('./NavBar'); %>
             <div class="flex flex-col w-full h-full">
@@ -17,19 +18,6 @@
                     <div class="flex flex-row gap-[50px]">
                         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[530px] gap-[5px]">
                             <div class="overflow-hidden">
-                                <div class="flex w-[1180px] h-[100px] mb-[5px] items-center border border-gray-400 bg-white rounded-md">
-                                    <div class="flex-grow">
-                                        <div class="flex flex-col justify-center ml-[30px]">
-                                            <div class="text-[20px] text-black font-semibold">Rekayasa Perangkat Lunak</div>
-                                            <div class="text-[10px] text-[#808080]">AIF231190</div>
-                                            <div class="text-[10px] text-[#808080]">Pascal Alfaidan</div>
-                                            <div class="text-[10px] text-red-600">4 Asisten Dosen</div>
-                                        </div>
-                                    </div>
-                                    <div class="flex">
-                                        <button type="button" class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600" id="assign-btn">Assign</button>
-                                    </div>  
-                                </div>
                                 <% for(const row of result) { %>
                                     <div class="flex w-[1180px] h-[100px] mb-[5px] items-center border border-gray-400 bg-white rounded-md">
                                         <div class="flex-grow">
@@ -41,15 +29,77 @@
                                             </div>
                                         </div>
                                         <div class="flex">
-                                            <button type="button" class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600" id="assign-btn">Assign</button>
+                                            <button type="button" class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600 assign-btn">Assign</button>
                                         </div>  
                                     </div>
-                                    <% } %>
+                                <% } %>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+            <!-- Modified Overlay -->
+        <div id="overlay" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-row gap-[20px] shadow-lg items-center hidden z-20">   
+            <div class="flex flex-col w-[400px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px]  font-poppins">
+                <div class="ml-[40px] mt-[30px]">ID Matkul: AIF182100</div>
+                <div class="ml-[40px]">Nama Dosen: Pascal</div>
+                <div class="ml-[40px]">Nama Matkul:</div>
+                <div class="ml-[40px]">
+                    <input type="radio" id="kelas_a" name="matkul" value="A"/>
+                    <label for="kelas_a">PBW : Kelas A</label>
+                </div>
+                <div class="ml-[40px]">
+                    <input type="radio" id="kelas_a" name="matkul" value="B"/>
+                    <label for="kelas_a">PBW : Kelas B</label>
+                </div>
+            </div>
+            <div class="flex flex-col w-[700px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins">
+                <div class="ml-[40px] mt-[30px] font-semibold text-[25px]">Daftar Calon Asisten Dosen</div>
+                <form>
+                    <div class="ml-[40px]">
+                        <input type="checkbox" name="calon" value="Andrew Febrian"/>
+                        <label for="calon">Andrew Febrian</label>
+                    </div>
+                    <div class="ml-[40px]">
+                        <input type="checkbox" name="calon" value="Parninggolan Febrian"/>
+                        <label for="calon">Parninggolan Febrian</label>
+                    </div>
+                    <div class="ml-[40px]">
+                        <input type="checkbox" name="calon" value="Rahmat Parninggolan"/>
+                        <label for="calon">Rahmat Parninggolan</label>
+                    </div>
+                    <div class="ml-[40px]">
+                        <input type="checkbox" name="calon" value="Andrew Sahabat"/>
+                        <label for="calon">Andrew Sahabat</label>
+                    </div>
+                    <div class="absolute bottom-4 right-4">
+                        <button type="submit" class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600">Assign</button>
+                    </div>
+                </form>
+                <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+   <script>
+       const closeOverlayButton = document.getElementById('closeOverlay');
+       const mainOverlay = document.getElementById('mainOverlay');
+       const assignButtons = document.querySelectorAll('.assign-btn');
+
+       assignButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            overlay.classList.remove('hidden');
+            mainOverlay.classList.remove('hidden');
+        });
+    });
+
+       closeOverlayButton.addEventListener('click', () => {
+           overlay.classList.add('hidden');
+           mainOverlay.classList.add('hidden');
+       });
+   </script>   
     </body>
 </html>
