@@ -40,7 +40,7 @@
         <section class="flex-1.6 bg-gradient-to-br from-cyan-300 to-cyan-600 rounded-r-2xl flex flex-col items-center justify-center text-white">
             <div class="text-[25px]">Aplikasi Penjadwalan</div>
             <div class="text-[25px] mb-[20px]">Asisten</div>
-            <div class="text-[13px]">Daftar Asisten Disini</div>
+            <div class="text-[13px]" id="daftar_tulisan">Daftar Asisten Disini</div>
             <a href="register/isi-status" id="status-directing">
                 <button type="button" class=" text-[13px] mt-[20px] border border-white rounded-full w-[70px] h-[35px] hover:text-gray-200 hover:border-gray-200" id="daftar-btn">Daftar</button>
             </a>
@@ -48,3 +48,37 @@
     </div>
 </body>
 </html>
+<script>
+    // Function to fetch status and update UI
+function getStatus() {
+    return fetch(`/koordinator/infostatus`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        const lowonganValues = data[0].lowongan;
+
+        const isLowonganOpen = lowonganValues.includes('Open');
+
+        const textElement = document.getElementById('daftar_tulisan');
+        const buttonElement = document.getElementById('daftar-btn');
+
+        if (isLowonganOpen) {
+            textElement.style.display = 'block';  
+            buttonElement.style.display = 'block';
+        } else {
+            textElement.style.display = 'none';
+            buttonElement.style.display = 'none';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+getStatus();
+
+</script>

@@ -38,32 +38,26 @@ import { LoginRoute } from "./routes/Login.js";
 app.use("/", LoginRoute);
 
 //register routes
-import {
-  RegisterRoute,
-} from "./routes/Register.js";
+import { RegisterRoute } from "./routes/Register.js";
 app.use(RegisterRoute);
 
-
 //koordinator routes
-import {KoordinatorRoute} from "./routes/Koordinator/RouteKoordinator.js";
+import { KoordinatorRoute } from "./routes/Koordinator/RouteKoordinator.js";
 app.use(KoordinatorRoute);
 
 //dosen routes
-import { DosenRoute} from "./routes/Dosen/RoutesDosen.js";
+import { DosenRoute } from "./routes/Dosen/RoutesDosen.js";
 app.use(DosenRoute);
 
 //asdos routes
 import { asdosRoute } from "./routes/Asdos/RoutesAsdos.js";
 app.use(asdosRoute);
 
-
-
 //logout
 app.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect("/");
 });
-
 
 //uji email
 const config = {
@@ -72,10 +66,10 @@ const config = {
   port: 587,
   secure: false,
   auth: {
-    user: "apm.clayanonymous@gmail.com",
-    pass: "rxzy jski qccp cvzd",
+    user: "mascotmrpdv@gmail.com",
+    // pass: "rxzy jski qccp cvzd",
 
-    //pass: "gtlp wzuo vsfq cdop",
+    pass: "gtlp wzuo vsfq cdop",
   },
 };
 
@@ -91,49 +85,75 @@ const send = (data) => {
 };
 
 //generate password
-const password = generatepassword.generate({
-  length: 8,
-  numbers: true,
-  uppercase: true,
-  lowercase: true,
-  excludeSimilarCharacters: true,
-});
-console.log(password);
+function generatePassword() {
+  const password = generatepassword.generate({
+    length: 8,
+    numbers: true,
+    uppercase: true,
+    lowercase: true,
+    excludeSimilarCharacters: true,
+  });
+  console.log(password);
+  return password;
+}
 
 app.use(express.json());
 
-// app.post("/api/send", async (req, res) => {
-//   const { to, subject, text } = req.body;
+app.post("/koordinator/kirimemail", async (req, res) => {
+  const { to, subject, text } = req.body;
 
-//   const emailData = {
-//     from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
-//     to: to || `${data_diri[data_diri.length - 1].email}`,
-//     subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN",
-//     text:
-//       text ||
-//       `Berikut kami sampaikan username dan password untuk login sebagai asisten dosen: \n \n Username: ${
-//         data_diri[data_diri.length - 1].npm
-//       } \n Password: ${password} \n \n Terima kasih.`,
-//   };
+  const query1 = `SELECT DISTINCT calon.id_calon as npm,email, assigned.id_calon as assigned, nama_calon 
+  FROM calon 
+  LEFT OUTER JOIN assigned ON calon.id_calon = assigned.id_calon;`;
 
-//   const query = "UPDATE `calon` SET `pw` = ? WHERE `id_calon` = ?";
-//   db.query(query, [password, data_diri[data_diri.length - 1].npm], (err) => {
-//     if (err) {
-//       console.log(err);
-//     }
-//     console.log("password berhasil diupdate");
-//   });
+  const data_diri = await new Promise((resolve, reject) => {
+    db.query(query1, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
 
-//   send(emailData);
-//   res.send("Email sent successfully");
-// });
+  for (const record of data_diri) {
+    if (record.assigned == null) {
+      const emailDataNotAssigned = {
+        from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
+        to: req.body.to || record.email,
+        subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN",
+        text:
+          text ||
+          `"Halo ${record.nama_calon} \n \n Maaf, Anda tidak dipilih sebagai asisten dosen atau anda tidak memenuhi syarat. \n \n Terima kasih.`,
+      };
+      send(emailDataNotAssigned);
+    } else {
+      const password = generatePassword();
+      const emailData = {
+        from: '"INFORMATIKA UNPAR" <informatika@gmail.com>',
+        to: req.body.to || record.email,
+        subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN",
+        text:
+          text ||
+          `Dear ${record.nama_calon}, \n \n Berikut kami sampaikan username dan password untuk login sebagai asisten dosen: \n \n Username: ${record.npm} \n Password: ${password} \n \n Terima kasih.`,
+      };
+      const query = "UPDATE `calon` SET `pw` = ? WHERE `id_calon` = ?";
+      db.query(query, [password, record.npm], (err) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log("password berhasil diupdate");
+      });
 
+      send(emailData);
+    }
+  }
 
-  
+  res.send("Email sent successfully");
+});
 
 app.listen(8080, () => {
   console.log("Server started on port 8080");
 });
-
 
 export { app, auth };

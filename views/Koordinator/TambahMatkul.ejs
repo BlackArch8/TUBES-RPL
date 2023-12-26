@@ -29,7 +29,7 @@
                                 <table id="scheduleTable" class="w-full border-collaps font-poppins drop-shadow-xl bg-white rounded-xl  ">
                                   <thead class="">
                                         <tr class="">
-                                            <th class="py-2 px-4 bg-gray-100 text-center">No</th>
+                                            <th class="py-2 px-4 bg-gray-100 text-center">Kode</th>
                                             <th class="py-2 px-4 bg-gray-100 text-center">Nama Mata Kuliah</th>
                                             <th class="py-2 px-4 bg-gray-100 text-center">Hari</th>
                                             <th class="py-2 px-4 bg-gray-100 text-center">Kelas</th>
@@ -40,7 +40,7 @@
                                     </thead>
                                     <tbody id="tableBody">
                                         <tr class="border-t font-poppins drop-shadow-xl bg-white rounded-xl">
-                                            <td class="py-2 px-4 text-center">1</td>
+                                            <td class="py-2 px-4 text-center">AIF20129309</td>
                                             <td class="py-2 px-4 text-center">Dasar Pemrograman</td>
                                             <td class="py-2 px-4 text-center">Senin</td>
                                             <td class="py-2 px-4 text-center">A</td>
@@ -55,21 +55,23 @@
                             </div>
                         </div>
                         
-                        <div class="submit-section mt-4 flex justify-center">
-                            <button type="button" class="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded">Submit</button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Modified Overlay -->
-   <div id="overlay" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex  flex-col items-center w-[1250px] h-[336px] bg-white rounded-lg shadow-lg hidden z-20">   
+   <div id="overlay" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex  flex-col items-center w-[1350px] h-[336px] bg-white rounded-lg shadow-lg hidden z-20">   
     <div class="w-3/4 h-12 text-center text-gray-800 text-2xl font-bold mt-[30px] mb-[20px]">Pilih Jadwal</div> 
-    <div class="flex flex-row items-center justify-center gap-[100px]">
+    <div class="flex flex-row items-center justify-center space-x-6">
         <div class="flex flex-col">
             <div class="text-gray-500 text-lg font-normal">Matkul:</div>
             <input type="text" placeholder="Nama Mata Kuliah" class="border rounded-lg h-8 pl-[5px]" id="matkul-input">
+        </div>
+        <div class="flex flex-col">
+            <div class="text-gray-500 text-lg font-normal">Kode Matkul:</div>
+            <input type="text" placeholder="Kode Mata Kuliah" class="border rounded-lg h-8 pl-[5px]" id="matkul-id-input">
         </div>
         <div class="flex flex-col">
             <div class="text-gray-400 text-lg font-normal">Hari:</div>
@@ -80,7 +82,7 @@
                 <option value="kamis">Kamis</option>
                 <option value="jumat">Jumat</option>
                 <option value="sabtu">Sabtu</option>
-                <option value="sabtu">Minggu</option>
+                
             </select>
         </div>
         <div class="flex flex-col">
@@ -92,7 +94,7 @@
         </div>
         <div class="flex flex-col">
             <div class="text-gray-400 text-lg font-normal">Jam dari:</div>
-            <select class="w-[150px] h-8 border border-gray-300 rounded-md">
+            <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamdari">
             <option value="jam6">06.00</option>
             <option value="jam7">07.00</option>
             <option value="jam8">08.00</option>
@@ -109,7 +111,7 @@
         </div>
         <div class="flex flex-col">
             <div class="text-gray-400 text-lg font-normal">Jam sampai:</div>
-            <select class="w-[150px] h-8 border border-gray-300 rounded-md">
+            <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamsapai">
                 <option value="jam6">06.00</option>
                 <option value="jam7">07.00</option>
                 <option value="jam8">08.00</option>
@@ -124,11 +126,15 @@
                 <option value="jam17">17.00</option>
             </select>
         </div>
+        <div class="flex flex-col">
+            <div class="text-gray-500 text-lg font-normal">Ruang:</div>
+            <input type="text" placeholder="Ruang kelas" class="border rounded-lg h-8 pl-[5px]" id="ruang-input">
+        </div>
         <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
             <i class="fas fa-times"></i>
         </button>
     </div>
-    <hr class="border-gray-300 w-[1200px] border-b-2 mt-[10px]">
+    <hr class="border-gray-300 w-[1300px] border-b-2 mt-[10px]">
     <button class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[70px]">
         <div class="text-white text-base font-normal">Simpan</div>
     </button>
@@ -153,6 +159,40 @@
            overlay.classList.add('hidden');
            mainOverlay.classList.add('hidden');
        });
+
+
+       function kirimdata(){
+              const matkul = document.getElementById('matkul-input').value;
+              const hari = document.getElementById('hari-input').value;
+              const kelas = document.getElementById('kelas-input').value;
+              const jamawal = document.getElementById('jamawal').value;
+              const jamakhir = document.getElementById('jamakhir').value;
+              const ruang = document.getElementById('ruang-input').value;
+              const data = {
+                matkul: matkul,
+                hari: hari,
+                kelas: kelas,
+                jam: jam,
+                ruang: ruang
+              }
+              return fetch('/koordinator/tambahmatkul', {
+                method: 'POST',
+                headers: {
+                     'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+              })
+              .then(response => {
+                Swal.fire({
+                     icon: 'success',
+                     title: 'Berhasil!',
+                     text: 'Mata kuliah berhasil ditambahkan.',
+                });
+              })
+              .catch(error => {
+                console.error('Error:', error);
+              });
+       }
    </script>    
     </body>
 </html>

@@ -92,5 +92,31 @@ KoordinatorRoute.get('/koordinator/setting',auth, (req, res) => {
     res.render('Koordinator/Setting', {nama: nama});
 });
 
+//change status
+KoordinatorRoute.post("/koordinator/ubahstatus/:status", (req, res) => {
+    const status = req.params.status;   
+
+    const query = "UPDATE status SET lowongan = ?;";
+    db.query(query, [status], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+    });
+  });
+
+//info status
+KoordinatorRoute.get("/koordinator/infostatus", (req, res) => {
+    const query = "SELECT lowongan FROM status;";
+    db.query(query, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+
+      res.json(result);
+    });
+  });
+
 
 export {KoordinatorRoute, KoordinatorRoute as default};
