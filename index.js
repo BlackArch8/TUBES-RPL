@@ -124,7 +124,7 @@ app.post("/koordinator/kirimemail", async (req, res) => {
         subject: subject || "INFORMASI PENDAFTARAN ASISTEN DOSEN",
         text:
           text ||
-          `"Halo ${record.nama_calon} \n \n Maaf, Anda tidak dipilih sebagai asisten dosen atau anda tidak memenuhi syarat. \n \n Terima kasih.`,
+          `"Halo ${record.nama_calon} \n \n Maaf, Anda tidak terpilih sebagai asisten dosen dikarenakan jadwal anda bentrok atau anda tidak memenuhi syarat. \n \n Terima kasih.`,
       };
       send(emailDataNotAssigned);
     } else {
@@ -150,6 +150,18 @@ app.post("/koordinator/kirimemail", async (req, res) => {
   }
 
   res.send("Email sent successfully");
+});
+
+//middleware untuk redirect ke login
+app.use('/', (req, res, next) => {
+  if (req.path === '/') {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+});
+app.use((req, res, next) => {
+  res.status(404).send('404 - Halaman Tidak Ditemukan');
 });
 
 app.listen(8080, () => {

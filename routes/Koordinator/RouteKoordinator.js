@@ -177,6 +177,7 @@ KoordinatorRoute.get("/koordinator/infostatus", (req, res) => {
             console.log(err);
           }
           console.log("Input dosen berhasil");
+          res.status(200).send("ok");
           
           
   
@@ -188,6 +189,7 @@ KoordinatorRoute.get("/koordinator/infostatus", (req, res) => {
     });
   });
 
+  //route hapus matkul
   KoordinatorRoute.post("/koordinator/hapusmatkul/:kode/:kelas", (req, res) => {
     const kode = req.params.kode;
     const kelas = req.params.kelas;
@@ -202,6 +204,19 @@ KoordinatorRoute.get("/koordinator/infostatus", (req, res) => {
       res.status(200).send("ok");
       
 
+    });
+  });
+
+  //ambil nama-nama dosen'
+  KoordinatorRoute.get("/koordinator/ambildosen", (req, res) => {
+    const query = "SELECT DISTINCT nama_dosen FROM `dosen`;";
+    db.query(query, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+
+      res.json(result);
     });
   });
   

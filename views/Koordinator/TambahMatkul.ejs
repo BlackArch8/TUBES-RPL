@@ -1,72 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tambah Mata Kuliah</title>
     <link rel="stylesheet" href="/public/css/output.css" />
-  </head>
+</head>
 
-  <body class="bg-gray-200">
+<body class="bg-gray-200">
     <!-- Main Overlay -->
-    <div
-      id="mainOverlay"
-      class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"
-    ></div>
+    <div id="mainOverlay" class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"></div>
     <div class="flex flex-row font-inter">
-      <%- include('./NavBar'); %>
-      <div class="flex flex-col w-full h-full">
-        <%- include('./header'); %>
-        <div class="flex flex-col mt-[30px]">
-          <div class="main-container px-[50px] border-transparent">
-            <div class="content-container mb-[10px]">
-              <div class="title text-gray-600 text-[30px] font-bold">
-                Jadwal Mata Kuliah
-              </div>
+        <%- include('./NavBar'); %>
+            <div class="flex flex-col w-full h-full">
+                <%- include('./header'); %>
+                    <div class="flex flex-col mt-[30px]">
+                        <div class="main-container px-[50px] border-transparent">
+                            <div class="content-container mb-[10px]">
+                                <div class="title text-gray-600 text-[30px] font-bold">Jadwal Mata Kuliah</div>
+                            </div>
+                            <div class="upload-section mb-[10px] flex justify-end">
+                                <a href="#" id="openOverlay" class="upload-section">
+                                    <button type="button"
+                                        class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded">+Tambah</button>
+                                </a>
+                            </div>
+                            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[430px]">
+                                <div class="schedule-table rounded-lg overflow-hidden">
+                                    <table id="scheduleTable"
+                                        class="w-full border-collaps font-poppins drop-shadow-xl bg-white rounded-xl  ">
+                                        <thead class="">
+                                            <tr class="">
+                                                <th class="py-2 px-4 bg-gray-100 text-center">Kode</th>
+                                                <th class="py-2 px-4 bg-gray-100 text-center">Nama Mata Kuliah</th>
+                                                <th class="py-2 px-4 bg-gray-100 text-center">Nama Dosen</th>
+                                                <th class="py-2 px-4 bg-gray-100 text-center">Hari</th>
+                                                <th class="py-2 px-4 bg-gray-100 text-center">Kelas</th>
+                                                <th class="py-2 px-4 bg-gray-100 text-center">Awal</th>
+                                                <th class="py-2 px-4 bg-gray-100 text-center">Akhir</th>
+                                                <th class="py-2 px-4 bg-gray-100 text-center">Ruang Kelas</th>
+                                                <th class="py-2 px-4 bg-gray-100 text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableBody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
             </div>
-            <div class="upload-section mb-[10px] flex justify-end">
-              <a href="#" id="openOverlay" class="upload-section">
-                <button
-                  type="button"
-                  class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded"
-                >
-                  +Tambah
-                </button>
-              </a>
-            </div>
-            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[430px]">
-              <div class="schedule-table rounded-lg overflow-hidden">
-                <table
-                  id="scheduleTable"
-                  class="w-full border-collaps font-poppins drop-shadow-xl bg-white rounded-xl"
-                >
-                  <thead class="">
-                    <tr class="">
-                      <th class="py-2 px-4 bg-gray-100 text-center">Kode</th>
-                      <th class="py-2 px-4 bg-gray-100 text-center">
-                        Nama Mata Kuliah
-                      </th>
-                      <th class="py-2 px-4 bg-gray-100 text-center">
-                        Nama Dosen
-                      </th>
-                      <th class="py-2 px-4 bg-gray-100 text-center">Hari</th>
-                      <th class="py-2 px-4 bg-gray-100 text-center">Kelas</th>
-                      <th class="py-2 px-4 bg-gray-100 text-center">Awal</th>
-                      <th class="py-2 px-4 bg-gray-100 text-center">Akhir</th>
-                      <th class="py-2 px-4 bg-gray-100 text-center">
-                        Ruang Kelas
-                      </th>
-                      <th class="py-2 px-4 bg-gray-100 text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody id="tableBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Modified Overlay -->
@@ -82,11 +70,9 @@
             </div>
             <div class="flex flex-col">
                 <div class="text-gray-400 text-lg font-normal">Nama Dosen:<span class="text-red-500">*</span></div>
-                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="hari-input">
+                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="dosen-input">
                     <option value="">Pilih Dosen...</option>
-                    <option value="Husnul">Husnul</option>
-                    <option value="Pascal">Pascal</option>
-                    <option value="Reimon">Reimon</option>
+                    
                 </select>
             </div>
             <div class="flex flex-col">
@@ -157,15 +143,14 @@
                 <input type="text" placeholder="Ruang kelas" class="border rounded-lg h-8 pl-[5px]" id="ruang-input" required>
             </div>
         </div>
-      </div>
-      <hr class="border-gray-300 w-[1300px] border-b-2 mt-[10px]" />
-      <button
-        class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[15px]"
-        onclick="kirimdata()"
-      >
-        <div class="text-white text-base font-normal">Simpan</div>
-      </button>
+        <hr class="border-gray-300 w-[1300px] border-b-2 mt-[10px]">
+        <button class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[15px]"
+            id="submitbutton"
+            onclick="kirimdata()">
+            <div class="text-white text-base font-normal">Simpan</div>
+        </button>
     </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -174,6 +159,7 @@
       const openOverlayButton = document.getElementById("openOverlay");
       const overlay = document.getElementById("overlay");
       const closeOverlayButton = document.getElementById("closeOverlay");
+      const submitbutton = document.getElementById("submitbutton");
       const mainOverlay = document.getElementById("mainOverlay");
 
       openOverlayButton.addEventListener("click", () => {
@@ -189,6 +175,8 @@
         document.getElementById("matkul-id-input").value = "";
         document.getElementById("ruang-input").value = "";
       });
+
+      
 
       function formatTime(time) {
         return time < 10 ? "0" + time +":00" : time + ":00";
@@ -227,6 +215,26 @@
                  title: 'Berhasil!',
                  text: 'Mata kuliah berhasil ditambahkan.',
             });
+
+            //tutup overlay
+            overlay.classList.add("hidden");
+            mainOverlay.classList.add("hidden");
+    
+            document.getElementById("matkul-input").value = "";
+            document.getElementById("matkul-id-input").value = "";
+            document.getElementById("ruang-input").value = "";
+
+            //update table data ambil dari server
+            return fetchdatamatkul()
+              .then(data => {
+                const table = document.getElementById("tableBody");
+                table.innerHTML = "";
+                updateTable(data);
+              })
+              .catch(error => console.error("Error fetching data:", error));
+
+            
+
           })
           .catch(error => {
             console.error('Error:', error);
@@ -314,6 +322,31 @@
           });
       }
 
+      function fetchnamadosen(){
+        return fetch(`/koordinator/ambildosen`)
+          .then((response) => response.json())
+          .then((data) => {
+            return data;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      //update drop down dosen
+        fetchnamadosen()
+            .then((data) => {
+            const dropdown = document.getElementById("dosen-input");
+            data.forEach((row) => {
+                const option = document.createElement("option");
+                option.value = row.nama_dosen;
+                option.innerHTML = row.nama_dosen;
+                dropdown.appendChild(option);
+            });
+            })
+            .catch((error) => console.error("Error fetching data:", error));
+
+        //update table data ambil dari server
       fetchdatamatkul()
         .then((data) => updateTable(data))
         .catch((error) => console.error("Error fetching data:", error));

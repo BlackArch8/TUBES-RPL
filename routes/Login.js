@@ -4,11 +4,11 @@ import db from '../database/database.js';
 
 const LoginRoute = express.Router();
 //routing login
-LoginRoute.get('/', (req, res) => {
+LoginRoute.get('/login', (req, res) => {
   res.render('Login', { errorMessage: '' }); // error message
 });
 
-LoginRoute.post("/", (req, res) => {
+LoginRoute.post("/login", (req, res) => {
     const npm = req.body.Username;
     const password = req.body.Password;
   
