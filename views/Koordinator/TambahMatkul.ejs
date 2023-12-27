@@ -75,7 +75,7 @@
         </div>
         <div class="flex flex-col">
             <div class="text-gray-400 text-lg font-normal">Hari:</div>
-            <select class="w-[150px] h-8 border border-gray-300 rounded-md">
+            <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="hari-input">
                 <option value="senin">Senin</option>
                 <option value="selasa">Selasa</option>
                 <option value="rabu">Rabu</option>
@@ -87,43 +87,43 @@
         </div>
         <div class="flex flex-col">
             <div class="text-gray-400 text-lg font-normal">Kelas:</div>
-            <select class="w-[150px] h-8 border border-gray-300 rounded-md">
-                <option value="kelasA">Kelas A</option>
-                <option value="kelasB">Kelas B</option>
+            <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="kelas-input">
+                <option value="A">Kelas A</option>
+                <option value="B">Kelas B</option>
             </select>
         </div>
         <div class="flex flex-col">
             <div class="text-gray-400 text-lg font-normal">Jam dari:</div>
-            <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamdari">
-            <option value="jam6">06.00</option>
-            <option value="jam7">07.00</option>
-            <option value="jam8">08.00</option>
-            <option value="jam9">09.00</option>
-            <option value="jam10">10.00</option>
-            <option value="jam11">11.00</option>
-            <option value="jam12">12.00</option>
-            <option value="jam13">13.00</option>
-            <option value="jam14">14.00</option>
-            <option value="jam15">15.00</option>
-            <option value="jam16">16.00</option>
-            <option value="jam17">17.00</option>
+            <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamawal">
+            <option value="6">06.00</option>
+            <option value="7">07.00</option>
+            <option value="8">08.00</option>
+            <option value="9">09.00</option>
+            <option value="10">10.00</option>
+            <option value="11">11.00</option>
+            <option value="12">12.00</option>
+            <option value="13">13.00</option>
+            <option value="14">14.00</option>
+            <option value="15">15.00</option>
+            <option value="16">16.00</option>
+            <option value="17">17.00</option>
             </select>
         </div>
         <div class="flex flex-col">
             <div class="text-gray-400 text-lg font-normal">Jam sampai:</div>
-            <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamsapai">
-                <option value="jam6">06.00</option>
-                <option value="jam7">07.00</option>
-                <option value="jam8">08.00</option>
-                <option value="jam9">09.00</option>
-                <option value="jam10">10.00</option>
-                <option value="jam11">11.00</option>
-                <option value="jam12">12.00</option>
-                <option value="jam13">13.00</option>
-                <option value="jam14">14.00</option>
-                <option value="jam15">15.00</option>
-                <option value="jam16">16.00</option>
-                <option value="jam17">17.00</option>
+            <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamsampai">
+                <option value="6">06.00</option>
+                <option value="7">07.00</option>
+                <option value="8">08.00</option>
+                <option value="9">09.00</option>
+                <option value="10">10.00</option>
+                <option value="11">11.00</option>
+                <option value="12">12.00</option>
+                <option value="13">13.00</option>
+                <option value="14">14.00</option>
+                <option value="15">15.00</option>
+                <option value="16">16.00</option>
+                <option value="17">17.00</option>
             </select>
         </div>
         <div class="flex flex-col">
@@ -135,7 +135,7 @@
         </button>
     </div>
     <hr class="border-gray-300 w-[1300px] border-b-2 mt-[10px]">
-    <button class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[70px]">
+    <button class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[70px]"  onclick="kirimdata()">
         <div class="text-white text-base font-normal">Simpan</div>
     </button>
 </div>
@@ -158,40 +158,49 @@
        closeOverlayButton.addEventListener('click', () => {
            overlay.classList.add('hidden');
            mainOverlay.classList.add('hidden');
+          
+            document.getElementById('matkul-input').value = "";
+            document.getElementById('matkul-id-input').value = "";
+            document.getElementById('ruang-input').value = "";
+
        });
 
 
        function kirimdata(){
               const matkul = document.getElementById('matkul-input').value;
+              const kodematkul = document.getElementById('matkul-id-input').value;
               const hari = document.getElementById('hari-input').value;
               const kelas = document.getElementById('kelas-input').value;
               const jamawal = document.getElementById('jamawal').value;
-              const jamakhir = document.getElementById('jamakhir').value;
+              const jamakhir = document.getElementById('jamsampai').value;
               const ruang = document.getElementById('ruang-input').value;
               const data = {
                 matkul: matkul,
+                kodematkul: kodematkul,
                 hari: hari,
                 kelas: kelas,
-                jam: jam,
+                jamawal: jamawal,
+                jamakhir: jamakhir,
                 ruang: ruang
               }
-              return fetch('/koordinator/tambahmatkul', {
-                method: 'POST',
-                headers: {
-                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-              })
-              .then(response => {
-                Swal.fire({
-                     icon: 'success',
-                     title: 'Berhasil!',
-                     text: 'Mata kuliah berhasil ditambahkan.',
-                });
-              })
-              .catch(error => {
-                console.error('Error:', error);
-              });
+              console.log(data);
+            //   return fetch('/koordinator/tambahmatkul', {
+            //     method: 'POST',
+            //     headers: {
+            //          'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(data),
+            //   })
+            //   .then(response => {
+            //     Swal.fire({
+            //          icon: 'success',
+            //          title: 'Berhasil!',
+            //          text: 'Mata kuliah berhasil ditambahkan.',
+            //     });
+            //   })
+            //   .catch(error => {
+            //     console.error('Error:', error);
+            //   });
        }
    </script>    
     </body>
