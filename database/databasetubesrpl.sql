@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `calon` (
   PRIMARY KEY (`id_calon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.calon: ~4 rows (approximately)
+-- Dumping data for table tubes_rpl.calon: ~3 rows (approximately)
 DELETE FROM `calon`;
 INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`, `pw`) VALUES
 	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1, NULL),
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `dosen` (
   `pw` varchar(20) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.dosen: ~6 rows (approximately)
+-- Dumping data for table tubes_rpl.dosen: ~5 rows (approximately)
 DELETE FROM `dosen`;
 INSERT INTO `dosen` (`id_dosen`, `nama_dosen`, `idmk`, `pw`) VALUES
 	('1231231231', 'Pascal', 'AIF182100', 'pascal'),
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `koordinator` (
   PRIMARY KEY (`id_koord`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.koordinator: ~2 rows (approximately)
+-- Dumping data for table tubes_rpl.koordinator: ~0 rows (approximately)
 DELETE FROM `koordinator`;
 INSERT INTO `koordinator` (`id_koord`, `nama_koord`, `pw`) VALUES
 	('8888888888', 'Charles', 'dudududu'),
@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `matkul` (
   PRIMARY KEY (`idmk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.matkul: ~11 rows (approximately)
+-- Dumping data for table tubes_rpl.matkul: ~0 rows (approximately)
 DELETE FROM `matkul`;
 INSERT INTO `matkul` (`idmk`, `namamk`) VALUES
 	('AIF181100', 'Dasar Pemrograman'),
@@ -192,12 +192,21 @@ CREATE TABLE IF NOT EXISTS `nilai` (
   `nilai` varchar(5) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.nilai: ~3 rows (approximately)
+-- Dumping data for table tubes_rpl.nilai: ~0 rows (approximately)
 DELETE FROM `nilai`;
 INSERT INTO `nilai` (`id_calon`, `idmk`, `nilai`) VALUES
 	('1111111111', 'AIF181100', 'B-'),
 	('1111111111', 'AIF182100', 'A'),
 	('1111111111', 'AIF184005', 'B+');
+
+-- Dumping structure for table tubes_rpl.status
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE IF NOT EXISTS `status` (
+  `lowongan` varchar(7) COLLATE ucs2_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
+
+-- Dumping data for table tubes_rpl.status: ~0 rows (approximately)
+DELETE FROM `status`;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
