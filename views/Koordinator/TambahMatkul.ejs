@@ -70,126 +70,92 @@
     </div>
 
     <!-- Modified Overlay -->
-    <div
-      id="overlay"
-      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-[1350px] h-[336px] bg-white rounded-lg shadow-lg hidden z-20"
-    >
-      <div
-        class="w-3/4 h-12 text-center text-gray-800 text-2xl font-bold mt-[30px] mb-[20px]"
-      >
-        Pilih Jadwal
-      </div>
-      <div class="flex flex-row items-center justify-center space-x-6">
-        <div class="flex flex-col">
-          <div class="text-gray-500 text-lg font-normal">Matkul:</div>
-          <input
-            type="text"
-            placeholder="Nama Mata Kuliah"
-            class="border rounded-lg h-8 pl-[5px]"
-            id="matkul-input"
-          />
-        </div>
-        <div class="flex flex-col">
-          <div class="text-gray-500 text-lg font-normal">Nama Dosen:</div>
-          <input
-            type="text"
-            placeholder="Nama Dosen"
-            class="border rounded-lg h-8 pl-[5px]"
-            id="dosen-input"
-          />
-        </div>
-        <div class="flex flex-col">
-          <div class="text-gray-500 text-lg font-normal">Kode Matkul:</div>
-          <input
-            type="text"
-            placeholder="Kode Mata Kuliah"
-            class="border rounded-lg h-8 pl-[5px]"
-            id="matkul-id-input"
-          />
-        </div>
-        <div class="flex flex-col">
-          <div class="text-gray-400 text-lg font-normal">Hari:</div>
-          <select
-            class="w-[150px] h-8 border border-gray-300 rounded-md"
-            id="hari-input"
-          >
-            <option value="senin">Senin</option>
-            <option value="selasa">Selasa</option>
-            <option value="rabu">Rabu</option>
-            <option value="kamis">Kamis</option>
-            <option value="jumat">Jumat</option>
-            <option value="sabtu">Sabtu</option>
-          </select>
-        </div>
+    <div id="overlay"
+        class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex  flex-col items-center w-[1350px] h-[336px] bg-white rounded-lg shadow-lg hidden z-20">
+        <div class="w-3/4 h-12 text-center text-gray-800 text-2xl font-bold mt-[30px] mb-[20px]">Pilih Jadwal</div>
+        <div class="flex flex-row items-center justify-center space-x-6">
+            <div class="flex flex-col">
+                <div class="text-gray-500 text-lg font-normal">Matkul:<span class="text-red-500">*</span></div>
+                
+                <input type="text" placeholder="Nama Mata Kuliah" class="border rounded-lg h-8 pl-[5px]"
+                    id="matkul-input" required>
+            </div>
+            <div class="flex flex-col">
+                <div class="text-gray-400 text-lg font-normal">Nama Dosen:<span class="text-red-500">*</span></div>
+                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="hari-input">
+                    <option value="">Pilih Dosen...</option>
+                    <option value="Husnul">Husnul</option>
+                    <option value="Pascal">Pascal</option>
+                    <option value="Reimon">Reimon</option>
+                </select>
+            </div>
+            <div class="flex flex-col">
+                <div class="text-gray-500 text-lg font-normal">Kode Matkul:<span class="text-red-500">*</span></div>
+                <input type="text" placeholder="Kode Mata Kuliah" class="border rounded-lg h-8 pl-[5px]"
+                    id="matkul-id-input" required>
+            </div>
+            <div class="flex flex-col">
+                <div class="text-gray-400 text-lg font-normal">Hari:<span class="text-red-500">*</span></div>
+                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="hari-input">
+                    <option value="senin">Senin</option>
+                    <option value="selasa">Selasa</option>
+                    <option value="rabu">Rabu</option>
+                    <option value="kamis">Kamis</option>
+                    <option value="jumat">Jumat</option>
+                    <option value="sabtu">Sabtu</option>
+                </select>
+            </div>
 
-        <button
-          id="closeOverlay"
-          class="absolute top-4 right-4 text-red-500 hover:text-red-700"
-        >
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div
-        class="flex flex-row items-center justify-center space-x-6 mt-[15px] mb-[10px]"
-      >
-        <div class="flex flex-col">
-          <div class="text-gray-400 text-lg font-normal">Kelas:</div>
-          <select
-            class="w-[150px] h-8 border border-gray-300 rounded-md"
-            id="kelas-input"
-          >
-            <option value="A">Kelas A</option>
-            <option value="B">Kelas B</option>
-          </select>
+            <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-        <div class="flex flex-col">
-          <div class="text-gray-400 text-lg font-normal">Jam dari:</div>
-          <select
-            class="w-[150px] h-8 border border-gray-300 rounded-md"
-            id="jamawal"
-          >
-            <option value="6">06.00</option>
-            <option value="7">07.00</option>
-            <option value="8">08.00</option>
-            <option value="9">09.00</option>
-            <option value="10">10.00</option>
-            <option value="11">11.00</option>
-            <option value="12">12.00</option>
-            <option value="13">13.00</option>
-            <option value="14">14.00</option>
-            <option value="15">15.00</option>
-            <option value="16">16.00</option>
-            <option value="17">17.00</option>
-          </select>
-        </div>
-        <div class="flex flex-col">
-          <div class="text-gray-400 text-lg font-normal">Jam sampai:</div>
-          <select
-            class="w-[150px] h-8 border border-gray-300 rounded-md"
-            id="jamsampai"
-          >
-            <option value="6">06.00</option>
-            <option value="7">07.00</option>
-            <option value="8">08.00</option>
-            <option value="9">09.00</option>
-            <option value="10">10.00</option>
-            <option value="11">11.00</option>
-            <option value="12">12.00</option>
-            <option value="13">13.00</option>
-            <option value="14">14.00</option>
-            <option value="15">15.00</option>
-            <option value="16">16.00</option>
-            <option value="17">17.00</option>
-          </select>
-        </div>
-        <div class="flex flex-col">
-          <div class="text-gray-500 text-lg font-normal">Ruang:</div>
-          <input
-            type="text"
-            placeholder="Ruang kelas"
-            class="border rounded-lg h-8 pl-[5px]"
-            id="ruang-input"
-          />
+        <div class="flex flex-row items-center justify-center space-x-6 mt-[15px] mb-[10px]">
+            <div class="flex flex-col">
+                <div class="text-gray-400 text-lg font-normal">Kelas:<span class="text-red-500">*</span></div>
+                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="kelas-input">
+                    <option value="A">Kelas A</option>
+                    <option value="B">Kelas B</option>
+                </select>
+            </div>
+            <div class="flex flex-col">
+                <div class="text-gray-400 text-lg font-normal">Jam dari:<span class="text-red-500">*</span></div>
+                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamawal">
+                    <option value="6">06.00</option>
+                    <option value="7">07.00</option>
+                    <option value="8">08.00</option>
+                    <option value="9">09.00</option>
+                    <option value="10">10.00</option>
+                    <option value="11">11.00</option>
+                    <option value="12">12.00</option>
+                    <option value="13">13.00</option>
+                    <option value="14">14.00</option>
+                    <option value="15">15.00</option>
+                    <option value="16">16.00</option>
+                    <option value="17">17.00</option>
+                </select>
+            </div>
+            <div class="flex flex-col">
+                <div class="text-gray-400 text-lg font-normal">Jam sampai:<span class="text-red-500">*</span></div>
+                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamsampai">
+                    <option value="6">06.00</option>
+                    <option value="7">07.00</option>
+                    <option value="8">08.00</option>
+                    <option value="9">09.00</option>
+                    <option value="10">10.00</option>
+                    <option value="11">11.00</option>
+                    <option value="12">12.00</option>
+                    <option value="13">13.00</option>
+                    <option value="14">14.00</option>
+                    <option value="15">15.00</option>
+                    <option value="16">16.00</option>
+                    <option value="17">17.00</option>
+                </select>
+            </div>
+            <div class="flex flex-col">
+                <div class="text-gray-500 text-lg font-normal">Ruang:<span class="text-red-500">*</span></div>
+                <input type="text" placeholder="Ruang kelas" class="border rounded-lg h-8 pl-[5px]" id="ruang-input" required>
+            </div>
         </div>
       </div>
       <hr class="border-gray-300 w-[1300px] border-b-2 mt-[10px]" />
