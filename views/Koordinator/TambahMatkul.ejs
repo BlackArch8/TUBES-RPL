@@ -1,232 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Tambah Mata Kuliah</title>
     <link rel="stylesheet" href="/public/css/output.css" />
-</head>
+  </head>
 
-<body class="bg-gray-200">
+  <body class="bg-gray-200">
     <!-- Main Overlay -->
-    <div id="mainOverlay" class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"></div>
+    <div
+      id="mainOverlay"
+      class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"
+    ></div>
     <div class="flex flex-row font-inter">
-        <%- include('./NavBar'); %>
-            <div class="flex flex-col w-full h-full">
-                <%- include('./header'); %>
-                    <div class="flex flex-col mt-[30px]">
-                        <div class="main-container px-[50px] border-transparent">
-                            <div class="content-container mb-[10px]">
-                                <div class="title text-gray-600 text-[30px] font-bold">Jadwal Mata Kuliah</div>
-                            </div>
-                            <div class="upload-section mb-[10px] flex justify-end">
-                                <a href="#" id="openOverlay" class="upload-section">
-                                    <button type="button"
-                                        class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded">+Tambah</button>
-                                </a>
-                            </div>
-                            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[430px]">
-                                <div class="schedule-table rounded-lg overflow-hidden">
-                                    <table id="scheduleTable"
-                                        class="w-full border-collaps font-poppins drop-shadow-xl bg-white rounded-xl  ">
-                                        <thead class="">
-                                            <tr class="">
-                                                <th class="py-2 px-4 bg-gray-100 text-center">Kode</th>
-                                                <th class="py-2 px-4 bg-gray-100 text-center">Nama Mata Kuliah</th>
-                                                <th class="py-2 px-4 bg-gray-100 text-center">Nama Dosen</th>
-                                                <th class="py-2 px-4 bg-gray-100 text-center">Hari</th>
-                                                <th class="py-2 px-4 bg-gray-100 text-center">Kelas</th>
-                                                <th class="py-2 px-4 bg-gray-100 text-center">Awal</th>
-                                                <th class="py-2 px-4 bg-gray-100 text-center">Akhir</th>
-                                                <th class="py-2 px-4 bg-gray-100 text-center">Ruang Kelas</th>
-                                                <th class="py-2 px-4 bg-gray-100 text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tableBody">
-                                            <tr class="border-t font-poppins drop-shadow-xl bg-white rounded-xl">
-                                                <td class="py-2 px-4 text-center">AIF20129309</td>
-                                                <td class="py-2 px-4 text-center">Dasar Pemrograman</td>
-                                                <td class="py-2 px-4 text-center">Hakim</td>
-                                                <td class="py-2 px-4 text-center">Senin</td>
-                                                <td class="py-2 px-4 text-center">A</td>
-                                                <td class="py-2 px-4 text-center">12.00</td>
-                                                <td class="py-2 px-4 text-center">14.00</td>
-                                                <td class="py-2 px-4 text-center">LAB 01</td>
-                                                <td class="py-2 px-4 text-center">
-                                                    <button type="button" class="text-red-500 hover:text-red-700"><i
-                                                            class="fas fa-trash-alt"></i></button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
+      <%- include('./NavBar'); %>
+      <div class="flex flex-col w-full h-full">
+        <%- include('./header'); %>
+        <div class="flex flex-col mt-[30px]">
+          <div class="main-container px-[50px] border-transparent">
+            <div class="content-container mb-[10px]">
+              <div class="title text-gray-600 text-[30px] font-bold">
+                Jadwal Mata Kuliah
+              </div>
             </div>
+            <div class="upload-section mb-[10px] flex justify-end">
+              <a href="#" id="openOverlay" class="upload-section">
+                <button
+                  type="button"
+                  class="bg-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded"
+                >
+                  +Tambah
+                </button>
+              </a>
+            </div>
+            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[430px]">
+              <div class="schedule-table rounded-lg overflow-hidden">
+                <table
+                  id="scheduleTable"
+                  class="w-full border-collaps font-poppins drop-shadow-xl bg-white rounded-xl"
+                >
+                  <thead class="">
+                    <tr class="">
+                      <th class="py-2 px-4 bg-gray-100 text-center">Kode</th>
+                      <th class="py-2 px-4 bg-gray-100 text-center">
+                        Nama Mata Kuliah
+                      </th>
+                      <th class="py-2 px-4 bg-gray-100 text-center">
+                        Nama Dosen
+                      </th>
+                      <th class="py-2 px-4 bg-gray-100 text-center">Hari</th>
+                      <th class="py-2 px-4 bg-gray-100 text-center">Kelas</th>
+                      <th class="py-2 px-4 bg-gray-100 text-center">Awal</th>
+                      <th class="py-2 px-4 bg-gray-100 text-center">Akhir</th>
+                      <th class="py-2 px-4 bg-gray-100 text-center">
+                        Ruang Kelas
+                      </th>
+                      <th class="py-2 px-4 bg-gray-100 text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Modified Overlay -->
-    <div id="overlay"
-        class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex  flex-col items-center w-[1350px] h-[336px] bg-white rounded-lg shadow-lg hidden z-20">
-        <div class="w-3/4 h-12 text-center text-gray-800 text-2xl font-bold mt-[30px] mb-[20px]">Pilih Jadwal</div>
-        <div class="flex flex-row items-center justify-center space-x-6">
-            <div class="flex flex-col">
-                <div class="text-gray-500 text-lg font-normal">Matkul:</div>
-                <input type="text" placeholder="Nama Mata Kuliah" class="border rounded-lg h-8 pl-[5px]"
-                    id="matkul-input">
-            </div>
-            <div class="flex flex-col">
-                <div class="text-gray-500 text-lg font-normal">Nama Dosen:</div>
-                <input type="text" placeholder="Nama Dosen" class="border rounded-lg h-8 pl-[5px]" id="matkul-input">
-            </div>
-            <div class="flex flex-col">
-                <div class="text-gray-500 text-lg font-normal">Kode Matkul:</div>
-                <input type="text" placeholder="Kode Mata Kuliah" class="border rounded-lg h-8 pl-[5px]"
-                    id="matkul-id-input">
-            </div>
-            <div class="flex flex-col">
-                <div class="text-gray-400 text-lg font-normal">Hari:</div>
-                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="hari-input">
-                    <option value="senin">Senin</option>
-                    <option value="selasa">Selasa</option>
-                    <option value="rabu">Rabu</option>
-                    <option value="kamis">Kamis</option>
-                    <option value="jumat">Jumat</option>
-                    <option value="sabtu">Sabtu</option>
-
-                </select>
-            </div>
-
-            <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
-                <i class="fas fa-times"></i>
-            </button>
+    <div
+      id="overlay"
+      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center w-[1350px] h-[336px] bg-white rounded-lg shadow-lg hidden z-20"
+    >
+      <div
+        class="w-3/4 h-12 text-center text-gray-800 text-2xl font-bold mt-[30px] mb-[20px]"
+      >
+        Pilih Jadwal
+      </div>
+      <div class="flex flex-row items-center justify-center space-x-6">
+        <div class="flex flex-col">
+          <div class="text-gray-500 text-lg font-normal">Matkul:</div>
+          <input
+            type="text"
+            placeholder="Nama Mata Kuliah"
+            class="border rounded-lg h-8 pl-[5px]"
+            id="matkul-input"
+          />
         </div>
-        <div class="flex flex-row items-center justify-center space-x-6 mt-[15px] mb-[10px]">
-            <div class="flex flex-col">
-                <div class="text-gray-400 text-lg font-normal">Kelas:</div>
-                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="kelas-input">
-                    <option value="A">Kelas A</option>
-                    <option value="B">Kelas B</option>
-                </select>
-            </div>
-            <div class="flex flex-col">
-                <div class="text-gray-400 text-lg font-normal">Jam dari:</div>
-                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamawal">
-                    <option value="6">06.00</option>
-                    <option value="7">07.00</option>
-                    <option value="8">08.00</option>
-                    <option value="9">09.00</option>
-                    <option value="10">10.00</option>
-                    <option value="11">11.00</option>
-                    <option value="12">12.00</option>
-                    <option value="13">13.00</option>
-                    <option value="14">14.00</option>
-                    <option value="15">15.00</option>
-                    <option value="16">16.00</option>
-                    <option value="17">17.00</option>
-                </select>
-            </div>
-            <div class="flex flex-col">
-                <div class="text-gray-400 text-lg font-normal">Jam sampai:</div>
-                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamsampai">
-                    <option value="6">06.00</option>
-                    <option value="7">07.00</option>
-                    <option value="8">08.00</option>
-                    <option value="9">09.00</option>
-                    <option value="10">10.00</option>
-                    <option value="11">11.00</option>
-                    <option value="12">12.00</option>
-                    <option value="13">13.00</option>
-                    <option value="14">14.00</option>
-                    <option value="15">15.00</option>
-                    <option value="16">16.00</option>
-                    <option value="17">17.00</option>
-                </select>
-            </div>
-            <div class="flex flex-col">
-                <div class="text-gray-500 text-lg font-normal">Ruang:</div>
-                <input type="text" placeholder="Ruang kelas" class="border rounded-lg h-8 pl-[5px]" id="ruang-input">
-            </div>
+        <div class="flex flex-col">
+          <div class="text-gray-500 text-lg font-normal">Nama Dosen:</div>
+          <input
+            type="text"
+            placeholder="Nama Dosen"
+            class="border rounded-lg h-8 pl-[5px]"
+            id="dosen-input"
+          />
         </div>
-        <hr class="border-gray-300 w-[1300px] border-b-2 mt-[10px]">
-        <button class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[15px]"
-            onclick="kirimdata()">
-            <div class="text-white text-base font-normal">Simpan</div>
+        <div class="flex flex-col">
+          <div class="text-gray-500 text-lg font-normal">Kode Matkul:</div>
+          <input
+            type="text"
+            placeholder="Kode Mata Kuliah"
+            class="border rounded-lg h-8 pl-[5px]"
+            id="matkul-id-input"
+          />
+        </div>
+        <div class="flex flex-col">
+          <div class="text-gray-400 text-lg font-normal">Hari:</div>
+          <select
+            class="w-[150px] h-8 border border-gray-300 rounded-md"
+            id="hari-input"
+          >
+            <option value="senin">Senin</option>
+            <option value="selasa">Selasa</option>
+            <option value="rabu">Rabu</option>
+            <option value="kamis">Kamis</option>
+            <option value="jumat">Jumat</option>
+            <option value="sabtu">Sabtu</option>
+          </select>
+        </div>
+
+        <button
+          id="closeOverlay"
+          class="absolute top-4 right-4 text-red-500 hover:text-red-700"
+        >
+          <i class="fas fa-times"></i>
         </button>
+      </div>
+      <div
+        class="flex flex-row items-center justify-center space-x-6 mt-[15px] mb-[10px]"
+      >
+        <div class="flex flex-col">
+          <div class="text-gray-400 text-lg font-normal">Kelas:</div>
+          <select
+            class="w-[150px] h-8 border border-gray-300 rounded-md"
+            id="kelas-input"
+          >
+            <option value="A">Kelas A</option>
+            <option value="B">Kelas B</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <div class="text-gray-400 text-lg font-normal">Jam dari:</div>
+          <select
+            class="w-[150px] h-8 border border-gray-300 rounded-md"
+            id="jamawal"
+          >
+            <option value="6">06.00</option>
+            <option value="7">07.00</option>
+            <option value="8">08.00</option>
+            <option value="9">09.00</option>
+            <option value="10">10.00</option>
+            <option value="11">11.00</option>
+            <option value="12">12.00</option>
+            <option value="13">13.00</option>
+            <option value="14">14.00</option>
+            <option value="15">15.00</option>
+            <option value="16">16.00</option>
+            <option value="17">17.00</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <div class="text-gray-400 text-lg font-normal">Jam sampai:</div>
+          <select
+            class="w-[150px] h-8 border border-gray-300 rounded-md"
+            id="jamsampai"
+          >
+            <option value="6">06.00</option>
+            <option value="7">07.00</option>
+            <option value="8">08.00</option>
+            <option value="9">09.00</option>
+            <option value="10">10.00</option>
+            <option value="11">11.00</option>
+            <option value="12">12.00</option>
+            <option value="13">13.00</option>
+            <option value="14">14.00</option>
+            <option value="15">15.00</option>
+            <option value="16">16.00</option>
+            <option value="17">17.00</option>
+          </select>
+        </div>
+        <div class="flex flex-col">
+          <div class="text-gray-500 text-lg font-normal">Ruang:</div>
+          <input
+            type="text"
+            placeholder="Ruang kelas"
+            class="border rounded-lg h-8 pl-[5px]"
+            id="ruang-input"
+          />
+        </div>
+      </div>
+      <hr class="border-gray-300 w-[1300px] border-b-2 mt-[10px]" />
+      <button
+        class="bg-green-600 hover:bg-green-800 w-36 h-11 rounded-2xl flex items-center justify-center mt-[15px]"
+        onclick="kirimdata()"
+      >
+        <div class="text-white text-base font-normal">Simpan</div>
+      </button>
     </div>
 
-
-    <!-- Font Awesome Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
-    <!-- Your JavaScript Code -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
-        const openOverlayButton = document.getElementById('openOverlay');
-        const overlay = document.getElementById('overlay');
-        const closeOverlayButton = document.getElementById('closeOverlay');
-        const mainOverlay = document.getElementById('mainOverlay');
+      const openOverlayButton = document.getElementById("openOverlay");
+      const overlay = document.getElementById("overlay");
+      const closeOverlayButton = document.getElementById("closeOverlay");
+      const mainOverlay = document.getElementById("mainOverlay");
 
-        openOverlayButton.addEventListener('click', () => {
-            overlay.classList.remove('hidden');
-            mainOverlay.classList.remove('hidden');
+      openOverlayButton.addEventListener("click", () => {
+        overlay.classList.remove("hidden");
+        mainOverlay.classList.remove("hidden");
+      });
+
+      closeOverlayButton.addEventListener("click", () => {
+        overlay.classList.add("hidden");
+        mainOverlay.classList.add("hidden");
+
+        document.getElementById("matkul-input").value = "";
+        document.getElementById("matkul-id-input").value = "";
+        document.getElementById("ruang-input").value = "";
+      });
+
+      function formatTime(time) {
+        return time < 10 ? "0" + time +":00" : time + ":00";
+      }
+
+      function kirimdata() {
+        const matkul = document.getElementById("matkul-input").value;
+        const kodematkul = document.getElementById("matkul-id-input").value;
+        const hari = document.getElementById("hari-input").value;
+        const dosen = document.getElementById("dosen-input").value;
+        const kelas = document.getElementById("kelas-input").value;
+        const jamawal = document.getElementById("jamawal").value;
+        const jamakhir = document.getElementById("jamsampai").value;
+        const ruang = document.getElementById("ruang-input").value;
+        const data = {
+          matkul: matkul,
+          kodematkul: kodematkul,
+          hari: hari,
+          dosen: dosen,
+          kelas: kelas,
+          jamawal: jamawal,
+          jamakhir: jamakhir,
+          ruang: ruang,
+        };
+        console.log(data);
+          return fetch('/koordinator/tambahmatkul', {
+            method: 'POST',
+            headers: {
+                 'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => {
+            Swal.fire({
+                 icon: 'success',
+                 title: 'Berhasil!',
+                 text: 'Mata kuliah berhasil ditambahkan.',
+            });
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
+
+      function fetchdatamatkul() {
+        return fetch(`/koordinator/ambilmatkul`)
+          .then((response) => response.json())
+          .then((data) => {
+            return data;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      function updateTable(data) {
+        const table = document.getElementById("tableBody");
+        console.log(data);
+        data.forEach((row) => {
+          const newRow = document.createElement("tr");
+          newRow.classList.add(
+            "border-t",
+            "font-poppins",
+            "drop-shadow-xl",
+            "bg-white",
+            "rounded-xl"
+          );
+          newRow.innerHTML = `
+                <td class="py-2 px-4 text-center">${row.Kode}</td>
+                <td class="py-2 px-4 text-center">${row.Matkul}</td>
+                <td class="py-2 px-4 text-center">${row.Dosen}</td>
+                <td class="py-2 px-4 text-center">${row.Hari}</td>
+                <td class="py-2 px-4 text-center">${row.Kelas}</td>
+                <td class="py-2 px-4 text-center">${formatTime(row.awal)}</td>
+                <td class="py-2 px-4 text-center">${formatTime(row.akhir)}</td>
+                <td class="py-2 px-4 text-center">${row.ruangkelas}</td>
+                <td class="py-2 px-4 text-center">
+                <button
+                    type="button"
+                    data-id-matkul="${row.Kode}"
+                    data-id-kelas="${row.Kelas}"
+                    onclick="deleterow(this)"
+                    class="text-red-500 hover:text-red-700"
+                >
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                </td>
+            `;
+          table.appendChild(newRow);
         });
+      }
 
-        closeOverlayButton.addEventListener('click', () => {
-            overlay.classList.add('hidden');
-            mainOverlay.classList.add('hidden');
-
-            document.getElementById('matkul-input').value = "";
-            document.getElementById('matkul-id-input').value = "";
-            document.getElementById('ruang-input').value = "";
-
-        });
-
-
-        function kirimdata() {
-            const matkul = document.getElementById('matkul-input').value;
-            const kodematkul = document.getElementById('matkul-id-input').value;
-            const hari = document.getElementById('hari-input').value;
-            const kelas = document.getElementById('kelas-input').value;
-            const jamawal = document.getElementById('jamawal').value;
-            const jamakhir = document.getElementById('jamsampai').value;
-            const ruang = document.getElementById('ruang-input').value;
-            const data = {
-                matkul: matkul,
-                kodematkul: kodematkul,
-                hari: hari,
-                kelas: kelas,
-                jamawal: jamawal,
-                jamakhir: jamakhir,
-                ruang: ruang
+      function deleterow(button) {
+        const idmatkul = button.getAttribute("data-id-matkul");
+        const idkelas = button.getAttribute("data-id-kelas");
+        const kode = button.getAttribute("data-id-matkul");
+        const kelas = button.getAttribute("data-id-kelas");
+        const data = {
+          idmatkul: idmatkul,
+          idkelas: idkelas,
+        };
+        console.log(data);
+        return fetch(`/koordinator/hapusmatkul/${kode}/${kelas}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              const deletedRow = button.closest("tr");
+              deletedRow.remove();
+            } else {
+              throw new Error("Delete request failed");
             }
-            console.log(data);
-            //   return fetch('/koordinator/tambahmatkul', {
-            //     method: 'POST',
-            //     headers: {
-            //          'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(data),
-            //   })
-            //   .then(response => {
-            //     Swal.fire({
-            //          icon: 'success',
-            //          title: 'Berhasil!',
-            //          text: 'Mata kuliah berhasil ditambahkan.',
-            //     });
-            //   })
-            //   .catch(error => {
-            //     console.error('Error:', error);
-            //   });
-       }
+          })
+          .then((data) => {
+            Swal.fire({
+              icon: "success",
+              title: "Berhasil!",
+              text: "Mata kuliah berhasil dihapus.",
+            });
+          });
+      }
 
-       function fetchdatamatkul(){
-        
-
-       }
-   </script>    
-    </body>
+      fetchdatamatkul()
+        .then((data) => updateTable(data))
+        .catch((error) => console.error("Error fetching data:", error));
+    </script>
+  </body>
 </html>

@@ -120,13 +120,14 @@ KoordinatorRoute.get("/koordinator/infostatus", (req, res) => {
 
   //tambah matkul ambil data
   KoordinatorRoute.get("/koordinator/ambilmatkul", (req,res) => {
-    const query = ``;
+    const query = `SELECT dosen.idmk AS "Kode", namamk AS "Matkul", nama_dosen as "Dosen", hari AS "Hari", idkelas AS "Kelas", awal, akhir, ruangkelas FROM dosen INNER JOIN kelas ON dosen.idmk = kelas.idmk INNER JOIN matkul on kelas.idmk = matkul.idmk;`;
 
-    db.query(query, [], (err, result) => {
+    db.query(query, (err, result) => {
       if (err) {
         console.log(err);
       }
       console.log(result);
+      res.json(result);
     });
 
 
@@ -134,22 +135,77 @@ KoordinatorRoute.get("/koordinator/infostatus", (req, res) => {
 
   
   //tambah matkul
-  KoordinatorRoute.post("/koordinator/tambahmatkul/:idkm", (req, res) => {
-    const idmk = req.body.idmk;
-    const namamk = req.body.namamk;
-    const sks = req.body.sks;
-    const requires = req.body.requires;
-    const query = "";
-    db.query(query, [idmk, namamk, sks, requires], (err, result) => {
+  KoordinatorRoute.post("/koordinator/tambahmatkul/", (req, res) => {
+    const matkul = req.body.matkul;
+    const kodematkul = req.body.kodematkul;
+    const hari = req.body.hari;
+    const dosen = req.body.dosen;
+    const kelas = req.body.kelas;
+    const awal = req.body.jamawal;
+    const akhir = req.body.jamakhir;
+    const ruang = req.body.ruang;
+
+    const querymatkul = "INSERT INTO matkul (`idmk`, `namamk`) VALUES (?,?);";
+    const querykelas = "INSERT INTO kelas (`idkelas`,`hari`,`awal`,`akhir`,`idmk`,`ruangkelas`) VALUES (?,?,?,?,?,?);";
+    const querydosen = "SELECT DISTINCT id_dosen, nama_dosen, pw FROM dosen WHERE nama_dosen = ?;";
+    const querydoseninput = "INSERT INTO dosen (`id_dosen`,`nama_dosen`,`idmk`,`pw`) VALUES (?,?,?,?);";
+    db.query(querymatkul, [kodematkul, matkul], (err, result) => {
       if (err) {
         console.log(err);
       }
+      console.log("Input matkul berhasil");
+
+
+    });
+    db.query(querykelas, [kelas,hari,awal,akhir,kodematkul,ruang], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("Input kelas berhasil");
+      
+
+    });
+    db.query(querydosen, [dosen], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("Query dosen berhasil");
       console.log(result);
+      if(result.length > 0){
+        db.query(querydoseninput, [result[0].id_dosen,dosen,kodematkul,result[0].pw], (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          console.log("Input dosen berhasil");
+          
+          
+  
+        });
+      }
+      
+      
+
     });
   });
 
-  //
+  KoordinatorRoute.post("/koordinator/hapusmatkul/:kode/:kelas", (req, res) => {
+    const kode = req.params.kode;
+    const kelas = req.params.kelas;
+   
+    const query = "delete from kelas where idkelas = ? and idmk = ?;";
+    db.query(query, [kelas,kode], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log("behasil");
+      console.log(result);  
+      res.status(200).send("ok");
+      
 
+    });
+  });
+  
+  
 
 
 
