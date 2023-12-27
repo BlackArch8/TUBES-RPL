@@ -76,21 +76,27 @@
         <div class="w-3/4 h-12 text-center text-gray-800 text-2xl font-bold mt-[30px] mb-[20px]">Pilih Jadwal</div>
         <div class="flex flex-row items-center justify-center space-x-6">
             <div class="flex flex-col">
-                <div class="text-gray-500 text-lg font-normal">Matkul:</div>
+                <div class="text-gray-500 text-lg font-normal">Matkul:<span class="text-red-500">*</span></div>
+                
                 <input type="text" placeholder="Nama Mata Kuliah" class="border rounded-lg h-8 pl-[5px]"
-                    id="matkul-input">
+                    id="matkul-input" required>
             </div>
             <div class="flex flex-col">
-                <div class="text-gray-500 text-lg font-normal">Nama Dosen:</div>
-                <input type="text" placeholder="Nama Dosen" class="border rounded-lg h-8 pl-[5px]" id="matkul-input">
+                <div class="text-gray-400 text-lg font-normal">Nama Dosen:<span class="text-red-500">*</span></div>
+                <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="hari-input">
+                    <option value="">Pilih Dosen...</option>
+                    <option value="Husnul">Husnul</option>
+                    <option value="Pascal">Pascal</option>
+                    <option value="Reimon">Reimon</option>
+                </select>
             </div>
             <div class="flex flex-col">
-                <div class="text-gray-500 text-lg font-normal">Kode Matkul:</div>
+                <div class="text-gray-500 text-lg font-normal">Kode Matkul:<span class="text-red-500">*</span></div>
                 <input type="text" placeholder="Kode Mata Kuliah" class="border rounded-lg h-8 pl-[5px]"
-                    id="matkul-id-input">
+                    id="matkul-id-input" required>
             </div>
             <div class="flex flex-col">
-                <div class="text-gray-400 text-lg font-normal">Hari:</div>
+                <div class="text-gray-400 text-lg font-normal">Hari:<span class="text-red-500">*</span></div>
                 <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="hari-input">
                     <option value="senin">Senin</option>
                     <option value="selasa">Selasa</option>
@@ -98,7 +104,6 @@
                     <option value="kamis">Kamis</option>
                     <option value="jumat">Jumat</option>
                     <option value="sabtu">Sabtu</option>
-
                 </select>
             </div>
 
@@ -108,14 +113,14 @@
         </div>
         <div class="flex flex-row items-center justify-center space-x-6 mt-[15px] mb-[10px]">
             <div class="flex flex-col">
-                <div class="text-gray-400 text-lg font-normal">Kelas:</div>
+                <div class="text-gray-400 text-lg font-normal">Kelas:<span class="text-red-500">*</span></div>
                 <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="kelas-input">
                     <option value="A">Kelas A</option>
                     <option value="B">Kelas B</option>
                 </select>
             </div>
             <div class="flex flex-col">
-                <div class="text-gray-400 text-lg font-normal">Jam dari:</div>
+                <div class="text-gray-400 text-lg font-normal">Jam dari:<span class="text-red-500">*</span></div>
                 <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamawal">
                     <option value="6">06.00</option>
                     <option value="7">07.00</option>
@@ -132,7 +137,7 @@
                 </select>
             </div>
             <div class="flex flex-col">
-                <div class="text-gray-400 text-lg font-normal">Jam sampai:</div>
+                <div class="text-gray-400 text-lg font-normal">Jam sampai:<span class="text-red-500">*</span></div>
                 <select class="w-[150px] h-8 border border-gray-300 rounded-md" id="jamsampai">
                     <option value="6">06.00</option>
                     <option value="7">07.00</option>
@@ -149,8 +154,8 @@
                 </select>
             </div>
             <div class="flex flex-col">
-                <div class="text-gray-500 text-lg font-normal">Ruang:</div>
-                <input type="text" placeholder="Ruang kelas" class="border rounded-lg h-8 pl-[5px]" id="ruang-input">
+                <div class="text-gray-500 text-lg font-normal">Ruang:<span class="text-red-500">*</span></div>
+                <input type="text" placeholder="Ruang kelas" class="border rounded-lg h-8 pl-[5px]" id="ruang-input" required>
             </div>
         </div>
         <hr class="border-gray-300 w-[1300px] border-b-2 mt-[10px]">
