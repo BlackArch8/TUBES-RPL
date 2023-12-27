@@ -118,5 +118,39 @@ KoordinatorRoute.get("/koordinator/infostatus", (req, res) => {
     });
   });
 
+  //tambah matkul ambil data
+  KoordinatorRoute.get("/koordinator/ambilmatkul", (req,res) => {
+    const query = ``;
+
+    db.query(query, [], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+    });
+
+
+  });
+
+  
+  //tambah matkul
+  KoordinatorRoute.post("/koordinator/tambahmatkul/:idkm", (req, res) => {
+    const idmk = req.body.idmk;
+    const namamk = req.body.namamk;
+    const sks = req.body.sks;
+    const requires = req.body.requires;
+    const query = "";
+    db.query(query, [idmk, namamk, sks, requires], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+    });
+  });
+
+  //
+
+
+
 
 export {KoordinatorRoute, KoordinatorRoute as default};
