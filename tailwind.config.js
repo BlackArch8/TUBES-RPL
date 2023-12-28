@@ -16,6 +16,9 @@ export default {
         'nav-bar': '#0E1A35',
         'nav-bar_hover': '#122143'
       },
+      backgroundImage: {
+        'login': "url('/public/images/login.jpg')"
+      },
     },
   },
   plugins: [],
