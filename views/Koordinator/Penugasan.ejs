@@ -68,7 +68,8 @@
         </div>
         <div class="flex flex-col w-[700px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins">
             <div class="ml-[40px] mt-[30px] font-semibold text-[25px]">Daftar Calon Asisten Dosen</div>
-            <form>
+            <div id="list-asdos" >
+
                 <div class="ml-[40px]">
                     <input type="checkbox" name="calon" value="Andrew Febrian" />
                     <label for="calon">Andrew Febrian</label>
@@ -85,11 +86,32 @@
                     <input type="checkbox" name="calon" value="Andrew Sahabat" />
                     <label for="calon">Andrew Sahabat</label>
                 </div>
+                <div class="ml-[40px]">
+                    <input type="checkbox" name="calon" value="Andrew Sahabat" />
+                    <label for="calon">Andrew Sahabat</label>
+                </div>
+                <div class="ml-[40px]">
+                    <input type="checkbox" name="calon" value="Andrew Sahabat" />
+                    <label for="calon">Andrew Sahabat</label>
+                </div>
+                <div class="ml-[40px]">
+                    <input type="checkbox" name="calon" value="Andrew Sahabat" />
+                    <label for="calon">Andrew Sahabat</label>
+                </div>
+                <div class="ml-[40px]">
+                    <input type="checkbox" name="calon" value="Andrew Sahabat" />
+                    <label for="calon">Andrew Sahabat</label>
+                </div>
+                <div class="ml-[40px]">
+                    <input type="checkbox" name="calon" value="Andrew Sahabat" />
+                    <label for="calon">Andrew Sahabat</label>
+                </div>
+            </div>
                 <div class="absolute bottom-4 right-4">
                     <button type="submit"
-                        class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600">Assign</button>
+                        class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600" id="assign_button">Assign</button>
                 </div>
-            </form>
+           
             <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
                 <i class="fas fa-times"></i>
             </button>
@@ -109,11 +131,22 @@
             idmk = rowId;
             idkelas = rowIdkelas;
 
-            // Fetch the data from the server
+            // Fetch the data matkul from the server
             fetchdatakelas(rowId).then((data) => {
                 // Update the modal content
                 console.log(data);
                 updateModalContent(data);
+
+                // Show the modal
+                showEditModal();
+            });
+
+            // Fetch the data asdos from the server
+            fetchDataAsdos(rowId).then((data_asdos) => {
+                // Update the modal content
+                console.log("data asdos:")
+                console.log(data_asdos);
+                updateModalContentAsdos(data_asdos);
 
                 // Show the modal
                 showEditModal();
@@ -128,11 +161,35 @@
 
         function updateModalContent(data) {
             document.getElementById("idmatkul").innerHTML = "ID Matkul: "+data[0].idmk;
-            document.getElementById("namadosen").innerHTML = "Nama Dosen: "+data[0].nama_dosen;
-            document.getElementById("namamatkul").innerHTML = "Nama Matkul: "+data[0].namamk;
+            document.getElementById("namadosen").innerHTML = "Nama Dosen: "+data[0].nama_dosen ;
+            document.getElementById("namamatkul").innerHTML = "Nama Matkul: "+data[0].namamk +" " +data[0].idkelas;
             document.getElementById("hari").innerHTML = "Hari: "+data[0].hari;
             document.getElementById("awal").innerHTML = "Mulai jam: "+data[0].awal;
             document.getElementById("akhir").innerHTML = "Berakhir jam: "+data[0].akhir;
+        }
+
+        function updateModalContentAsdos(data_asdos){
+          //update modal content for daftar calon asisten
+            let list_asdos = document.getElementById("list-asdos");
+            
+            for(let i=0; i<data_asdos.length; i++){
+                let div = document.createElement("div");
+                div.setAttribute("class", "ml-[40px]");
+                let input = document.createElement("input");
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("name", "calon");
+                input.setAttribute("value", data_asdos[i].nama_calon);
+                let label = document.createElement("label");
+                label.setAttribute("for", "calon");
+                label.innerHTML = data_asdos[i].nama_calon;
+                div.appendChild(input);
+                div.appendChild(label);
+                list_asdos.appendChild(div);
+            }
+          
+            
+            
+
         }
 
         function showEditModal() {
@@ -140,8 +197,20 @@
             $("#mainOverlay").removeClass("hidden");
         }
 
+        function fetchDataAsdos(idmk){
+            return fetch(`/koordinator/get-list-asdos-asign/${idmk}`)
+                .then((response) => response.json())
+                .then((data_asdos) => {
+                    console.log(data_asdos);
+                    return data_asdos;
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
+
         function fetchdatakelas(idmk) {
-            return fetch(`/get-kelas/${idmk}/${idkelas}`)
+            return fetch(`/koordinator/get-kelas/${idmk}/${idkelas}`)
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);
