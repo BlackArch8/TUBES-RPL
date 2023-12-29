@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Upload Nilai</title>
+    <title>Input Jadwal Kosong</title>
     <link rel="stylesheet" href="/public/css/output.css" />
   </head>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -21,9 +21,9 @@
         class="content-container flex flex-col items-center mb-4 font-poppins drop-shadow-xl bg-white rounded-xl"
       >
         <div class="title text-2xl font-bold my-4">
-          Isi Jadwal Asistensi yang
+          Isi Jadwal Kosong Anda
         </div>
-        <div class="title text-2xl font-bold my-4">Anda Pilih Semester ini</div>
+        <div class="title text-2xl font-bold my-4">Silahkan memilih jadwal </div>
       </div>
 
       <div class="upload-section mt-4 flex justify-end">
@@ -89,7 +89,7 @@
             <option value="kamis">Kamis</option>
             <option value="jumat">Jumat</option>
             <option value="sabtu">Sabtu</option>
-            <option value="sabtu">Minggu</option>
+            
           </select>
         </div>
         <div class="flex flex-col">
@@ -201,7 +201,7 @@
           "border-t font-poppins drop-shadow-xl bg-white rounded-xl";
 
         // Calculate the row number based on the existing rows
-        const rowNumber = scheduleTable.children.length - 1 + 1;
+        const rowNumber = scheduleTable.children.length - 1;
 
         // Set inner HTML for the new row
         newRow.innerHTML = `
@@ -209,7 +209,6 @@
     <td class="py-2 px-4 text-center">${hariInput}</td>
     <td class="py-2 px-4 text-center">${jamdariDisplay} - ${jamsampaiDisplay}</td>
     <td class="py-2 px-4 text-center">
-      <button type="button" class="text-blue-500 hover:text-blue-700"><i class="fas fa-edit"></i></button>
       <button type="button" class="text-red-500 hover:text-red-700" onclick="deleteRow(this)"><i class="fas fa-trash-alt"></i></button>
     </td>
   `;
@@ -230,7 +229,7 @@
 
         for (let i = 1; i < rows.length; i++) {
           const cells = rows[i].getElementsByTagName("td");
-          // Adjusted cell indexes and compared with input values
+          
 
           if (
             cells[1].innerText === hari &&
@@ -292,7 +291,7 @@
         event.preventDefault();
 
         if (document.getElementById("scheduleTable").rows.length == 1) {
-          alert("Tabel tidak boleh kosong!");
+          alert("Jadwal tidak boleh kosong!");
           return;
         }
 

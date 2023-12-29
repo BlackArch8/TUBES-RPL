@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Lato&family=Poppins&display=swap');
 
 /*
-! tailwindcss v3.3.5 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.0 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -34,9 +34,11 @@
 4. Use the user's configured `sans` font-family by default.
 5. Use the user's configured `sans` font-feature-settings by default.
 6. Use the user's configured `sans` font-variation-settings by default.
+7. Disable tap highlights on iOS
 */
 
-html {
+html,
+:host {
   line-height: 1.5;
   /* 1 */
   -webkit-text-size-adjust: 100%;
@@ -46,12 +48,14 @@ html {
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
   font-variation-settings: normal;
   /* 6 */
+  -webkit-tap-highlight-color: transparent;
+  /* 7 */
 }
 
 /*
@@ -123,8 +127,10 @@ strong {
 }
 
 /*
-1. Use the user's configured `mono` font family by default.
-2. Correct the odd `em` font sizing in all browsers.
+1. Use the user's configured `mono` font-family by default.
+2. Use the user's configured `mono` font-feature-settings by default.
+3. Use the user's configured `mono` font-variation-settings by default.
+4. Correct the odd `em` font sizing in all browsers.
 */
 
 code,
@@ -133,8 +139,12 @@ samp,
 pre {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   /* 1 */
-  font-size: 1em;
+  font-feature-settings: normal;
   /* 2 */
+  font-variation-settings: normal;
+  /* 3 */
+  font-size: 1em;
+  /* 4 */
 }
 
 /*
@@ -556,6 +566,10 @@ video {
   inset: 0px;
 }
 
+.bottom-4{
+  bottom: 1rem;
+}
+
 .left-0{
   left: 0px;
 }
@@ -578,18 +592,6 @@ video {
 
 .top-4{
   top: 1rem;
-}
-
-.bottom-4{
-  bottom: 1rem;
-}
-
-.right-3{
-  right: 0.75rem;
-}
-
-.right-2{
-  right: 0.5rem;
 }
 
 .z-10{
@@ -730,6 +732,10 @@ video {
   margin-top: 80px;
 }
 
+.block{
+  display: block;
+}
+
 .inline-block{
   display: inline-block;
 }
@@ -858,10 +864,6 @@ video {
   height: 100vh;
 }
 
-.h-\[400px\]{
-  height: 400px;
-}
-
 .w-3\/4{
   width: 75%;
 }
@@ -918,6 +920,10 @@ video {
   width: 35px;
 }
 
+.w-\[400px\]{
+  width: 400px;
+}
+
 .w-\[450px\]{
   width: 450px;
 }
@@ -942,10 +948,6 @@ video {
   width: 70px;
 }
 
-.w-\[750px\]{
-  width: 750px;
-}
-
 .w-\[75px\]{
   width: 75px;
 }
@@ -958,8 +960,16 @@ video {
   width: 100%;
 }
 
-.w-\[400px\]{
-  width: 400px;
+.w-\[1300px\]{
+  width: 1300px;
+}
+
+.w-\[1350px\]{
+  width: 1350px;
+}
+
+.w-\[13000px\]{
+  width: 13000px;
 }
 
 .min-w-full{
@@ -1046,6 +1056,24 @@ video {
 
 .gap-\[5px\]{
   gap: 5px;
+}
+
+.space-x-6 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-8 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(2rem * var(--tw-space-x-reverse));
+  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.space-x-10 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(2.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .self-center{
@@ -1287,10 +1315,6 @@ video {
   padding: 15px;
 }
 
-.p-\[20px\]{
-  padding: 20px;
-}
-
 .px-3{
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -1370,6 +1394,10 @@ video {
 
 .pt-\[5px\]{
   padding-top: 5px;
+}
+
+.pl-\[2px\]{
+  padding-left: 2px;
 }
 
 .text-left{
