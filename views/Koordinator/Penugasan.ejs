@@ -59,37 +59,57 @@
     <div id="overlay"
         class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-row gap-[20px] shadow-lg items-center hidden z-20">
         <div class="flex flex-col w-[400px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px]  font-poppins">
-            <div class="ml-[40px] mt-[30px]" id="idmatkul"></div>
-            <div class="ml-[40px]" id="namadosen"></div>
-            <div class="ml-[40px]" id="namamatkul"></div>
-            <div class="ml-[40px]" id="hari"></div>
-            <div class="ml-[40px]" id="awal"></div>
-            <div class="ml-[40px]" id="akhir"></div>
+            <div class="ml-[25px] mt-[30px]" id="idmatkul"></div>
+            <div class="ml-[25px]" id="namadosen"></div>
+            <div class="ml-[25px]" id="namamatkul"></div>
+            <div class="ml-[25px]" id="hari"></div>
+            <div class="ml-[25px]" id="awal"></div>
+            <div class="ml-[25px]" id="akhir"></div>
         </div>
         <div class="flex flex-col w-[700px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins">
             <div class="ml-[40px] mt-[30px] font-semibold text-[25px]">Daftar Calon Asisten Dosen</div>
-            <form>
-                <div class="ml-[40px]">
-                    <input type="checkbox" name="calon" value="Andrew Febrian" />
-                    <label for="calon">Andrew Febrian</label>
+                <div class="px-4 overflow-y-auto h-[270px] w-[500px] ml-[25px]" id="table-container">
+                    <div class="inline-block min-w-full rounded-lg overflow-hidden">
+                        <table class="min-w-full leading-normal">
+                            <thead class="">
+                                <tr>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        Nama Asdos
+                                    </th>
+                                    <th
+                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                        Nilai
+                                    </th>
+                            </thead>
+                            <tbody id="list-asdos">
+                                    <tr class="">
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <input type="checkbox" name="calon" value="Andrew Febrian" />
+                                            <label for="calon">Andrew Febrian</label>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p class="text-gray-900 whitespace-no-wrap">A</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <input type="checkbox" name="calon" value="Parninggolan Febrian" />
+                                            <label for="calon">Parninggolan Febrian</label>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p class="text-gray-900 whitespace-no-wrap">A</p>
+                                        </td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="ml-[40px]">
-                    <input type="checkbox" name="calon" value="Parninggolan Febrian" />
-                    <label for="calon">Parninggolan Febrian</label>
-                </div>
-                <div class="ml-[40px]">
-                    <input type="checkbox" name="calon" value="Rahmat Parninggolan" />
-                    <label for="calon">Rahmat Parninggolan</label>
-                </div>
-                <div class="ml-[40px]">
-                    <input type="checkbox" name="calon" value="Andrew Sahabat" />
-                    <label for="calon">Andrew Sahabat</label>
-                </div>
-                <div class="absolute bottom-4 right-4">
+                <div class="absolute bottom-4 right-[-10px]">
                     <button type="submit"
-                        class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600">Assign</button>
+                        class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600" id="assign_button">Assign</button>
                 </div>
-            </form>
+           
             <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
                 <i class="fas fa-times"></i>
             </button>
@@ -109,11 +129,22 @@
             idmk = rowId;
             idkelas = rowIdkelas;
 
-            // Fetch the data from the server
+            // Fetch the data matkul from the server
             fetchdatakelas(rowId).then((data) => {
                 // Update the modal content
                 console.log(data);
                 updateModalContent(data);
+
+                // Show the modal
+                showEditModal();
+            });
+
+            // Fetch the data asdos from the server
+            fetchDataAsdos(rowId).then((data_asdos) => {
+                // Update the modal content
+                console.log("data asdos:")
+                console.log(data_asdos);
+                updateModalContentAsdos(data_asdos);
 
                 // Show the modal
                 showEditModal();
@@ -128,11 +159,46 @@
 
         function updateModalContent(data) {
             document.getElementById("idmatkul").innerHTML = "ID Matkul: "+data[0].idmk;
-            document.getElementById("namadosen").innerHTML = "Nama Dosen: "+data[0].nama_dosen;
-            document.getElementById("namamatkul").innerHTML = "Nama Matkul: "+data[0].namamk;
+            document.getElementById("namadosen").innerHTML = "Nama Dosen: "+data[0].nama_dosen ;
+            document.getElementById("namamatkul").innerHTML = "Nama Matkul: "+data[0].namamk +" " +data[0].idkelas;
             document.getElementById("hari").innerHTML = "Hari: "+data[0].hari;
             document.getElementById("awal").innerHTML = "Mulai jam: "+data[0].awal;
             document.getElementById("akhir").innerHTML = "Berakhir jam: "+data[0].akhir;
+        }
+
+        function updateModalContentAsdos(data_asdos){
+          //update modal content for daftar calon asisten
+            let list_asdos = document.getElementById("list-asdos");
+            
+            for(let i=0; i<data_asdos.length; i++){
+                let tr = document.createElement("tr");
+
+                let nama = document.createElement("td");
+                nama.setAttribute("class", "px-5 py-5 border-b border-gray-200 bg-white text-sm");
+
+                let input = document.createElement("input");
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("name", "calon");
+                input.setAttribute("value", data_asdos[i].nama_calon);
+
+                let label = document.createElement("label");
+                label.setAttribute("for", "calon");
+                label.setAttribute("class", "ml-[5px]");
+                label.innerHTML = data_asdos[i].nama_calon;
+
+                let nilai = document.createElement("td");
+                nilai.setAttribute("class", "px-5 py-5 border-b border-gray-200 bg-white text-sm");
+
+                let p = document.createElement("p");
+                p.innerHTML = "A"
+
+                tr.appendChild(nama);
+                nama.appendChild(input);
+                nama.appendChild(label);
+                tr.appendChild(nilai);
+                nilai.appendChild(p);
+                list_asdos.appendChild(tr);
+            }
         }
 
         function showEditModal() {
@@ -140,8 +206,20 @@
             $("#mainOverlay").removeClass("hidden");
         }
 
+        function fetchDataAsdos(idmk){
+            return fetch(`/koordinator/get-list-asdos-asign/${idmk}`)
+                .then((response) => response.json())
+                .then((data_asdos) => {
+                    console.log(data_asdos);
+                    return data_asdos;
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
+
         function fetchdatakelas(idmk) {
-            return fetch(`/get-kelas/${idmk}/${idkelas}`)
+            return fetch(`/koordinator/get-kelas/${idmk}/${idkelas}`)
                 .then((response) => response.json())
                 .then((data) => {
                     console.log(data);

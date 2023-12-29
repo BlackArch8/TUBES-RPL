@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&family=Lato&family=Poppins&display=swap');
 
 /*
-! tailwindcss v3.3.5 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.0 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -34,9 +34,11 @@
 4. Use the user's configured `sans` font-family by default.
 5. Use the user's configured `sans` font-feature-settings by default.
 6. Use the user's configured `sans` font-variation-settings by default.
+7. Disable tap highlights on iOS
 */
 
-html {
+html,
+:host {
   line-height: 1.5;
   /* 1 */
   -webkit-text-size-adjust: 100%;
@@ -46,12 +48,14 @@ html {
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
   font-variation-settings: normal;
   /* 6 */
+  -webkit-tap-highlight-color: transparent;
+  /* 7 */
 }
 
 /*
@@ -123,8 +127,10 @@ strong {
 }
 
 /*
-1. Use the user's configured `mono` font family by default.
-2. Correct the odd `em` font sizing in all browsers.
+1. Use the user's configured `mono` font-family by default.
+2. Use the user's configured `mono` font-feature-settings by default.
+3. Use the user's configured `mono` font-variation-settings by default.
+4. Correct the odd `em` font sizing in all browsers.
 */
 
 code,
@@ -133,8 +139,12 @@ samp,
 pre {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   /* 1 */
-  font-size: 1em;
+  font-feature-settings: normal;
   /* 2 */
+  font-variation-settings: normal;
+  /* 3 */
+  font-size: 1em;
+  /* 4 */
 }
 
 /*
@@ -556,6 +566,10 @@ video {
   inset: 0px;
 }
 
+.bottom-4{
+  bottom: 1rem;
+}
+
 .left-0{
   left: 0px;
 }
@@ -580,16 +594,44 @@ video {
   top: 1rem;
 }
 
-.bottom-4{
-  bottom: 1rem;
+.right-\[20px\]{
+  right: 20px;
 }
 
-.right-3{
-  right: 0.75rem;
+.right-\[300px\]{
+  right: 300px;
 }
 
-.right-2{
-  right: 0.5rem;
+.right-\[10px\]{
+  right: 10px;
+}
+
+.right-\[5px\]{
+  right: 5px;
+}
+
+.right-\[1px\]{
+  right: 1px;
+}
+
+.right-\[0px\]{
+  right: 0px;
+}
+
+.right-0{
+  right: 0px;
+}
+
+.-right-1{
+  right: -0.25rem;
+}
+
+.right-\[-1px\]{
+  right: -1px;
+}
+
+.right-\[-10px\]{
+  right: -10px;
 }
 
 .z-10{
@@ -730,6 +772,22 @@ video {
   margin-top: 80px;
 }
 
+.ml-\[10px\]{
+  margin-left: 10px;
+}
+
+.ml-\[25px\]{
+  margin-left: 25px;
+}
+
+.ml-\[5px\]{
+  margin-left: 5px;
+}
+
+.block{
+  display: block;
+}
+
 .inline-block{
   display: inline-block;
 }
@@ -858,8 +916,16 @@ video {
   height: 100vh;
 }
 
-.h-\[400px\]{
-  height: 400px;
+.h-\[50px\]{
+  height: 50px;
+}
+
+.h-\[270px\]{
+  height: 270px;
+}
+
+.h-\[280px\]{
+  height: 280px;
 }
 
 .w-3\/4{
@@ -878,12 +944,12 @@ video {
   width: 1180px;
 }
 
-.w-\[1200px\]{
-  width: 1200px;
+.w-\[1300px\]{
+  width: 1300px;
 }
 
-.w-\[1250px\]{
-  width: 1250px;
+.w-\[1350px\]{
+  width: 1350px;
 }
 
 .w-\[140px\]{
@@ -918,6 +984,10 @@ video {
   width: 35px;
 }
 
+.w-\[400px\]{
+  width: 400px;
+}
+
 .w-\[450px\]{
   width: 450px;
 }
@@ -942,10 +1012,6 @@ video {
   width: 70px;
 }
 
-.w-\[750px\]{
-  width: 750px;
-}
-
 .w-\[75px\]{
   width: 75px;
 }
@@ -958,8 +1024,8 @@ video {
   width: 100%;
 }
 
-.w-\[400px\]{
-  width: 400px;
+.w-\[500px\]{
+  width: 500px;
 }
 
 .min-w-full{
@@ -1046,6 +1112,12 @@ video {
 
 .gap-\[5px\]{
   gap: 5px;
+}
+
+.space-x-6 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .self-center{
@@ -1251,6 +1323,10 @@ video {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
 
+.bg-login{
+  background-image: url('/public/images/login.jpg');
+}
+
 .from-cyan-100{
   --tw-gradient-from: #cffafe var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(207 250 254 / 0) var(--tw-gradient-to-position);
@@ -1287,8 +1363,8 @@ video {
   padding: 15px;
 }
 
-.p-\[20px\]{
-  padding: 20px;
+.p-5{
+  padding: 1.25rem;
 }
 
 .px-3{
