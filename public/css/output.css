@@ -594,6 +594,46 @@ video {
   top: 1rem;
 }
 
+.right-\[20px\]{
+  right: 20px;
+}
+
+.right-\[300px\]{
+  right: 300px;
+}
+
+.right-\[10px\]{
+  right: 10px;
+}
+
+.right-\[5px\]{
+  right: 5px;
+}
+
+.right-\[1px\]{
+  right: 1px;
+}
+
+.right-\[0px\]{
+  right: 0px;
+}
+
+.right-0{
+  right: 0px;
+}
+
+.-right-1{
+  right: -0.25rem;
+}
+
+.right-\[-1px\]{
+  right: -1px;
+}
+
+.right-\[-10px\]{
+  right: -10px;
+}
+
 .z-10{
   z-index: 10;
 }
@@ -732,6 +772,18 @@ video {
   margin-top: 80px;
 }
 
+.ml-\[10px\]{
+  margin-left: 10px;
+}
+
+.ml-\[25px\]{
+  margin-left: 25px;
+}
+
+.ml-\[5px\]{
+  margin-left: 5px;
+}
+
 .block{
   display: block;
 }
@@ -864,6 +916,18 @@ video {
   height: 100vh;
 }
 
+.h-\[50px\]{
+  height: 50px;
+}
+
+.h-\[270px\]{
+  height: 270px;
+}
+
+.h-\[280px\]{
+  height: 280px;
+}
+
 .w-3\/4{
   width: 75%;
 }
@@ -880,12 +944,12 @@ video {
   width: 1180px;
 }
 
-.w-\[1200px\]{
-  width: 1200px;
+.w-\[1300px\]{
+  width: 1300px;
 }
 
-.w-\[1250px\]{
-  width: 1250px;
+.w-\[1350px\]{
+  width: 1350px;
 }
 
 .w-\[140px\]{
@@ -960,16 +1024,8 @@ video {
   width: 100%;
 }
 
-.w-\[1300px\]{
-  width: 1300px;
-}
-
-.w-\[1350px\]{
-  width: 1350px;
-}
-
-.w-\[13000px\]{
-  width: 13000px;
+.w-\[500px\]{
+  width: 500px;
 }
 
 .min-w-full{
@@ -1062,18 +1118,6 @@ video {
   --tw-space-x-reverse: 0;
   margin-right: calc(1.5rem * var(--tw-space-x-reverse));
   margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-x-8 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(2rem * var(--tw-space-x-reverse));
-  margin-left: calc(2rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-x-10 > :not([hidden]) ~ :not([hidden]){
-  --tw-space-x-reverse: 0;
-  margin-right: calc(2.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(2.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .self-center{
@@ -1279,6 +1323,10 @@ video {
   background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
 }
 
+.bg-login{
+  background-image: url('/public/images/login.jpg');
+}
+
 .from-cyan-100{
   --tw-gradient-from: #cffafe var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(207 250 254 / 0) var(--tw-gradient-to-position);
@@ -1313,6 +1361,10 @@ video {
 
 .p-\[15px\]{
   padding: 15px;
+}
+
+.p-5{
+  padding: 1.25rem;
 }
 
 .px-3{
@@ -1394,10 +1446,6 @@ video {
 
 .pt-\[5px\]{
   padding-top: 5px;
-}
-
-.pl-\[2px\]{
-  padding-left: 2px;
 }
 
 .text-left{

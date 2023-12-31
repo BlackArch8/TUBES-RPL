@@ -65,13 +65,13 @@ KoordinatorRoute.get('/koordinator/jadwal', auth, (req, res) => {
     });
 });
 
-KoordinatorRoute.get("/get-kelas/:idmk/:idkelas", (req, res) => {
+KoordinatorRoute.get("/koordinator/get-kelas/:idmk/:idkelas", (req, res) => {
     const id = req.params.idmk;
     const idkelas = req.params.idkelas;
     console.log(idkelas);
     console.log(id);
 
-    const query = "SELECT matkul.idmk, nama_dosen, namamk, hari, awal, akhir from matkul inner join kelas on matkul.idmk = kelas.idmk inner join dosen on dosen.idmk = matkul.idmk WHERE kelas.idmk = ? and kelas.idkelas = ?;";
+    const query = "SELECT matkul.idmk, nama_dosen, namamk, hari, awal, akhir,idkelas from matkul inner join kelas on matkul.idmk = kelas.idmk inner join dosen on dosen.idmk = matkul.idmk WHERE kelas.idmk = ? and kelas.idkelas = ?;";
     db.query(query, [id,idkelas], (err, result) => {
       if (err) {
         console.log(err);
@@ -220,7 +220,19 @@ KoordinatorRoute.get("/koordinator/infostatus", (req, res) => {
     });
   });
   
-  
+  //ambil nama-nama asdos yang ingin di assign
+  KoordinatorRoute.get('/koordinator/get-list-asdos-asign/:idmk', (req, res) => { 
+    const idmk = req.params.idmk;
+    const query = `SELECT nama_calon from nilai INNER JOIN calon ON calon.id_calon = nilai.id_calon WHERE nilai < "B-" AND idmk = ?;`;
+    db.query(query,[idmk], (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log(result);
+
+      res.json(result);
+    });
+  });
 
 
 
