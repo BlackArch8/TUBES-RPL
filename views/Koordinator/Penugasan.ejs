@@ -1,235 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Penugasan</title>
     <link rel="stylesheet" href="/public/css/output.css" />
-</head>
+  </head>
 
-<body class="bg-gray-200">
-    <div id="mainOverlay" class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"></div>
+  <body class="bg-gray-200">
+    <div
+      id="mainOverlay"
+      class="fixed top-0 left-0 w-full h-full bg-white opacity-70 z-10 hidden"
+    ></div>
     <div class="flex flex-row font-inter">
-        <%- include('./NavBar'); %>
-            <div class="flex flex-col w-full h-full">
-                <%- include('./header'); %>
-                    <div class="flex flex-col ml-[50px] mt-[30px] font-poppins">
-                        <div class="text-[30px] text-gray-600 font-extrabold mb-[10px]">Penugasan Asisten Dosen</div>
-                        <div class="flex flex-row gap-[50px]">
-                            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[530px] gap-[5px]">
-                                <div class="overflow-hidden">
-                                    <% for(const row of result) { %>
-                                        <div
-                                            class="flex w-[1180px] h-[100px] mb-[5px] items-center border border-gray-400 bg-white rounded-md">
-                                            <div class="flex-grow">
-                                                <div class="flex flex-col justify-center ml-[30px]">
-                                                    <div class="text-[20px] text-black font-semibold">
-                                                        <%= row.namamk %>
-                                                            <%= row.idkelas %>
-                                                    </div>
-                                                    <div class="text-[10px] text-[#808080]">
-                                                        <%= row.id %>
-                                                    </div>
-                                                    <div class="text-[10px] text-[#808080]">
-                                                        <%= row.nama_dosen %>
-                                                    </div>
-                                                    <div class="text-[10px] text-red-600">
-                                                        <%= row.requires %> Asisten Dosen
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex">
-                                                <button type="button"
-                                                    class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600 assign-btn"
-                                                    data-id="<%= row.id %>"
-                                                    data-idkelas="<%= row.idkelas %>"
-                                                    onclick="openEditModal(this)">Assign</button>
-                                            </div>
-                                        </div>
-                                        <% } %>
-                                </div>
-                            </div>
-                        </div>
+      <%- include('./NavBar'); %>
+      <div class="flex flex-col w-full h-full">
+        <%- include('./header'); %>
+        <div class="flex flex-col ml-[50px] mt-[30px] font-poppins">
+          <div class="text-[30px] text-gray-600 font-extrabold mb-[10px]">
+            Penugasan Asisten Dosen
+          </div>
+          <div class="flex flex-row gap-[50px]">
+            <div
+              class="-mx-4 sm:-mx-8 px-4 sm:px-8 overflow-y-auto h-[530px] gap-[5px]"
+            >
+              <div class="overflow-hidden">
+                <% for(const row of result) { %>
+                <div
+                  class="flex w-[1180px] h-[100px] mb-[5px] items-center border border-gray-400 bg-white rounded-md"
+                >
+                  <div class="flex-grow">
+                    <div class="flex flex-col justify-center ml-[30px]">
+                      <div class="text-[20px] text-black font-semibold">
+                        <%= row.namamk %> <%= row.idkelas %>
+                      </div>
+                      <div class="text-[10px] text-[#808080]">
+                        <%= row.id %>
+                      </div>
+                      <div class="text-[10px] text-[#808080]">
+                        <%= row.nama_dosen %>
+                      </div>
+                      <div class="text-[10px] text-red-600">
+                        <%= row.requires %> Asisten Dosen
+                      </div>
                     </div>
+                  </div>
+                  <div class="flex">
+                    <button
+                      type="button"
+                      class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600 assign-btn"
+                      data-id="<%= row.id %>"
+                      data-idkelas="<%= row.idkelas %>"
+                      onclick="openEditModal(this)"
+                    >
+                      Assign
+                    </button>
+                  </div>
+                </div>
+                <% } %>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- Modified Overlay -->
-    <div id="overlay"
-        class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-row gap-[20px] shadow-lg items-center hidden z-20">
-        <div class="flex flex-col w-[400px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px]  font-poppins">
-            <div class="ml-[25px] mt-[30px]" id="idmatkul"></div>
-            <div class="ml-[25px]" id="namadosen"></div>
-            <div class="ml-[25px]" id="namamatkul"></div>
-            <div class="ml-[25px]" id="hari"></div>
-            <div class="ml-[25px]" id="awal"></div>
-            <div class="ml-[25px]" id="akhir"></div>
+    <div
+      id="overlay"
+      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-row gap-[20px] shadow-lg items-center hidden z-20"
+    >
+      <div
+        class="flex flex-col w-[400px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins"
+      >
+        <div class="ml-[25px] mt-[30px]" id="idmatkul"></div>
+        <div class="ml-[25px]" id="namadosen"></div>
+        <div class="ml-[25px]" id="namamatkul"></div>
+        <div class="ml-[25px]" id="hari"></div>
+        <div class="ml-[25px]" id="awal"></div>
+        <div class="ml-[25px]" id="akhir"></div>
+      </div>
+      <div
+        class="flex flex-col w-[700px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins"
+      >
+        <div class="ml-[40px] mt-[30px] font-semibold text-[25px]">
+          Daftar Calon Asisten Dosen
         </div>
-        <div class="flex flex-col w-[700px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins">
-            <div class="ml-[40px] mt-[30px] font-semibold text-[25px]">Daftar Calon Asisten Dosen</div>
-                <div class="px-4 overflow-y-auto h-[270px] w-[500px] ml-[25px]" id="table-container">
-                    <div class="inline-block min-w-full rounded-lg overflow-hidden">
-                        <table class="min-w-full leading-normal">
-                            <thead class="">
-                                <tr>
-                                    <th
-                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Nama Asdos
-                                    </th>
-                                    <th
-                                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                        Nilai
-                                    </th>
-                            </thead>
-                            <tbody id="list-asdos">
-                                    <tr class="">
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <input type="checkbox" name="calon" value="Andrew Febrian" />
-                                            <label for="calon">Andrew Febrian</label>
-                                        </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <p class="text-gray-900 whitespace-no-wrap">A</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <input type="checkbox" name="calon" value="Parninggolan Febrian" />
-                                            <label for="calon">Parninggolan Febrian</label>
-                                        </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                            <p class="text-gray-900 whitespace-no-wrap">A</p>
-                                        </td>
-                                    </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="absolute bottom-4 right-[-10px]">
-                    <button type="submit"
-                        class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600" id="assign_button">Assign</button>
-                </div>
-           
-            <button id="closeOverlay" class="absolute top-4 right-4 text-red-500 hover:text-red-700">
-                <i class="fas fa-times"></i>
-            </button>
+        <div
+          class="px-4 overflow-y-auto h-[270px] w-[500px] ml-[25px]"
+          id="table-container"
+        >
+          <div class="inline-block min-w-full rounded-lg overflow-hidden">
+            <table class="min-w-full leading-normal">
+              <thead class="">
+                <tr>
+                  <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  >
+                    Nama Asdos
+                  </th>
+                  <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  >
+                    Nilai
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody id="list-asdos"></tbody>
+            </table>
+          </div>
         </div>
+        <div class="absolute bottom-4 right-[-10px]">
+          <button
+            type="submit"
+            class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600"
+            id="assign_button"
+            onclick="sumbitAssign()"
+          >
+            Assign
+          </button>
+        </div>
+
+        <button
+          id="closeOverlay"
+          class="absolute top-4 right-4 text-red-500 hover:text-red-700"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        let idmk = "";
-        let idkelas = "";
-        function openEditModal(button) {
-            // Get the data-id attribute to identify the row
-            const rowId = button.getAttribute("data-id");
-            const rowIdkelas = button.getAttribute("data-idkelas");
+      let idmk = "";
+      let idkelas = "";
+      let hari = "";
+      let awal = 0;
+      let akhir = 0;
+      function openEditModal(button) {
+        // Get the data-id attribute to identify the row
+        const rowId = button.getAttribute("data-id");
+        const rowIdkelas = button.getAttribute("data-idkelas");
 
-            idmk = rowId;
-            idkelas = rowIdkelas;
+        idmk = rowId;
+        idkelas = rowIdkelas;
 
-            // Fetch the data matkul from the server
-            fetchdatakelas(rowId).then((data) => {
-                // Update the modal content
-                console.log(data);
-                updateModalContent(data);
+        // Fetch the data matkul from the server
+        fetchdatakelas(rowId).then((data) => {
+          // Update the modal content
+          console.log(data);
+          updateModalContent(data);
 
-                // Show the modal
-                showEditModal();
-            });
+          // Show the modal
+          showEditModal();
+        });
 
-            // Fetch the data asdos from the server
-            fetchDataAsdos(rowId).then((data_asdos) => {
-                // Update the modal content
-                console.log("data asdos:")
-                console.log(data_asdos);
-                updateModalContentAsdos(data_asdos);
+        // Fetch the data asdos from the server
+        fetchDataAsdos(rowId).then((data_asdos) => {
+          // Update the modal content
+          console.log("data asdos:");
+          console.log(data_asdos);
+          updateModalContentAsdos(data_asdos);
 
-                // Show the modal
-                showEditModal();
-            });
+          // Show the modal
+          showEditModal();
+        });
 
-            // Close the modal when the close button is clicked
-            $("#closeOverlay").click(() => {
-                $("#overlay").addClass("hidden");
-                $("#mainOverlay").addClass("hidden");
-            });
+        // Close the modal when the close button is clicked
+        $("#closeOverlay").click(() => {
+          closeEditModal();
+        });
+      }
+
+      function showEditModal() {
+        $("#overlay").removeClass("hidden");
+        $("#mainOverlay").removeClass("hidden");
+      }
+
+      function closeEditModal() {
+        $("#overlay").addClass("hidden");
+        $("#mainOverlay").addClass("hidden");
+      }
+
+      //update modal content matkul
+      function updateModalContent(data) {
+        document.getElementById("idmatkul").innerHTML =
+          "ID Matkul: " + data[0].idmk;
+        document.getElementById("namadosen").innerHTML =
+          "Nama Dosen: " + data[0].nama_dosen;
+
+        document.getElementById("namamatkul").innerHTML =
+          "Nama Matkul: " + data[0].namamk + " " + data[0].idkelas;
+
+        document.getElementById("hari").innerHTML = "Hari: " + data[0].hari;
+        document.getElementById("hari").setAttribute("data-hari", data[0].hari);
+
+        document.getElementById("awal").innerHTML =
+          "Mulai jam: " + data[0].awal;
+        document.getElementById("awal").setAttribute("data-awal", data[0].awal);
+
+        document.getElementById("akhir").innerHTML =
+          "Berakhir jam: " + data[0].akhir;
+        document
+          .getElementById("akhir")
+          .setAttribute("data-akhir", data[0].akhir);
+      }
+
+      //update modal content asdos
+      function updateModalContentAsdos(data_asdos) {
+        let list_asdos = document.getElementById("list-asdos");
+        list_asdos.innerHTML = "";
+
+        for (let i = 0; i < data_asdos.length; i++) {
+          let tr = document.createElement("tr");
+
+          let nama = document.createElement("td");
+
+          nama.setAttribute(
+            "class",
+            "px-5 py-5 border-b border-gray-200 bg-white text-sm"
+          );
+
+          let input = document.createElement("input");
+          input.setAttribute("type", "checkbox");
+          input.setAttribute("name", "calon");
+          input.setAttribute("id-calon", data_asdos[i].id_calon);
+          input.setAttribute("value", data_asdos[i].nama_calon);
+
+          let label = document.createElement("label");
+          label.setAttribute("for", "calon");
+          label.setAttribute("class", "ml-[5px]");
+          label.innerHTML = data_asdos[i].nama_calon;
+
+          let nilai = document.createElement("td");
+          nilai.setAttribute(
+            "class",
+            "px-5 py-5 border-b border-gray-200 bg-white text-sm"
+          );
+
+          let p = document.createElement("p");
+          p.innerHTML = data_asdos[i].nilai;
+
+          tr.appendChild(nama);
+          nama.appendChild(input);
+          nama.appendChild(label);
+          tr.appendChild(nilai);
+          nilai.appendChild(p);
+          list_asdos.appendChild(tr);
         }
+      }
 
-        function updateModalContent(data) {
-            document.getElementById("idmatkul").innerHTML = "ID Matkul: "+data[0].idmk;
-            document.getElementById("namadosen").innerHTML = "Nama Dosen: "+data[0].nama_dosen ;
-            document.getElementById("namamatkul").innerHTML = "Nama Matkul: "+data[0].namamk +" " +data[0].idkelas;
-            document.getElementById("hari").innerHTML = "Hari: "+data[0].hari;
-            document.getElementById("awal").innerHTML = "Mulai jam: "+data[0].awal;
-            document.getElementById("akhir").innerHTML = "Berakhir jam: "+data[0].akhir;
+      //assign asdos
+      function sumbitAssign() {
+        let rowHari = document.getElementById("hari").getAttribute("data-hari");
+        let rowAwal = document.getElementById("awal").getAttribute("data-awal");
+        let rowAkhir = document
+          .getElementById("akhir")
+          .getAttribute("data-akhir");
+
+        hari = rowHari;
+        awal = rowAwal;
+        akhir = rowAkhir;
+
+        let checkboxes = document.getElementsByName("calon");
+        let calon = [];
+        for (let i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            //ambil id-calon attribute
+            calon.push(checkboxes[i].getAttribute("id-calon"));
+          }
         }
-
-        function updateModalContentAsdos(data_asdos){
-          //update modal content for daftar calon asisten
-            let list_asdos = document.getElementById("list-asdos");
-            
-            for(let i=0; i<data_asdos.length; i++){
-                let tr = document.createElement("tr");
-
-                let nama = document.createElement("td");
-                nama.setAttribute("class", "px-5 py-5 border-b border-gray-200 bg-white text-sm");
-
-                let input = document.createElement("input");
-                input.setAttribute("type", "checkbox");
-                input.setAttribute("name", "calon");
-                input.setAttribute("value", data_asdos[i].nama_calon);
-
-                let label = document.createElement("label");
-                label.setAttribute("for", "calon");
-                label.setAttribute("class", "ml-[5px]");
-                label.innerHTML = data_asdos[i].nama_calon;
-
-                let nilai = document.createElement("td");
-                nilai.setAttribute("class", "px-5 py-5 border-b border-gray-200 bg-white text-sm");
-
-                let p = document.createElement("p");
-                p.innerHTML = "A"
-
-                tr.appendChild(nama);
-                nama.appendChild(input);
-                nama.appendChild(label);
-                tr.appendChild(nilai);
-                nilai.appendChild(p);
-                list_asdos.appendChild(tr);
+        console.log(calon);
+        let data = {
+          idmk: idmk,
+          idkelas: idkelas,
+          hari: hari,
+          awal: awal,
+          akhir: akhir,
+          calon: calon,
+        };
+        console.log(data);
+        return fetch("/koordinator/assign-asdos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (!response.ok) {
+             // cek bentrok jadwal di server 
+              return response.json().then((errorData) => {
+                // tampilkan pesan error jika response bukan 200 OK
+                Swal.fire({
+                  icon: "error",
+                  title: "Gagal",
+                  text: "Asisten Dosen gagal ditugaskan. Terdapat bentrok jadwal.",
+                });
+                throw new Error("Server response was not ok");
+              });
             }
-        }
+            return response.json(); // lanjutkan jika tidak ada error
+          })
+          .then((data) => {
+            console.log("Success:", data);
+            Swal.fire({
+              icon: "success",
+              title: "Berhasil",
+              text: "Asisten Dosen berhasil ditugaskan.",
+            })
+            .then((result) => {
 
-        function showEditModal() {
-            $("#overlay").removeClass("hidden");
-            $("#mainOverlay").removeClass("hidden");
-        }
+              if (result.isConfirmed) {
+                window.location.reload();
+              }
+            });
+            
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      
 
-        function fetchDataAsdos(idmk){
-            return fetch(`/koordinator/get-list-asdos-asign/${idmk}`)
-                .then((response) => response.json())
-                .then((data_asdos) => {
-                    console.log(data_asdos);
-                    return data_asdos;
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-        }
-
-        function fetchdatakelas(idmk) {
-            return fetch(`/koordinator/get-kelas/${idmk}/${idkelas}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data);
-                    return data;
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-        }
+      //ambil data asdos
+      function fetchDataAsdos(idmk) {
+        return fetch(`/koordinator/get-list-asdos-asign/${idmk}`)
+          .then((response) => response.json())
+          .then((data_asdos) => {
+            console.log(data_asdos);
+            return data_asdos;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      //ambil data kelas
+      function fetchdatakelas(idmk) {
+        return fetch(`/koordinator/get-kelas/${idmk}/${idkelas}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            return data;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
     </script>
-</body>
-
+  </body>
 </html>
