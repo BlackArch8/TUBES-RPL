@@ -48,18 +48,20 @@ CREATE TABLE IF NOT EXISTS `calon` (
   PRIMARY KEY (`id_calon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.calon: ~9 rows (approximately)
+-- Dumping data for table tubes_rpl.calon: ~7 rows (approximately)
 DELETE FROM `calon`;
 INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`, `pw`) VALUES
-	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1, '4KfaQu8A'),
-	('123454321', 'MILIVANILI', 'mili@gmail.com', 3, 1, NULL),
-	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0, 'vF7cPbs4'),
+	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1, NULL),
+	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0, NULL),
 	('3333333333', 'GUGUN', 'gugus@gmail.com', 3, 0, NULL),
 	('4444444444', 'hemi', 'hemhem@gmail.com', 1, 0, NULL),
-	('5555555555', 'deplon', 'dedep@gmail.com', 2, 0, NULL),
-	('6182001001', 'Jenson Mark Lowell', 'bestibego@gmail.com', 3, 1, 'z1myvaXm'),
-	('6182001012', 'Agus Winata', 'jensonmarklowell@gmail.com', 3, 0, NULL),
-	('6666666666', 'kejol', 'jojol@gmail.com', 1, 0, NULL);
+	('5555555555', 'deplon', 'dedep@gmail.com', 1, 0, NULL),
+	('6182001001', 'Jenson Mark Lowell', 'bestibego@gmail.com', 3, 1, NULL),
+	('6666666666', 'kejol', 'jojol@gmail.com', 1, 0, NULL),
+	('7777777777', 'ier', 'yeyer@gmail.com', 3, 0, NULL),
+	('8888888888', 'tsunoda', 'alphatau@gmail.com', 2, 0, NULL),
+	('9999999999', 'verstappen', 'dudududu@gmail.com', 3, 0, NULL),
+	('1010101010', 'lewis', 'lewlew@gmail.com', 1, 0, NULL);
 
 -- Dumping structure for table tubes_rpl.dosen
 DROP TABLE IF EXISTS `dosen`;
@@ -88,14 +90,12 @@ CREATE TABLE IF NOT EXISTS `info` (
   PRIMARY KEY (`id_calon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.info: ~4 rows (approximately)
+-- Dumping data for table tubes_rpl.info: ~3 rows (approximately)
 DELETE FROM `info`;
 INSERT INTO `info` (`id_calon`, `filename`) VALUES
 	('1111111111', 'nilai.png'),
-	('123454321', '123454321.csv'),
 	('2222222222', 'foto.png'),
-	('6182001001', '6182001001.pdf'),
-	('6182001012', '6182001012.csv');
+	('6182001001', '6182001001.pdf');
 
 -- Dumping structure for table tubes_rpl.jadwal
 DROP TABLE IF EXISTS `jadwal`;
@@ -106,15 +106,22 @@ CREATE TABLE IF NOT EXISTS `jadwal` (
   `akhir` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.jadwal: ~6 rows (approximately)
+-- Dumping data for table tubes_rpl.jadwal: ~4 rows (approximately)
 DELETE FROM `jadwal`;
 INSERT INTO `jadwal` (`id_calon`, `hari`, `awal`, `akhir`) VALUES
 	('2222222222', 'Senin', 8, 10),
-	('2222222222', 'Senin', 13, 15),
+	('2222222222', 'Senin', 14, 16),
+	('1111111111', 'Senin', 12, 14),
 	('1111111111', 'Rabu', 10, 16),
-	('6182001001', 'Senin', 7, 9),
-	('6182001012', 'senin', 10, 14),
-	('123454321', 'rabu', 15, 17);
+	('3333333333', 'Senin', 14, 16),
+	('4444444444', 'Senin', 12, 14),
+	('5555555555', 'Senin', 14, 16),
+	('6666666666', 'Rabu', 13, 16),
+	('7777777777', 'Rabu', 13, 16),
+	('8888888888', 'Rabu', 13, 16),
+	('9999999999', 'Rabu', 13, 16),
+	('1010101010', 'Rabu', 13, 16),
+	('6182001001', 'Senin', 7, 9);
 
 -- Dumping structure for table tubes_rpl.kelas
 DROP TABLE IF EXISTS `kelas`;
@@ -128,9 +135,10 @@ CREATE TABLE IF NOT EXISTS `kelas` (
   `requires` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.kelas: ~21 rows (approximately)
+-- Dumping data for table tubes_rpl.kelas: ~23 rows (approximately)
 DELETE FROM `kelas`;
 INSERT INTO `kelas` (`idkelas`, `hari`, `awal`, `akhir`, `idmk`, `ruangkelas`, `requires`) VALUES
+	('A', 'Senin', 12, 14, 'AIF181100', 'Ruang 9015', 2),
 	('B', 'Senin', 14, 16, 'AIF181100', 'Ruang 9016', 2),
 	('A', 'Rabu', 10, 12, 'AIF182100', 'Ruang 9017', 1),
 	('B', 'Rabu', 8, 10, 'AIF182100', 'Ruang 9018', 1),
@@ -143,6 +151,7 @@ INSERT INTO `kelas` (`idkelas`, `hari`, `awal`, `akhir`, `idmk`, `ruangkelas`, `
 	('A', 'Senin', 7, 9, 'AIF182103', 'Ruang 9017', NULL),
 	('B', 'Senin', 14, 16, 'AIF182103', 'Ruang 9018', NULL),
 	('A', 'Rabu', 13, 16, 'AIF182101', 'Ruang 9015', 2),
+	('B', 'Rabu', 13, 16, 'AIF182101', 'Ruang 9016', 2),
 	('A', 'Selasa', 13, 15, 'AIF183153', 'Ruang 9017', 1),
 	('A', 'Jumat', 7, 10, 'AIF182210', 'Ruang 9018', NULL),
 	('B', 'Jumat', 14, 17, 'AIF182210', 'Ruang 9015', NULL),
@@ -176,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `matkul` (
   PRIMARY KEY (`idmk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.matkul: ~11 rows (approximately)
+-- Dumping data for table tubes_rpl.matkul: ~0 rows (approximately)
 DELETE FROM `matkul`;
 INSERT INTO `matkul` (`idmk`, `namamk`) VALUES
 	('AIF181100', 'Dasar Pemrograman'),
@@ -199,15 +208,24 @@ CREATE TABLE IF NOT EXISTS `nilai` (
   `nilai` varchar(5) CHARACTER SET ucs2 COLLATE ucs2_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=ucs2 COLLATE=ucs2_bin;
 
--- Dumping data for table tubes_rpl.nilai: ~6 rows (approximately)
+-- Dumping data for table tubes_rpl.nilai: ~0 rows (approximately)
 DELETE FROM `nilai`;
 INSERT INTO `nilai` (`id_calon`, `idmk`, `nilai`) VALUES
-	('1111111111', 'AIF181100', 'B-'),
+	('1111111111', 'AIF181100', 'B'),
 	('1111111111', 'AIF182100', 'A'),
 	('1111111111', 'AIF184005', 'B+'),
-	('3333333333', 'AIF181101', 'A'),
+	('3333333333', 'AIF182101', 'A'),
+	('3333333333', 'AIF181100', 'A'),
 	('2222222222', 'AIF182204', 'A'),
-	('5555555555', 'AIF181101', 'A-');
+	('2222222222', 'AIF181100', 'A-'),
+	('4444444444', 'AIF181100', 'B'),
+	('5555555555', 'AIF181100', 'B+'),
+	('6666666666', 'AIF182101', 'A-'),
+	('7777777777', 'AIF182101', 'B'),
+	('8888888888', 'AIF182101', 'A'),
+	('9999999999', 'AIF182101', 'B+'),
+	('1010101010', 'AIF182101', 'B'),
+	('5555555555', 'AIF182101', 'A');
 
 -- Dumping structure for table tubes_rpl.status
 DROP TABLE IF EXISTS `status`;
