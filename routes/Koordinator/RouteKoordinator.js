@@ -5,13 +5,13 @@ import { app, auth } from "../../index.js";
 
 const KoordinatorRoute = express.Router();
 
-KoordinatorRoute.get("/koordinator/dashboard", auth , (req, res) => {
+KoordinatorRoute.get("/koordinator/dashboard", auth(['koordinator']), (req, res) => {
   const nama = req.session.nama;
   res.render("Koordinator/Dashboard", { nama: nama });
 });
 
 //ambil data matkul penugasan
-KoordinatorRoute.get("/koordinator/penugasan", auth, (req, res) => {
+KoordinatorRoute.get("/koordinator/penugasan", auth(['koordinator']), (req, res) => {
   const query =
     "SELECT matkul.idmk AS id, idkelas, namamk, requires, nama_dosen FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk inner join kelas on matkul.idmk = kelas.idmk WHERE requires IS NOT NULL AND requires > 0;";
   db.query(query, (err, result) => {
@@ -27,7 +27,7 @@ KoordinatorRoute.get("/koordinator/penugasan", auth, (req, res) => {
 });
 
 //ambil data list asdos
-KoordinatorRoute.get("/koordinator/list-asdos", auth, (req, res) => {
+KoordinatorRoute.get("/koordinator/list-asdos", auth(['koordinator']), (req, res) => {
   const query =
     "SELECT DISTINCT nama_calon, email, alumni, assigned.id_calon as assigned FROM calon left outer JOIN assigned ON calon.id_calon = assigned.id_calon;";
   db.query(query, (err, result) => {
@@ -44,7 +44,7 @@ KoordinatorRoute.get("/koordinator/list-asdos", auth, (req, res) => {
 });
 
 //ambil data jadwal asistensi
-KoordinatorRoute.get("/koordinator/jadwal", auth, (req, res) => {
+KoordinatorRoute.get("/koordinator/jadwal", auth(['koordinator']), (req, res) => {
   const query =
     "SELECT * FROM dosen INNER JOIN kelas ON dosen.idmk = kelas.idmk INNER JOIN matkul on kelas.idmk = matkul.idmk;";
   const query2 =
@@ -73,7 +73,7 @@ KoordinatorRoute.get("/koordinator/jadwal", auth, (req, res) => {
 });
 
 //ambil data kelas
-KoordinatorRoute.get("/koordinator/get-kelas/:idmk/:idkelas", (req, res) => {
+KoordinatorRoute.get("/koordinator/get-kelas/:idmk/:idkelas",auth(['koordinator']), (req, res) => {
   const id = req.params.idmk;
   const idkelas = req.params.idkelas;
   console.log(idkelas);
@@ -90,7 +90,7 @@ KoordinatorRoute.get("/koordinator/get-kelas/:idmk/:idkelas", (req, res) => {
   });
 });
 
-KoordinatorRoute.get("/koordinator/tambah-matkul", auth, (req, res) => {
+KoordinatorRoute.get("/koordinator/tambah-matkul", auth(['koordinator']), (req, res) => {
   const nama = req.session.nama;
   res.render("Koordinator/TambahMatkul", { nama: nama });
 });
