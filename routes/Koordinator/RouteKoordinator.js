@@ -340,7 +340,8 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
                     }
 
                     //asdos berhasil di assign
-                    res.json("ok");
+                    console.log("berhasil assign asdos");
+                    
                   }
                   );
 
@@ -350,8 +351,10 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
             }
           );
         }
+        res.json("ok");
       }
     } else {
+      console.log("result cek kosong bentrok");
       let bentrok = ["bentrok"];
       res.status(409).send(bentrok);
     }
