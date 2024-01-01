@@ -53,15 +53,15 @@ DELETE FROM `calon`;
 INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`, `pw`) VALUES
 	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1, NULL),
 	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0, NULL),
-	('3333333333', 'GUGUN', 'gugus@gmail.com', 3, 0, NULL),
-	('4444444444', 'hemi', 'hemhem@gmail.com', 1, 0, NULL),
-	('5555555555', 'deplon', 'dedep@gmail.com', 1, 0, NULL),
-	('6182001001', 'Jenson Mark Lowell', 'bestibego@gmail.com', 3, 1, NULL),
-	('6666666666', 'kejol', 'jojol@gmail.com', 1, 0, NULL),
-	('7777777777', 'ier', 'yeyer@gmail.com', 3, 0, NULL),
-	('8888888888', 'tsunoda', 'alphatau@gmail.com', 2, 0, NULL),
-	('9999999999', 'verstappen', 'dudududu@gmail.com', 3, 0, NULL),
-	('1010101010', 'lewis', 'lewlew@gmail.com', 1, 0, NULL);
+	('3333333333', 'Gita', 'gugus@gmail.com', 3, 0, NULL),
+	('4444444444', 'Hammy', 'hemhem@gmail.com', 1, 0, NULL),
+	('5555555555', 'Devlin', 'dedep@gmail.com', 1, 0, NULL),
+	('6182001001', 'Reiji', '6182001001@student.unpar.ac.id', 3, 1, NULL),
+	('6666666666', 'Kevin', 'jojol@gmail.com', 1, 0, NULL),
+	('7777777777', 'Vier', 'yeyer@gmail.com', 3, 0, NULL),
+	('8888888888', 'Tsunoda', 'alphatau@gmail.com', 2, 0, NULL),
+	('9999999999', 'Verstappen', 'dudududu@gmail.com', 3, 0, NULL),
+	('1010101010', 'Lewis', 'lewlew@gmail.com', 1, 0, NULL);
 
 -- Dumping structure for table tubes_rpl.dosen
 DROP TABLE IF EXISTS `dosen`;
@@ -75,13 +75,14 @@ CREATE TABLE IF NOT EXISTS `dosen` (
 -- Dumping data for table tubes_rpl.dosen: ~6 rows (approximately)
 DELETE FROM `dosen`;
 INSERT INTO `dosen` (`id_dosen`, `nama_dosen`, `idmk`, `pw`) VALUES
-	('1231231231', 'Pascal', 'AIF182100', 'pascal'),
-	('1231231232', 'Hakim', 'AIF181100', 'hakims'),
-	('1231231232', 'Hakim', 'AIF182101', 'hakims'),
-	('1231231232', 'Hakim', 'AIF181101', 'hakims'),
-	('1231231232', 'Hakim', 'AIF182109', 'hakims'),
-	('1231231233', 'Reimon', 'AIF182204', 'rei');
-
+	('1231231231', 'Pascal', 'AIF182100', 'pass'),
+	('1231231232', 'Hakim', 'AIF181100', 'pass'),
+	('1231231232', 'Hakim', 'AIF182101', 'pass'),
+	('1231231232', 'Hakim', 'AIF181101', 'pass'),
+	('1231231232', 'Hakim', 'AIF182109', 'pass'),
+	('1231231233', 'Raymond', 'AIF182204', 'pass'),
+	('1231231234', 'Lionov', 'AIF182106', 'pass');
+	
 -- Dumping structure for table tubes_rpl.info
 DROP TABLE IF EXISTS `info`;
 CREATE TABLE IF NOT EXISTS `info` (
@@ -241,3 +242,11 @@ DELETE FROM `status`;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+
+INSERT INTO `status` (`lowongan`) VALUES("Open");
+
+SELECT*FROM dosen ORDER BY id_dosen;
+SELECT*FROM matkul ORDER BY idmk;
+SELECT*FROM kelas ORDER BY idmk;
+
+SELECT dosen.idmk AS "Kode", namamk AS "Matkul", nama_dosen as "Dosen", hari AS "Hari", idkelas AS "Kelas", awal, akhir, ruangkelas FROM dosen INNER JOIN kelas ON dosen.idmk = kelas.idmk INNER JOIN matkul on kelas.idmk = matkul.idmk;

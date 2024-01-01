@@ -73,7 +73,7 @@ KoordinatorRoute.get("/koordinator/jadwal", auth(['koordinator']), (req, res) =>
 });
 
 //ambil data kelas
-KoordinatorRoute.get("/koordinator/get-kelas/:idmk/:idkelas",auth(['koordinator']), (req, res) => {
+KoordinatorRoute.get("/koordinator/get-kelas/:idmk/:idkelas", auth(['koordinator']), (req, res) => {
   const id = req.params.idmk;
   const idkelas = req.params.idkelas;
   console.log(idkelas);
@@ -143,6 +143,9 @@ KoordinatorRoute.post("/koordinator/tambahmatkul/", (req, res) => {
   const akhir = req.body.jamakhir;
   const ruang = req.body.ruang;
 
+  const checkdos = "SELECT * FROM dosen WHERE idmk = ?;";
+  const checkmat = "SELECT * FROM matkul WHERE idmk = ?;";
+  const checkkelas = "SELECT * FROM kelas WHERE idmk = ? AND idkelas = ?;";
   const querymatkul = "INSERT INTO matkul (`idmk`, `namamk`) VALUES (?,?);";
   const querykelas =
     "INSERT INTO kelas (`idkelas`,`hari`,`awal`,`akhir`,`idmk`,`ruangkelas`) VALUES (?,?,?,?,?,?);";
@@ -150,40 +153,66 @@ KoordinatorRoute.post("/koordinator/tambahmatkul/", (req, res) => {
     "SELECT DISTINCT id_dosen, nama_dosen, pw FROM dosen WHERE nama_dosen = ?;";
   const querydoseninput =
     "INSERT INTO dosen (`id_dosen`,`nama_dosen`,`idmk`,`pw`) VALUES (?,?,?,?);";
-  db.query(querymatkul, [kodematkul, matkul], (err, result) => {
+
+  db.query(checkdos, [kodematkul], (err, result) => {
     if (err) {
       console.log(err);
     }
-    console.log("Input matkul berhasil");
+    if (result.length === 0) {
+      db.query(querydosen, [dosen], (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log("Query dosen berhasil");
+        console.log(result);
+        if (result.length > 0) {
+          db.query(
+            querydoseninput,
+            [result[0].id_dosen, dosen, kodematkul, result[0].pw],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              }
+              console.log("Input dosen berhasil");
+              res.status(200).send("ok");
+            }
+          );
+        }
+      });
+    }
   });
-  db.query(
-    querykelas,
-    [kelas, hari, awal, akhir, kodematkul, ruang],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log("Input kelas berhasil");
-    }
-  );
-  db.query(querydosen, [dosen], (err, result) => {
+  db.query(checkmat, [kodematkul], (err, result) => {
     if (err) {
       console.log(err);
     }
-    console.log("Query dosen berhasil");
-    console.log(result);
-    if (result.length > 0) {
+    if (result.length === 0) {
+      db.query(querymatkul, [kodematkul, matkul], (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log("Input matkul berhasil");
+      });
+    }
+  });
+  db.query(checkkelas, [kodematkul,kelas], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    if (result.length === 0) {
       db.query(
-        querydoseninput,
-        [result[0].id_dosen, dosen, kodematkul, result[0].pw],
+        querykelas,
+        [kelas, hari, awal, akhir, kodematkul, ruang],
         (err, result) => {
           if (err) {
             console.log(err);
           }
-          console.log("Input dosen berhasil");
+          console.log("Input kelas berhasil");
           res.status(200).send("ok");
         }
       );
+    }
+    else{
+      res.status(409).send("no");
     }
   });
 });
@@ -252,8 +281,8 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
     "UPDATE calon SET jumlah_matkul = jumlah_matkul - 1 WHERE id_calon = ?;";
   const query_update_kelas =
     "update kelas set requires = requires - 1 where idmk = ? and idkelas = ?;";
-  const query_update_jadwal = 
-    `delete from jadwal where hari = ? and awal = ? and akhir = ? and id_calon = ?;`;  
+  const query_update_jadwal =
+    `delete from jadwal where hari = ? and awal = ? and akhir = ? and id_calon = ?;`;
 
   db.query(query_cek, [idmk, hari, awal, akhir], (err, result_cek) => {
     if (err) {
@@ -265,7 +294,7 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
       //cek apakah calon sudah di assign / ada yang bentrok
       let bentrok = [];
       for (let i = 0; i < calon.length; i++) {
-        let cek = false;  
+        let cek = false;
         //cek apakah id_calon terdapat di result_cek
         for (let j = 0; j < result_cek.length; j++) {
           if (calon[i] == result_cek[j].id_calon) {
@@ -281,7 +310,7 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
       if (bentrok.length > 0) {
         //kirim bentrok ke client dan status failed
         res.status(409).send(bentrok);
-        
+
         console.log("BENTROK : " + bentrok);
       } else {
         //assign calon dan update jumlah matkul
@@ -313,7 +342,7 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
                     res.json("ok");
                   }
                   );
-                  
+
 
                 });
               });
