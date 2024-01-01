@@ -5,13 +5,13 @@ import { app, auth } from "../../index.js";
 
 const KoordinatorRoute = express.Router();
 
-KoordinatorRoute.get("/koordinator/dashboard", auth , (req, res) => {
+KoordinatorRoute.get("/koordinator/dashboard", auth(['koordinator']), (req, res) => {
   const nama = req.session.nama;
   res.render("Koordinator/Dashboard", { nama: nama });
 });
 
 //ambil data matkul penugasan
-KoordinatorRoute.get("/koordinator/penugasan", auth, (req, res) => {
+KoordinatorRoute.get("/koordinator/penugasan", auth(['koordinator']), (req, res) => {
   const query =
     "SELECT matkul.idmk AS id, idkelas, namamk, requires, nama_dosen FROM matkul INNER JOIN dosen ON matkul.idmk = dosen.idmk inner join kelas on matkul.idmk = kelas.idmk WHERE requires IS NOT NULL AND requires > 0;";
   db.query(query, (err, result) => {
@@ -27,7 +27,7 @@ KoordinatorRoute.get("/koordinator/penugasan", auth, (req, res) => {
 });
 
 //ambil data list asdos
-KoordinatorRoute.get("/koordinator/list-asdos", auth, (req, res) => {
+KoordinatorRoute.get("/koordinator/list-asdos", auth(['koordinator']), (req, res) => {
   const query =
     "SELECT DISTINCT nama_calon, email, alumni, assigned.id_calon as assigned FROM calon left outer JOIN assigned ON calon.id_calon = assigned.id_calon;";
   db.query(query, (err, result) => {
@@ -44,7 +44,7 @@ KoordinatorRoute.get("/koordinator/list-asdos", auth, (req, res) => {
 });
 
 //ambil data jadwal asistensi
-KoordinatorRoute.get("/koordinator/jadwal", auth, (req, res) => {
+KoordinatorRoute.get("/koordinator/jadwal", auth(['koordinator']), (req, res) => {
   const query =
     "SELECT * FROM dosen INNER JOIN kelas ON dosen.idmk = kelas.idmk INNER JOIN matkul on kelas.idmk = matkul.idmk;";
   const query2 =
@@ -73,7 +73,7 @@ KoordinatorRoute.get("/koordinator/jadwal", auth, (req, res) => {
 });
 
 //ambil data kelas
-KoordinatorRoute.get("/koordinator/get-kelas/:idmk/:idkelas", (req, res) => {
+KoordinatorRoute.get("/koordinator/get-kelas/:idmk/:idkelas", auth(['koordinator']), (req, res) => {
   const id = req.params.idmk;
   const idkelas = req.params.idkelas;
   console.log(idkelas);
@@ -90,7 +90,7 @@ KoordinatorRoute.get("/koordinator/get-kelas/:idmk/:idkelas", (req, res) => {
   });
 });
 
-KoordinatorRoute.get("/koordinator/tambah-matkul", auth, (req, res) => {
+KoordinatorRoute.get("/koordinator/tambah-matkul", auth(['koordinator']), (req, res) => {
   const nama = req.session.nama;
   res.render("Koordinator/TambahMatkul", { nama: nama });
 });
@@ -143,6 +143,9 @@ KoordinatorRoute.post("/koordinator/tambahmatkul/", (req, res) => {
   const akhir = req.body.jamakhir;
   const ruang = req.body.ruang;
 
+  const checkdos = "SELECT * FROM dosen WHERE idmk = ?;";
+  const checkmat = "SELECT * FROM matkul WHERE idmk = ?;";
+  const checkkelas = "SELECT * FROM kelas WHERE idmk = ? AND idkelas = ?;";
   const querymatkul = "INSERT INTO matkul (`idmk`, `namamk`) VALUES (?,?);";
   const querykelas =
     "INSERT INTO kelas (`idkelas`,`hari`,`awal`,`akhir`,`idmk`,`ruangkelas`) VALUES (?,?,?,?,?,?);";
@@ -150,40 +153,67 @@ KoordinatorRoute.post("/koordinator/tambahmatkul/", (req, res) => {
     "SELECT DISTINCT id_dosen, nama_dosen, pw FROM dosen WHERE nama_dosen = ?;";
   const querydoseninput =
     "INSERT INTO dosen (`id_dosen`,`nama_dosen`,`idmk`,`pw`) VALUES (?,?,?,?);";
-  db.query(querymatkul, [kodematkul, matkul], (err, result) => {
+
+  db.query(checkdos, [kodematkul], (err, result) => {
     if (err) {
       console.log(err);
     }
-    console.log("Input matkul berhasil");
+    if (result.length === 0) {
+      db.query(querydosen, [dosen], (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log("Query dosen berhasil");
+        console.log(result);
+        if (result.length > 0) {
+          db.query(
+            querydoseninput,
+            [result[0].id_dosen, dosen, kodematkul, result[0].pw],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+              }
+              console.log("Input dosen berhasil");
+              //res.status(200).send("ok");
+            }
+          );
+        }
+      });
+    }
   });
-  db.query(
-    querykelas,
-    [kelas, hari, awal, akhir, kodematkul, ruang],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log("Input kelas berhasil");
-    }
-  );
-  db.query(querydosen, [dosen], (err, result) => {
+  db.query(checkmat, [kodematkul], (err, result) => {
     if (err) {
       console.log(err);
     }
-    console.log("Query dosen berhasil");
-    console.log(result);
-    if (result.length > 0) {
+    if (result.length === 0) {
+      db.query(querymatkul, [kodematkul, matkul], (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log("Input matkul berhasil");
+      });
+    }
+  });
+  db.query(checkkelas, [kodematkul,kelas], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    if (result.length === 0) {
       db.query(
-        querydoseninput,
-        [result[0].id_dosen, dosen, kodematkul, result[0].pw],
+        querykelas,
+        [kelas, hari, awal, akhir, kodematkul, ruang],
         (err, result) => {
           if (err) {
             console.log(err);
           }
-          console.log("Input dosen berhasil");
+          console.log("Input kelas berhasil");
           res.status(200).send("ok");
         }
       );
+    }
+    else{
+      console.log("kelas sudah ada"); 
+      res.status(409).send("kelas sudah ada");
     }
   });
 });
@@ -252,8 +282,8 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
     "UPDATE calon SET jumlah_matkul = jumlah_matkul - 1 WHERE id_calon = ?;";
   const query_update_kelas =
     "update kelas set requires = requires - 1 where idmk = ? and idkelas = ?;";
-  const query_update_jadwal = 
-    `delete from jadwal where hari = ? and awal = ? and akhir = ? and id_calon = ?;`;  
+  const query_update_jadwal =
+    `delete from jadwal where hari = ? and awal = ? and akhir = ? and id_calon = ?;`;
 
   db.query(query_cek, [idmk, hari, awal, akhir], (err, result_cek) => {
     if (err) {
@@ -265,7 +295,7 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
       //cek apakah calon sudah di assign / ada yang bentrok
       let bentrok = [];
       for (let i = 0; i < calon.length; i++) {
-        let cek = false;  
+        let cek = false;
         //cek apakah id_calon terdapat di result_cek
         for (let j = 0; j < result_cek.length; j++) {
           if (calon[i] == result_cek[j].id_calon) {
@@ -281,7 +311,7 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
       if (bentrok.length > 0) {
         //kirim bentrok ke client dan status failed
         res.status(409).send(bentrok);
-        
+
         console.log("BENTROK : " + bentrok);
       } else {
         //assign calon dan update jumlah matkul
@@ -313,7 +343,7 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
                     res.json("ok");
                   }
                   );
-                  
+
 
                 });
               });

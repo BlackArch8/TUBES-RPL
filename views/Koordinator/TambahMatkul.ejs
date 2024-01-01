@@ -210,15 +210,25 @@
             body: JSON.stringify(data),
           })
           .then(response => {
-            Swal.fire({
-                 icon: 'success',
-                 title: 'Berhasil!',
-                 text: 'Mata kuliah berhasil ditambahkan.',
-            });
+            if(!response.ok){
+              Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: 'Kelas Sudah Ada!',
+              });
+             
+            }else{
 
-            //tutup overlay
-            overlay.classList.add("hidden");
-            mainOverlay.classList.add("hidden");
+              Swal.fire({
+                   icon: 'success',
+                   title: 'Berhasil!',
+                   text: 'Mata kuliah berhasil ditambahkan.',
+              });
+              //tutup overlay
+              overlay.classList.add("hidden");
+              mainOverlay.classList.add("hidden");
+            }
+
     
             document.getElementById("matkul-input").value = "";
             document.getElementById("matkul-id-input").value = "";
