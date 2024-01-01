@@ -104,6 +104,11 @@
                   >
                     Nilai
                   </th>
+                  <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  >
+                    Jadwal
+                  </th>
                 </tr>
               </thead>
 
@@ -209,6 +214,7 @@
           .setAttribute("data-akhir", data[0].akhir);
       }
 
+
       //update modal content asdos
       function updateModalContentAsdos(data_asdos) {
         let list_asdos = document.getElementById("list-asdos");
@@ -244,13 +250,50 @@
           let p = document.createElement("p");
           p.innerHTML = data_asdos[i].nilai;
 
+          let button = document.createElement("button");
+          button.setAttribute("type", "button");
+
+          button.setAttribute("class", "bg-red-500 text-white mx-auto rounded-full hover:bg-red-600 w-[100px] h-[30px]");
+          button.setAttribute("onclick", "openEditModalJadwal(this)");
+          button.setAttribute("data-id", data_asdos[i].id_calon);
+
+
+          
+
           tr.appendChild(nama);
           nama.appendChild(input);
           nama.appendChild(label);
           tr.appendChild(nilai);
           nilai.appendChild(p);
           list_asdos.appendChild(tr);
+          tr.appendChild(button);
+          button.innerHTML = "Detail";
+
+
         }
+      }
+      //update modal content jadwal
+      function updateModalContentJadwal(data) {
+       
+      }
+
+      //buka modal untuk jadwal asdos
+      function openEditModalJadwal(button) {
+        
+        const rowId = button.getAttribute("data-id");
+        console.log(rowId);
+
+        // // ambil data jadwal asdos dari server
+        // fetchJadwalAsdos(rowId).then((data) => {
+        //   // Update the modal content
+        //   console.log(data);
+        //   updateModalContentJadwal(data);
+
+        //   // Show the modal
+        //   showEditModalJadwal();
+        // });
+
+        
       }
 
       //assign asdos
@@ -325,6 +368,18 @@
           });
       }
       
+      //ambil jadwal asdos
+      function fetchJadwalAsdos(id) {
+        return fetch(`/koordinator/get-jadwal-asdos/${id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            return data;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
 
       //ambil data asdos
       function fetchDataAsdos(idmk) {

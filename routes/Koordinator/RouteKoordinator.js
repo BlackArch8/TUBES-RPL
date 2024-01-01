@@ -361,4 +361,20 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
   });
 });
 
+//ambil data jadwal asdos
+KoordinatorRoute.get("/koordinator/get-jadwal-asdos/:id", (req, res) => {
+  const id = req.params.id;
+  
+  const query =
+    "SELECT hari,awal,akhir FROM jadwal WHERE id_calon = ?;";
+  db.query(query, [id], (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    console.log(result);
+
+    res.json(result);
+  });
+});
+
 export { KoordinatorRoute, KoordinatorRoute as default };
