@@ -81,12 +81,12 @@ async function readCSVFile(path) {
     const csvData = await new Promise((resolve, reject) => {
       const data = [];
       const filestream = csv
-        .parse({ delimiter: ';' })
-        .on('data', (row) => data.push(row))
-        .on('end', () => resolve(data))
+        .parse({ delimiter: ';' }) // CSV delimiter
+        .on('data', (row) => data.push(row)) // Push setiap baris ke data[]
+        .on('end', () => resolve(data)) // Ketika sudah selesai, resolve data[]
         .on('error', (error) => reject(error));
 
-      stream.pipe(filestream);
+      stream.pipe(filestream); // Pipe stream agar bisa diproses oleh csv() secara efisien (dibaca per baris) tanpa harus menunggu sampai seluruh file dibaca
     });
 
     csvData.shift(); // Remove the header
@@ -104,6 +104,7 @@ async function readCSVFile(path) {
     console.error("Error:", error);
   }
 }
+//
 function executeQuery(query, values) {
   return new Promise((resolve, reject) => {
     db.query(query, values, (err, result) => {
@@ -250,6 +251,7 @@ RegisterRoute.post("/register/matakuliah-alumni", async (req, res) => {
         (err) => {
           if (err) {
             reject(err);
+            res.status(500).send("Internal Server Error");
           } else {
             console.log("data diri berhasil diinput");
             resolve();
@@ -303,6 +305,9 @@ RegisterRoute.post("/register/matakuliah-alumni", async (req, res) => {
   await insertDataDiri();
   await insertNilai();
   await insertMatkul();
+
+  
+
   //set timeout 1 detik
   setTimeout(() => {
     res.redirect("/");
