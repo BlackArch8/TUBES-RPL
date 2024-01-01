@@ -72,9 +72,9 @@
       class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-row gap-[20px] shadow-lg items-center hidden z-20"
     >
       <div
-        class="flex flex-col w-[400px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins"
+        class="flex flex-col w-[400px] h-[350px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins"
       >
-        <div class="ml-[25px] mt-[30px]" id="idmatkul"></div>
+        <div class="ml-[25px] mt-[40px]" id="idmatkul"></div>
         <div class="ml-[25px]" id="namadosen"></div>
         <div class="ml-[25px]" id="namamatkul"></div>
         <div class="ml-[25px]" id="hari"></div>
@@ -82,31 +82,31 @@
         <div class="ml-[25px]" id="akhir"></div>
       </div>
       <div
-        class="flex flex-col w-[700px] h-[300px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins"
+        class="flex flex-col w-[700px] h-[350px] rounded-lg shadow-lg bg-white gap-[10px] font-poppins"
       >
         <div class="ml-[40px] mt-[30px] font-semibold text-[25px]">
           Daftar Calon Asisten Dosen
         </div>
         <div
-          class="px-4 overflow-y-auto h-[270px] w-[500px] ml-[25px]"
+          class="px-4 overflow-y-auto h-[200px] w-[650px] ml-[25px]"
           id="table-container"
         >
           <div class="inline-block min-w-full rounded-lg overflow-hidden">
             <table class="min-w-full leading-normal">
-              <thead class="">
+              <thead class="text-center">
                 <tr>
                   <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider"
                   >
                     Nama Asdos
                   </th>
                   <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider"
                   >
                     Nilai
                   </th>
                   <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider"
                   >
                     Jadwal
                   </th>
@@ -117,7 +117,7 @@
             </table>
           </div>
         </div>
-        <div class="absolute bottom-4 right-[-10px]">
+        <div class="flex justify-center">
           <button
             type="submit"
             class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600"
@@ -130,6 +130,52 @@
 
         <button
           id="closeOverlay"
+          class="absolute top-4 right-4 text-red-500 hover:text-red-700"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="overlayJadwal"
+      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-row hidden shadow-md items-center  z-20"
+    >
+      <div
+        class="flex flex-col w-[500px] h-[300px] rounded-lg shadow-md bg-white gap-[10px] font-poppins"
+      >
+        <div
+          class="px-4 overflow-y-auto h-[270px] w-[500px] mt-[50px]"
+          id="table-container"
+        >
+          <div class="inline-block min-w-full rounded-lg overflow-hidden">
+            <table class="min-w-full leading-normal">
+              <thead class="">
+                <tr>
+                  <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  >
+                    Hari
+                  </th>
+                  <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  >
+                    Jam Awal
+                  </th>
+                  <th
+                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+                  >
+                    Jam Akhir
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody id="jadwal-asdos"></tbody>
+            </table>
+          </div>
+        </div>
+        <button
+          id="closeOverlayJadwal"
           class="absolute top-4 right-4 text-red-500 hover:text-red-700"
         >
           <i class="fas fa-times"></i>
@@ -242,25 +288,30 @@
 
           let label = document.createElement("label");
           label.setAttribute("for", "calon");
-          label.setAttribute("class", "ml-[5px]");
+          label.setAttribute("class", "ml-[10px]");
           label.innerHTML = data_asdos[i].nama_calon;
 
           let nilai = document.createElement("td");
           nilai.setAttribute(
             "class",
-            "px-5 py-5 border-b border-gray-200 bg-white text-sm"
+            "px-5 py-5 border-b border-gray-200 bg-white text-sm text-center"
           );
 
           let p = document.createElement("p");
           p.innerHTML = data_asdos[i].nilai;
 
+          let detail = document.createElement("td");
+          detail.setAttribute(
+            "class",
+            "px-5 py-5 border-b border-gray-200 bg-white text-sm text-center"
+          );
+
           let button = document.createElement("button");
           button.setAttribute("type", "button");
-
-          button.setAttribute("class", "bg-red-500 text-white mx-auto rounded-full hover:bg-red-600 w-[100px] h-[30px]");
+          button.setAttribute("class", "bg-red-500 text-white mx-auto justify-center rounded-full hover:bg-red-600 w-[100px] h-[30px]");
           button.setAttribute("onclick", "openEditModalJadwal(this)");
           button.setAttribute("data-id", data_asdos[i].id_calon);
-
+          button.innerHTML = "Detail";
 
           
 
@@ -269,16 +320,55 @@
           nama.appendChild(label);
           tr.appendChild(nilai);
           nilai.appendChild(p);
+          tr.appendChild(detail);
+          detail.appendChild(button);
           list_asdos.appendChild(tr);
-          tr.appendChild(button);
-          button.innerHTML = "Detail";
-
-
         }
       }
+
       //update modal content jadwal
       function updateModalContentJadwal(data) {
-       
+        let jadwal_asdos = document.getElementById("jadwal-asdos");
+        jadwal_asdos.innerHTML = "";
+
+        for (let i = 0; i < data.length; i++) {
+          let tr = document.createElement("tr");
+
+          let hari = document.createElement("td");
+          hari.setAttribute(
+            "class",
+            "px-5 py-5 border-b border-gray-200 bg-white text-sm"
+          );
+
+          let p_hari = document.createElement("p");
+          p_hari.innerHTML = data[i].hari;
+          
+          let jam_awal = document.createElement("td");
+          jam_awal.setAttribute(
+            "class",
+            "px-5 py-5 border-b border-gray-200 bg-white text-sm"
+          );
+
+          let p_jamAwal = document.createElement("p");
+          p_jamAwal.innerHTML = data[i].awal.toString().padStart(2, '0') + ":00";
+
+          let jam_akhir = document.createElement("td");
+          jam_akhir.setAttribute(
+            "class",
+            "px-5 py-5 border-b border-gray-200 bg-white text-sm"
+          );
+
+          let p_jamAkhir = document.createElement("p");
+          p_jamAkhir.innerHTML = data[i].akhir.toString().padStart(2, '0') + ":00";
+
+          tr.appendChild(hari);
+          hari.appendChild(p_hari);
+          tr.appendChild(jam_awal);
+          jam_awal.appendChild(p_jamAwal);
+          tr.appendChild(jam_akhir);
+          jam_akhir.appendChild(p_jamAkhir);
+          jadwal_asdos.appendChild(tr);
+        }
       }
 
       //buka modal untuk jadwal asdos
@@ -287,17 +377,27 @@
         const rowId = button.getAttribute("data-id");
         console.log(rowId);
 
-        // // ambil data jadwal asdos dari server
-        // fetchJadwalAsdos(rowId).then((data) => {
-        //   // Update the modal content
-        //   console.log(data);
-        //   updateModalContentJadwal(data);
+        //  ambil data jadwal asdos dari server
+         fetchJadwalAsdos(rowId).then((data) => {
+           // Update the modal content
+           console.log(data);
+           updateModalContentJadwal(data);
 
-        //   // Show the modal
-        //   showEditModalJadwal();
-        // });
+            // Show the modal
+           showEditModalJadwal();
+         });
 
-        
+         $("#closeOverlayJadwal").click(() => {
+          closeEditModalJadwal();
+        });
+      }
+
+      function showEditModalJadwal(){
+        $("#overlayJadwal").removeClass("hidden");
+      }
+
+      function closeEditModalJadwal(){
+        $("#overlayJadwal").addClass("hidden");
       }
 
       //assign asdos
