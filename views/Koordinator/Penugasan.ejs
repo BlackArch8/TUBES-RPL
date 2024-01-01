@@ -41,7 +41,7 @@
                       <div class="text-[10px] text-[#808080]">
                         <%= row.nama_dosen %>
                       </div>
-                      <div class="text-[10px] text-red-600">
+                      <div class="requires text-[10px] text-red-600">
                         <%= row.requires %> Asisten Dosen
                       </div>
                     </div>
@@ -52,6 +52,7 @@
                       class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600 assign-btn"
                       data-id="<%= row.id %>"
                       data-idkelas="<%= row.idkelas %>"
+                      data-jumlahAsdos = "<%= row.requires %>"
                       onclick="openEditModal(this)"
                     >
                       Assign
@@ -121,7 +122,7 @@
             type="submit"
             class="bg-red-500 text-[13px] text-white w-[150px] h-[35px] mr-[30px] rounded-full hover:bg-red-600"
             id="assign_button"
-            onclick="sumbitAssign()"
+            onclick="sumbitAssignAndAlert()"
           >
             Assign
           </button>
@@ -145,13 +146,16 @@
       let hari = "";
       let awal = 0;
       let akhir = 0;
+      let jumlahAsdos = 0;
       function openEditModal(button) {
         // Get the data-id attribute to identify the row
         const rowId = button.getAttribute("data-id");
         const rowIdkelas = button.getAttribute("data-idkelas");
-
+        const rowjumlahAsdos = button.getAttribute("data-jumlahAsdos")
+        
         idmk = rowId;
         idkelas = rowIdkelas;
+        jumlahAsdos = rowjumlahAsdos
 
         // Fetch the data matkul from the server
         fetchdatakelas(rowId).then((data) => {
@@ -404,6 +408,30 @@
           .catch((error) => {
             console.error("Error:", error);
           });
+      }
+
+      function showAlert() {
+        const asdosDipilih = document.getElementsByName("calon");
+        let count = 0;
+    
+        for (let i = 0; i < asdosDipilih.length; i++) {
+          if (asdosDipilih[i].checked) {
+            count++;
+          }
+        }
+
+        if (count > jumlahAsdos){
+          Swal.fire({
+            icon: "error",
+            title: "Gagal",
+            text: "Jumlah Asisten Dosen yang dipilih melebihi yang dibutuhkan.",
+          });
+        }
+      }
+
+      async function sumbitAssignAndAlert() {
+        await sumbitAssign();
+        showAlert();
       }
     </script>
   </body>

@@ -58,10 +58,7 @@ INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni
 	('5555555555', 'Devlin', 'dedep@gmail.com', 1, 0, NULL),
 	('6182001001', 'Reiji', '6182001001@student.unpar.ac.id', 3, 1, NULL),
 	('6666666666', 'Kevin', 'jojol@gmail.com', 1, 0, NULL),
-	('7777777777', 'Vier', 'yeyer@gmail.com', 3, 0, NULL),
-	('8888888888', 'Tsunoda', 'alphatau@gmail.com', 2, 0, NULL),
-	('9999999999', 'Verstappen', 'dudududu@gmail.com', 3, 0, NULL),
-	('1010101010', 'Lewis', 'lewlew@gmail.com', 1, 0, NULL);
+	('7777777777', 'Vier', 'yeyer@gmail.com', 3, 0, NULL);
 
 -- Dumping structure for table tubes_rpl.dosen
 DROP TABLE IF EXISTS `dosen`;
@@ -193,13 +190,8 @@ INSERT INTO `matkul` (`idmk`, `namamk`) VALUES
 	('AIF181101', 'Pemodelan untuk Komputasi'),
 	('AIF182100', 'Analisis dan Desain Perangkat Lunak'),
 	('AIF182101', 'Algoritma dan Struktur Data'),
-	('AIF182103', 'Struktur Diskret'),
 	('AIF182105', 'Pemrograman Berorientasi Objek'),
-	('AIF182109', 'Statistika untuk Komputasi'),
-	('AIF182204', 'Pemodelan Berbasis Web'),
-	('AIF182210', 'Pengantar Jaringan Komputer'),
-	('AIF183153', 'Metode Numerik'),
-	('AIF184005', 'Komputer dan Masyarakat');
+	('AIF182204', 'Pemodelan Berbasis Web');
 
 -- Dumping structure for table tubes_rpl.nilai
 DROP TABLE IF EXISTS `nilai`;
@@ -245,8 +237,13 @@ DELETE FROM `status`;
 
 INSERT INTO `status` (`lowongan`) VALUES("Open");
 
-SELECT*FROM dosen ORDER BY id_dosen;
-SELECT*FROM matkul ORDER BY idmk;
-SELECT*FROM kelas ORDER BY idmk;
+SELECT * from nilai INNER JOIN calon 
+     ON calon.id_calon = nilai.id_calon inner join
+     jadwal on jadwal.id_calon = calon.id_calon 
+     WHERE nilai<"B-" AND idmk = "AIF182101" AND hari = "Rabu" 
+     AND (awal <= 13 AND akhir >= 16) AND jumlah_matkul > 0
+     
+     
+SELECT id_calon FROM calon WHERE nama_calon = "Ferry";
 
-SELECT dosen.idmk AS "Kode", namamk AS "Matkul", nama_dosen as "Dosen", hari AS "Hari", idkelas AS "Kelas", awal, akhir, ruangkelas FROM dosen INNER JOIN kelas ON dosen.idmk = kelas.idmk INNER JOIN matkul on kelas.idmk = matkul.idmk;
+SELECT hari,awal,akhir FROM jadwal WHERE id_calon = "1111111111";
