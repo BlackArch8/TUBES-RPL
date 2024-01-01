@@ -174,7 +174,7 @@ KoordinatorRoute.post("/koordinator/tambahmatkul/", (req, res) => {
                 console.log(err);
               }
               console.log("Input dosen berhasil");
-              res.status(200).send("ok");
+              //res.status(200).send("ok");
             }
           );
         }
@@ -212,7 +212,8 @@ KoordinatorRoute.post("/koordinator/tambahmatkul/", (req, res) => {
       );
     }
     else{
-      res.status(409).send("no");
+      console.log("kelas sudah ada"); 
+      res.status(409).send("kelas sudah ada");
     }
   });
 });

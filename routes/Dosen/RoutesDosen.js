@@ -58,7 +58,7 @@ DosenRoute.get('/dosen/setting-dosen',auth(['dosen']), (req, res) => {
     const nama = req.session.nama;
     res.render('Dosen/Setting-Dosen', {nama: nama});
 });
-//get data from database to client side using ajax
+//ambil data matkul dari database
 DosenRoute.get("/get-data/:idmk/:idkelas",auth(['dosen']), (req, res) => {
     const id = req.params.idmk;
     const idkelas = req.params.idkelas;
