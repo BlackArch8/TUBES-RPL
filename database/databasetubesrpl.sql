@@ -30,11 +30,6 @@ CREATE TABLE IF NOT EXISTS `assigned` (
 
 -- Dumping data for table tubes_rpl.assigned: ~4 rows (approximately)
 DELETE FROM `assigned`;
-INSERT INTO `assigned` (`id_calon`, `idmk`, `idkelas`) VALUES
-	('1111111111', 'AIF182100', 'A'),
-	('2222222222', 'AIF182100', 'B'),
-	('6182001001', 'AIF182100', 'A'),
-	('6182001001', 'AIF182103', 'A');
 
 -- Dumping structure for table tubes_rpl.calon
 DROP TABLE IF EXISTS `calon`;
@@ -50,18 +45,6 @@ CREATE TABLE IF NOT EXISTS `calon` (
 
 -- Dumping data for table tubes_rpl.calon: ~7 rows (approximately)
 DELETE FROM `calon`;
-INSERT INTO `calon` (`id_calon`, `nama_calon`, `email`, `jumlah_matkul`, `alumni`, `pw`) VALUES
-	('1111111111', 'Ferry', 'ferryperahu@gmail.com', 2, 1, NULL),
-	('2222222222', 'Hana', 'hannaferi@gmail.com', 2, 0, NULL),
-	('3333333333', 'GUGUN', 'gugus@gmail.com', 3, 0, NULL),
-	('4444444444', 'hemi', 'hemhem@gmail.com', 1, 0, NULL),
-	('5555555555', 'deplon', 'dedep@gmail.com', 1, 0, NULL),
-	('6182001001', 'Jenson Mark Lowell', 'bestibego@gmail.com', 3, 1, NULL),
-	('6666666666', 'kejol', 'jojol@gmail.com', 1, 0, NULL),
-	('7777777777', 'ier', 'yeyer@gmail.com', 3, 0, NULL),
-	('8888888888', 'tsunoda', 'alphatau@gmail.com', 2, 0, NULL),
-	('9999999999', 'verstappen', 'dudududu@gmail.com', 3, 0, NULL),
-	('1010101010', 'lewis', 'lewlew@gmail.com', 1, 0, NULL);
 
 -- Dumping structure for table tubes_rpl.dosen
 DROP TABLE IF EXISTS `dosen`;
@@ -75,13 +58,14 @@ CREATE TABLE IF NOT EXISTS `dosen` (
 -- Dumping data for table tubes_rpl.dosen: ~6 rows (approximately)
 DELETE FROM `dosen`;
 INSERT INTO `dosen` (`id_dosen`, `nama_dosen`, `idmk`, `pw`) VALUES
-	('1231231231', 'Pascal', 'AIF182100', 'pascal'),
-	('1231231232', 'Hakim', 'AIF181100', 'hakims'),
-	('1231231232', 'Hakim', 'AIF182101', 'hakims'),
-	('1231231232', 'Hakim', 'AIF181101', 'hakims'),
-	('1231231232', 'Hakim', 'AIF182109', 'hakims'),
-	('1231231233', 'Reimon', 'AIF182204', 'rei');
-
+	('1231231231', 'Pascal', 'AIF182100', 'pass'),
+	('1231231232', 'Hakim', 'AIF181100', 'pass'),
+	('1231231232', 'Hakim', 'AIF182101', 'pass'),
+	('1231231232', 'Hakim', 'AIF181101', 'pass'),
+	('1231231232', 'Hakim', 'AIF182109', 'pass'),
+	('1231231233', 'Raymond', 'AIF182204', 'pass'),
+	('1231231234', 'Lionov', 'AIF182106', 'pass');
+	
 -- Dumping structure for table tubes_rpl.info
 DROP TABLE IF EXISTS `info`;
 CREATE TABLE IF NOT EXISTS `info` (
@@ -92,10 +76,6 @@ CREATE TABLE IF NOT EXISTS `info` (
 
 -- Dumping data for table tubes_rpl.info: ~3 rows (approximately)
 DELETE FROM `info`;
-INSERT INTO `info` (`id_calon`, `filename`) VALUES
-	('1111111111', 'nilai.png'),
-	('2222222222', 'foto.png'),
-	('6182001001', '6182001001.pdf');
 
 -- Dumping structure for table tubes_rpl.jadwal
 DROP TABLE IF EXISTS `jadwal`;
@@ -108,20 +88,6 @@ CREATE TABLE IF NOT EXISTS `jadwal` (
 
 -- Dumping data for table tubes_rpl.jadwal: ~4 rows (approximately)
 DELETE FROM `jadwal`;
-INSERT INTO `jadwal` (`id_calon`, `hari`, `awal`, `akhir`) VALUES
-	('2222222222', 'Senin', 8, 10),
-	('2222222222', 'Senin', 14, 16),
-	('1111111111', 'Senin', 12, 14),
-	('1111111111', 'Rabu', 10, 16),
-	('3333333333', 'Senin', 14, 16),
-	('4444444444', 'Senin', 12, 14),
-	('5555555555', 'Senin', 14, 16),
-	('6666666666', 'Rabu', 13, 16),
-	('7777777777', 'Rabu', 13, 16),
-	('8888888888', 'Rabu', 13, 16),
-	('9999999999', 'Rabu', 13, 16),
-	('1010101010', 'Rabu', 13, 16),
-	('6182001001', 'Senin', 7, 9);
 
 -- Dumping structure for table tubes_rpl.kelas
 DROP TABLE IF EXISTS `kelas`;
@@ -192,13 +158,8 @@ INSERT INTO `matkul` (`idmk`, `namamk`) VALUES
 	('AIF181101', 'Pemodelan untuk Komputasi'),
 	('AIF182100', 'Analisis dan Desain Perangkat Lunak'),
 	('AIF182101', 'Algoritma dan Struktur Data'),
-	('AIF182103', 'Struktur Diskret'),
 	('AIF182105', 'Pemrograman Berorientasi Objek'),
-	('AIF182109', 'Statistika untuk Komputasi'),
-	('AIF182204', 'Pemodelan Berbasis Web'),
-	('AIF182210', 'Pengantar Jaringan Komputer'),
-	('AIF183153', 'Metode Numerik'),
-	('AIF184005', 'Komputer dan Masyarakat');
+	('AIF182204', 'Pemodelan Berbasis Web');
 
 -- Dumping structure for table tubes_rpl.nilai
 DROP TABLE IF EXISTS `nilai`;
@@ -210,22 +171,6 @@ CREATE TABLE IF NOT EXISTS `nilai` (
 
 -- Dumping data for table tubes_rpl.nilai: ~0 rows (approximately)
 DELETE FROM `nilai`;
-INSERT INTO `nilai` (`id_calon`, `idmk`, `nilai`) VALUES
-	('1111111111', 'AIF181100', 'B'),
-	('1111111111', 'AIF182100', 'A'),
-	('1111111111', 'AIF184005', 'B+'),
-	('3333333333', 'AIF182101', 'A'),
-	('3333333333', 'AIF181100', 'A'),
-	('2222222222', 'AIF182204', 'A'),
-	('2222222222', 'AIF181100', 'A-'),
-	('4444444444', 'AIF181100', 'B'),
-	('5555555555', 'AIF181100', 'B+'),
-	('6666666666', 'AIF182101', 'A-'),
-	('7777777777', 'AIF182101', 'B'),
-	('8888888888', 'AIF182101', 'A'),
-	('9999999999', 'AIF182101', 'B+'),
-	('1010101010', 'AIF182101', 'B'),
-	('5555555555', 'AIF182101', 'A');
 
 -- Dumping structure for table tubes_rpl.status
 DROP TABLE IF EXISTS `status`;
@@ -241,3 +186,5 @@ DELETE FROM `status`;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+
+INSERT INTO `status` (`lowongan`) VALUES("Open");
