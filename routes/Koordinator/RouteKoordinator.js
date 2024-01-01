@@ -97,7 +97,7 @@ KoordinatorRoute.get("/koordinator/tambah-matkul", auth(['koordinator']), (req, 
 
 
 //change status
-KoordinatorRoute.post("/koordinator/ubahstatus/:status", (req, res) => {
+KoordinatorRoute.post("/koordinator/ubahstatus/:status", auth(['koordinator']), (req, res) => {
   const status = req.params.status;
 
   const query = "UPDATE status SET lowongan = ?;";
@@ -109,7 +109,7 @@ KoordinatorRoute.post("/koordinator/ubahstatus/:status", (req, res) => {
 });
 
 //info status
-KoordinatorRoute.get("/koordinator/infostatus", (req, res) => {
+KoordinatorRoute.get("/koordinator/infostatus",auth(['koordinator']), (req, res) => {
   const query = "SELECT lowongan FROM status;";
   db.query(query, (err, result) => {
     if (err) {
@@ -121,7 +121,7 @@ KoordinatorRoute.get("/koordinator/infostatus", (req, res) => {
 });
 
 //tambah matkul ambil data
-KoordinatorRoute.get("/koordinator/ambilmatkul", (req, res) => {
+KoordinatorRoute.get("/koordinator/ambilmatkul",auth(['koordinator']), (req, res) => {
   const query = `SELECT dosen.idmk AS "Kode", namamk AS "Matkul", nama_dosen as "Dosen", hari AS "Hari", idkelas AS "Kelas", awal, akhir, ruangkelas FROM dosen INNER JOIN kelas ON dosen.idmk = kelas.idmk INNER JOIN matkul on kelas.idmk = matkul.idmk;`;
 
   db.query(query, (err, result) => {
@@ -133,7 +133,7 @@ KoordinatorRoute.get("/koordinator/ambilmatkul", (req, res) => {
 });
 
 //tambah matkul
-KoordinatorRoute.post("/koordinator/tambahmatkul/", (req, res) => {
+KoordinatorRoute.post("/koordinator/tambahmatkul/",auth(['koordinator']), (req, res) => {
   const matkul = req.body.matkul;
   const kodematkul = req.body.kodematkul;
   const hari = req.body.hari;
@@ -219,7 +219,7 @@ KoordinatorRoute.post("/koordinator/tambahmatkul/", (req, res) => {
 });
 
 //route hapus matkul
-KoordinatorRoute.post("/koordinator/hapusmatkul/:kode/:kelas", (req, res) => {
+KoordinatorRoute.post("/koordinator/hapusmatkul/:kode/:kelas",auth(['koordinator']), (req, res) => {
   const kode = req.params.kode;
   const kelas = req.params.kelas;
 
@@ -235,7 +235,7 @@ KoordinatorRoute.post("/koordinator/hapusmatkul/:kode/:kelas", (req, res) => {
 });
 
 //ambil nama-nama dosen'
-KoordinatorRoute.get("/koordinator/ambildosen", (req, res) => {
+KoordinatorRoute.get("/koordinator/ambildosen", auth(['koordinator']), (req, res) => {
   const query = "SELECT DISTINCT nama_dosen FROM `dosen`;";
   db.query(query, (err, result) => {
     if (err) {
@@ -248,7 +248,7 @@ KoordinatorRoute.get("/koordinator/ambildosen", (req, res) => {
 });
 
 //ambil nama-nama asdos yang ingin di assign
-KoordinatorRoute.get("/koordinator/get-list-asdos-asign/:idmk", (req, res) => {
+KoordinatorRoute.get("/koordinator/get-list-asdos-asign/:idmk", auth(['koordinator']), (req, res) => {
   const idmk = req.params.idmk;
   const query = `SELECT nama_calon,nilai, calon.id_calon from nilai INNER JOIN calon ON calon.id_calon = nilai.id_calon WHERE nilai < "B-" AND idmk = ? AND jumlah_matkul > 0;`;
   db.query(query, [idmk], (err, result) => {
@@ -262,7 +262,7 @@ KoordinatorRoute.get("/koordinator/get-list-asdos-asign/:idmk", (req, res) => {
 });
 
 //asiign asdos
-KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
+KoordinatorRoute.post("/koordinator/assign-asdos/", auth(['koordinator']), (req, res) => {
   const idmk = req.body.idmk;
   const idkelas = req.body.idkelas;
   const hari = req.body.hari;
@@ -362,7 +362,7 @@ KoordinatorRoute.post("/koordinator/assign-asdos/", (req, res) => {
 });
 
 //ambil data jadwal asdos
-KoordinatorRoute.get("/koordinator/get-jadwal-asdos/:id", (req, res) => {
+KoordinatorRoute.get("/koordinator/get-jadwal-asdos/:id", auth(['koordinator']), (req, res) => {
   const id = req.params.id;
   
   const query =

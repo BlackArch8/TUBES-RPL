@@ -27,10 +27,7 @@ asdosRoute.get('/asdos/jadwal',auth(['asdos']), (req, res) => {
     });
 });
 
-asdosRoute.get('/asdos/setting',auth(['asdos']), (req, res) => {
-    const nama = req.session.nama;
-    res.render('Asdos/SettingAsdos', {nama: nama});
-});
+
 
 
 

@@ -23,7 +23,7 @@
         <div class="title text-2xl font-bold my-4">
           Isi Jadwal Kosong Anda
         </div>
-        <div class="title text-2xl font-bold my-4">Silahkan memilih jadwal </div>
+        <div class="title text-2xl font-bold my-4">Silahkan memilih jadwal Ketersediaan Anda </div>
       </div>
 
       <div class="upload-section mt-4 flex justify-end">
@@ -318,6 +318,7 @@
           cancelButtonText: "Cancel",
           dangerMode: true,
         }).then(function (result) {
+        
           if (result.value) {
             Swal.fire({
               title: "Data berhasil disimpan!!",

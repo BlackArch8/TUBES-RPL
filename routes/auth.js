@@ -1,12 +1,4 @@
 //middleware
-// const auth = (req, res, next) => {
-//     if (req.session.npm) {
-//       next();
-//     } else {
-//       res.redirect("/");
-//     }
-//   };
-
 const auth = (roles) =>{
   return (req, res, next) => {
     if(!req.session.npm){
